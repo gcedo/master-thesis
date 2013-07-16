@@ -1,7 +1,8 @@
 \documentclass[10pt,a4paper]{memoir}
 
 %%% PACKAGES
-\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T2A]{fontenc}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{graphicx}
@@ -9,7 +10,21 @@
 \graphicspath{ {pictures/} }
 \usepackage{booktabs}
 \usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+
 \usepackage{pgfplots}
+\usepackage{pgfplotstable}
+\pgfplotsset{%
+    every linear axis/.append style={
+        bar width=13pt,%
+        major x tick style = transparent%
+    }
+}
+
+\usepackage{colortbl}
+
 \usepackage{hyperref}
 %%% packages (end)
 

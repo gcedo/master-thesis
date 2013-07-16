@@ -2,22 +2,56 @@
 \label{sec:punycode}
 
 
+
 \begin{figure}[h!tp]
-  \begin{tikzpicture}
-    \begin{axis}[
-      width=\linewidth,
-      height=\linewidth/\GoldenRatio
-      ]
-      \addplot[ybar] table[
-        y=count,
-        x expr=\coordindex,
-        col sep=comma,
-        point meta=explicit symbolic,
-        meta index=0,
-        restrict y to domain=130:inf
-      ] {../data/tlds.csv};
-    \end{axis}
-  \end{tikzpicture}
+  \begin{subfigure}[b]{.5\textwidth}
+  \centering
+    \begin{tikzpicture}
+      \begin{axis}[
+        % width=6cm,
+        ylabel=Number of Requests,
+        x tick label style={text height=1.5ex},
+        xlabel=TLDs,
+        xticklabels from table={../data/tlds.csv}{names},
+        xtick=data,
+        ymin=0,
+        axis background/.style={fill=gray!10}],
+        major x tick style = transparent
+        ]
+        \addplot[ybar, fill] table[
+          y=count,
+          x expr=\coordindex,
+          restrict y to domain=130:inf
+        ] {../data/tlds.csv};
+      \end{axis}
+    \end{tikzpicture}
+    \caption{Histogram representation.}
+  \end{subfigure}
+~
+  \begin{subtable}[b]{.5\textwidth}
+  \centering
+    \pgfplotstabletypeset[
+      columns/names/.style={string type, column name=TLDs},
+      columns/count/.style={column name=Count, dec sep align},
+      columns/percentage/.style={column name=$\%$, dec sep align},
+      every even row/.style={
+      before row={\rowcolor[gray]{0.9}}},
+      every head row/.style={
+        before row=\toprule,after row=\midrule},
+      every last row/.style={
+        after row=\bottomrule},]
+      {../data/tlds.csv}
+  \caption{Tabular representation}
+  \end{subtable}
+  \caption{$82\%$ of punycode data.}
 \end{figure}
+
+\begin{table}[h!tp]
+  \begin{tabular}{ll}
+    Total Records    & 608958044 \\
+    Punycode Records & 41474 \\
+  \end{tabular}
+\end{table}
+
 
 % section punycode (end)
