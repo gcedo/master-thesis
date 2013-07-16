@@ -2,4 +2,22 @@
 \label{sec:punycode}
 
 
+\begin{figure}[h!tp]
+  \begin{tikzpicture}
+    \begin{axis}[
+      width=\linewidth,
+      height=\linewidth/\GoldenRatio
+      ]
+      \addplot[ybar] table[
+        y=count,
+        x expr=\coordindex,
+        col sep=comma,
+        point meta=explicit symbolic,
+        meta index=0,
+        restrict y to domain=130:inf
+      ] {../data/tlds.csv};
+    \end{axis}
+  \end{tikzpicture}
+\end{figure}
+
 % section punycode (end)
