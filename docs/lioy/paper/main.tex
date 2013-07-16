@@ -1,0 +1,53 @@
+\documentclass[10pt, journal, a4paper]{IEEEtran}
+
+%%% PACKAGES
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\graphicspath{ {pictures/} }
+\usepackage{booktabs}
+\usepackage{tikz}
+\usepackage{hyperref}
+\usepackage[utf8]{inputenc}
+%%% packages (end)
+
+\setlength{\IEEEdlabelindent}{\parindent}
+
+%%% META
+\author{Edoardo Colombo}
+\title{Extending Phoenix to Sphinx}
+\date{\today}
+
+%%% HYPERREF OPTIONS
+\makeatletter
+\hypersetup{
+    colorlinks, linkcolor=black, urlcolor=black,
+    pdftitle={\@title},
+    pdfauthor={\@author},
+}
+\makeatother
+
+\begin{document}
+
+\maketitle
+\begin{abstract}
+Automatically Generated Domains are the basis of modern botnets communication infrastructures:
+they allow a resilient and almost non-trackable way of sending messages from the botmaster to the
+infected machines over the network. Previous works developed techniques whose caveats were using
+privacy-protected DNS data and employing a supervised learning approach. Phoenix \cite{Lorenzo2013}
+was the first tool that tried to solve both of the aforementioned issues: an unsupervised learning
+clustering approach based on linguistic features, consuming public passive DNS traffic databases.
+We want to improve this result by a) employing incremental clustering techniques, b) adding multilingual/multicharset support and c) employing different clustering algorithms.
+\end{abstract}
+
+  %%% INPUT
+  \input{contents/introduction.tex}
+  \input{contents/previous_work.tex}
+  \input{contents/proposed_approach.tex}
+  \input{contents/conclusions_and_future_work.tex}
+%%% sections (end)
+
+\bibliographystyle{IEEEtran}
+\bibliography{IEEEabrv,biblio}
+\end{document}

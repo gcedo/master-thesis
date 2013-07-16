@@ -1,0 +1,45 @@
+\section{Proposed Contributions}
+\label{sec:proposed_approach}
+We propose three further developments that could contribute to enhance the
+effectiveness, the precision and the generality of \textsc{Phoenix}:
+\begin{itemize}
+  \item Incremental Clustering
+  \item Multilingual/Multicharset Support
+  \item Outliers detection
+\end{itemize}
+In the next paragraphs we shall discuss them thoroughly.
+
+\subsection{Incremental Clustering} % (fold)
+\label{sub:incremental_clustering}
+So far \textsc{Phoenix} allows a \emph{batch} approach. The data must be crunched as
+a whole, if new domain names are added to the dataset it is not possible to incrementally
+update the obtained results. We want to integrate in our tool the techniques proposed in
+\cite{Ning2010} and \cite{Chi2009} for incremental clustering, and we want to
+substitute the Normalized Cuts technique for spectral clustering \cite{Shi2000} with
+the more recent SPAN method developed by Shu \emph{et al.} \cite{Shu2011}.
+
+% subsection incremental_clustering (end)
+
+\subsection{Multilingual/Multicharset Support} % (fold)
+\label{sub:multilingual_multicharset_support}
+The linguistic features of \textsc{Phoenix} were extracted using the English
+dictionary. We want to investigate the presence of other languages in malicious
+domain names, e.g. Swedish or French. If we will find evidence of a substantial
+presence of such languages, it is our intention to develop a multilingual module,
+able to select correctly the dictionary to be used.
+
+Moreover it is recently possible to use non-ASCII domain names, e.g.
+www.$\pi$.com. This is an uncharted area that we want to explore as it might lead
+to interesting results.
+
+% subsection multilingual_multicharset_support (end)
+
+\subsection{Outliers Detection} % (fold)
+\label{sub:outliers_detection}
+We want to investigate the possibility of using different clustering algorithms
+(other than DBSCAN) to see if it leads to better performances. Especially it is of
+our interest to search for an efficient technique for outliers detection purposes.
+
+% subsection outliers_detection (end)
+
+% section proposed_approach (end)
