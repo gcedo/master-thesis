@@ -1,5 +1,43 @@
 \section{Non ASCII Domains}
 \label{sec:non_ascii_domains}
+Goal of this section is to analyze the impact and relevance of non-ascii domain names.
+
+Even though it is not mandatory to use only ascii characters, as far as the DNS protocol is
+concerned, real implementations are limited to them.
+
+
+\subsection{IDN, Internationalized Domain Names} % (fold)
+\label{sub:idn_internationalized_domain_names}
+
+% subsection idn_internationalized_domain_names (end)
+
+
+\subsection{Punycode} % (fold)
+\label{sub:punycode}
+
+% subsection punycode (end)
+
+
+
+\subsection{Data Analysis} % (fold)
+\label{sub:data_analysis}
+
+We decided to investigate the previously obtained data, to establish the impact of non-ascii
+domain names on the whole dataset. Schavoni \emph{et al.} collected $608,958,044$ packets,
+from 12 Jan 2013 18:19:57 until Fri, 15 Mar 2013 23:37:11 GMT. Using a rather simple Python
+script we gathered those DNS packets with a domain name containing the substring ``xn--'', which
+is the sequence of characters identifying a punycode string.
+
+We collected $41,474$ of these packets, roughly representing the $0.006\%$ of the whole dataset.
+Even though the numbers would label this phenomenon as statistically irrelevant, we wanted to
+lead further investigations. Clustering by TLDs, a first bar chart visualization was
+produced, as shown in Figure~\ref{float:punycode_data}. As expected the vast majority of domain
+names ($47\%$) feature a .com TLD. The NX data represent non existent top level domains. By
+manual investigation of these particular values, we noticed that they usually are misspelled
+real sites, e.g. facebook•com.
+
+
+
 
 \begin{table}[h!tp]
 \centering
@@ -19,11 +57,10 @@
 
 
 \begin{figure}[h!tp]
-  \begin{subfigure}[b]{.5\textwidth}
+  \begin{subfigure}[m]{.5\textwidth}
   \centering
     \begin{tikzpicture}
       \begin{axis}[
-        % width=6cm,
         ylabel=Number of Requests,
         x tick label style={text height=1.5ex},
         xlabel=TLDs,
@@ -43,7 +80,7 @@
     \caption{Histogram representation.}
   \end{subfigure}
 ~
-  \begin{subtable}[b]{.5\textwidth}
+  \begin{subtable}[m]{.5\textwidth}
   \centering
     \pgfplotstabletypeset[
       columns/names/.style={string type, column name=TLDs},
@@ -59,6 +96,7 @@
   \caption{Tabular representation}
   \end{subtable}
   \caption{$82\%$ of punycode data.}
+  \label{float:punycode_data}
 \end{figure}
 
 \begin{table}[h!tp]
@@ -72,5 +110,6 @@
   \end{tabular}
 \end{table}
 
-
+% subsection data_analysis (end)
 % section punycode (end)
+
