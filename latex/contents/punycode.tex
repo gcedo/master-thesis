@@ -15,7 +15,24 @@ concerned, real implementations are limited to them.
 \subsection{Punycode} % (fold)
 \label{sub:punycode}
 Punycode is an encoding syntax designed for use with Internationalized Domain Names in
-Applications, specified in
+Applications, specified in \cite{idna_protocol}. It is a special instance of Bootstring,
+an algorithm designed to allow strings composed of characters from a small set to uniquely
+represent strings drawing characters from a larger one. It features:
+\begin{description}
+  \item[Completeness] Every extended string can be represented by a basic string
+    \cite{idna_protocol}.
+  \item[Uniqueness] A string from the larger subset is represented by at most one string
+    from the smaller subset.
+  \item[Reversibility] Any extended string mapped to a basic string can be recovered from
+    that basic string \cite{idna_protocol}.
+  \item[Efficient Encoding] The string from the smaller set is usually quite shorter than the
+    other.
+  \item[Simplicity] The encoding and decoding algorithms are quite simple to be implement.
+\end{description}
+
+Essentially it is a simple and efficient way to map UTF-8 strings to ASCII strings, in a fashion
+that guarantees all of the above properties. Every punycode domain starts with the \verb+xn--+
+prefix.
 % subsection punycode (end)
 
 
