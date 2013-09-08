@@ -1,26 +1,38 @@
 import pygeoip
 import json 
-from pprint import pprint
 
 gi = pygeoip.GeoIP('/usr/local/share/geoip/GeoLiteCity.dat')
-
-json_data = open('../data/p_entropy_test.json')
+json_data = open('data/p_entropy_test.json')
 data = json.load(json_data)
 
-clusters = data['clusters']
+class Cluster(object):
+	"""object to store parsed json data"""
+	def __init__(self, parsed_json):
+		self.id = parsed_json['ID']
+		self.size = parsed_json['size']
+		self.records = []
+		self.locate_ip_addresses(parsed_json['sample_ip_mappings'])
+
+	def locate_ip_addresses(self, addresses):
+		for address in addresses:
+			r = gi.record_by_addr(address)
+			record = {}
+			record['ip'] = address  
+			record['latitude'] = r['latitude']
+			record['longitude'] = r['longitude']
+			record['city'] = r['city']
+			self.records.append(record)
 
 
-for cluster in clusters:
-	pprint('Analyzing cluster ' + cluster[u'ID'])
-	for ip_address in cluster['sample_ip_mappings']:
-		record = gi.record_by_addr(ip_address)
-		print '\t' + ip_address + ' -> ' + 'lat: ' + str(record['latitude']) + ", long: " + str(record['longitude']) + ', city: ' + record['city']
+def get_clusters():
+	j_clusters = data['clusters']
+	clusters = []	
+	for cluster in j_clusters:
+		c = Cluster(cluster)
+		clusters.append(c)
+	return clusters
 
 
-# pprint(data)
-
-# gi = pygeoip.GeoIP('/usr/local/share/geoip/GeoLiteCity.dat')
-
-# record = gi.record_by_addr('64.233.161.99')
-
-# print record['longitude']
+# clusters = get_clusters()
+# for cluster in clusters: 
+# 	print cluster.id
