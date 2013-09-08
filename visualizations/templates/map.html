@@ -7,12 +7,43 @@
       body { height: 100%; margin: 0; padding: 0 }
       #map-canvas { height: 100% }
     </style>
+    <script type="text/javascript"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBjLu93p4ouLPm4CeQP9tTDR6hVbe7qjkc&sensor=false">
+    </script>
+    <script type="text/javascript">
+      var map;
+      var markersArray = [];
+      var bounds = new google.maps.LatLngBounds();
+
+      function initialize() {
+        var location;
+        {% for cluster in clusters %}
+          {% for record in cluster.records %}
+            location = new google.maps.LatLng({{ record['latitude'] }},{{ record['longitude'] }});
+            addMarker(location)
+            bounds.extend(location);
+          {% endfor %}
+        {% endfor %}
+
+        var mapOptions = { mapTypeId: google.maps.MapTypeId.ROADMAP };
+        map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+        map.fitBounds(bounds);
+        map.panToBounds(bounds);  
+
+        for (i in markersArray) { markersArray[i].setMap(map); }
+      }
+
+      function addMarker(location) {
+        marker = new google.maps.Marker({
+          position: location,
+          map: map
+        });
+        markersArray.push(marker);
+      }
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
   </head>
   <body>
-    <ul id="clusters">
-    {% for cluster in clusters %}
-      <li> {{ cluster.id  }} </li>
-    {% endfor %}
-    </ul>
+    <div id="map-canvas"/>
   </body>
 </html>
