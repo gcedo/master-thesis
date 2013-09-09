@@ -1,0 +1,54 @@
+{
+  "clusters": [
+    {
+      "ID": "d2e03",
+      "size": "37",
+      "ip_mapping_size": "2",
+      "sample_ip_mappings": [
+        "46.137.81.221"
+      ],
+      "length": [
+        3,
+        8
+      ],
+      "char_set_len": 35,
+      "numerical_characters_ratio": [
+        0.0,
+        1.0
+      ],
+      "public_suffixes": [
+        "org",
+        "net",
+        "com"
+      ],
+      "meaningful_word_ratio": [
+        0.0,
+        0.875
+      ],
+      "one_gram_normality_score": [
+        5.25,
+        5750.4
+      ],
+      "two_gram_normality_score": [
+        0.0,
+        385.0
+      ],
+      "three_gram_normality_score": [
+        0.0,
+        12.166666666666666
+      ],
+      "sample_domains": [
+        "zawn.net",
+        "naaer.com",
+        "qkqh.com",
+        "1959.com",
+        "nbyz.net",
+        "czeg.com",
+        "08736.com",
+        "nxon.com",
+        "fox4.net",
+        "juei.com"
+      ]
+    }
+  ]
+}

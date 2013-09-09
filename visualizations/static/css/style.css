@@ -1,0 +1,22 @@
+.infobox {
+        border:2px solid black;
+        margin-top: 8px;
+        background:#333;
+        color:#FFF;
+        font-family:Arial, Helvetica, sans-serif;
+        font-size:14px;
+        padding: .5em 1em;
+        -webkit-border-radius: 2px;
+        -moz-border-radius: 2px;
+        border-radius: 2px;
+        text-shadow:0 -1px #000000;
+        -webkit-box-shadow: 0 0  8px #000;
+        box-shadow: 0 0 8px #000;
+}
+
+.cluster-info {
+    display: none;
+}
+
+
+#map-canvas { height: 500px; }
