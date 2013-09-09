@@ -3,7 +3,6 @@
   <head>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
     <title>Phoenix</title>
-    <!-- Bootstrap -->
     <link href="/static/css/bootstrap.min.css" rel="stylesheet" media="screen">
     <link href="/static/css/style.css" rel="stylesheet" media="screen">
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -32,7 +31,7 @@
                        '<tr><td>Cluster ID:</td><td> {{ cluster.id }}   </td></tr>' + 
                        '<tr><td>IP Address:</td><td> {{ record["ip"] }} </td></tr>' + 
                        '</table>' + 
-                       '<button type="button" onclick="isolateBotnet({% print "'" %}{{ cluster.id }}{% print "'" %})" class="btn btn-primary btn-xs">Isolate Botnet</button>'
+                       '<button type="button" onclick="isolateBotnet({% print "'" + cluster.id + "'" %})" class="btn btn-primary btn-xs">Isolate Botnet</button>'
                        );
             bounds.extend(location);
           {% endfor %}
@@ -55,6 +54,8 @@
         for (var i = 0; i < markersArray.length; i++) { markersArray[i].setVisible(false); }
         for (var i = 0; i < markersDictionary[id].length; i++) {markersDictionary[id][i].setVisible(true); }
       }
+
+      function showAllMarkers() { for (var i = 0; i < markersArray.length; i++) { markersArray[i].setVisible(true); } }
 
       function addMarker(location, color, id) {
         marker = new google.maps.Marker({
@@ -113,6 +114,9 @@
           <!-- Dashboard -->
           <div class="col-md-4">
             <h3>Dashboard</h3>
+            <p>
+              <button type="button" onclick="showAllMarkers()" class="btn btn-primary">Clear Selection</button>
+            </p>
           </div>
           <!-- /Dashboard -->
         </div>
