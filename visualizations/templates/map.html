@@ -46,22 +46,21 @@
           {% for record in cluster.records %}
             location = new google.maps.LatLng({{ record['latitude'] }},{{ record['longitude'] }});
             addMarker(location, color);
-            addInfoBox('pizza');
+            addInfoBox(' {{ cluster.id }}');
             bounds.extend(location);
           {% endfor %}
         {% endfor %}
 
-        for (var i in markersArray) {
-          google.maps.event.addListener(markersArray[i], 'click', function() {
-            boxesArray[i].open(map, this);
-          });
-        }
-
         var mapOptions = { mapTypeId: google.maps.MapTypeId.ROADMAP };
         map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
         map.fitBounds(bounds);
-        map.panToBounds(bounds);  
-        for (i in markersArray) { markersArray[i].setMap(map); }
+        map.panToBounds(bounds);
+        for (var i in markersArray) {
+          markersArray[i].setMap(map);
+          google.maps.event.addListener(markersArray[i], 'click', function(innerKey) { 
+            return function() { boxesArray[innerKey].open(map, this); }
+          }(i));
+        }
       }
 
       function addMarker(location, color) {
