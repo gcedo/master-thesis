@@ -27,9 +27,10 @@
       function initialize() {
         var location;
         {% for cluster in clusters %}
+          color =  Math.floor(Math.random()*16777215).toString(16);
           {% for record in cluster.records %}
             location = new google.maps.LatLng({{ record['latitude'] }},{{ record['longitude'] }});
-            addMarker(location)
+            addMarker(location, color)
             bounds.extend(location);
           {% endfor %}
         {% endfor %}
@@ -41,11 +42,11 @@
         for (i in markersArray) { markersArray[i].setMap(map); }
       }
 
-      function addMarker(location) {
+      function addMarker(location, color) {
         marker = new google.maps.Marker({
           position: location,
           map: map,
-          icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'
+          icon: 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|' + color
         });
         markersArray.push(marker);
       }
