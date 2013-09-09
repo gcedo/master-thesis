@@ -12,6 +12,8 @@ class Cluster(object):
 		self.size = parsed_json['size']
 		self.records = []
 		self.locate_ip_addresses(parsed_json['sample_ip_mappings'])
+		self.domains = parsed_json["sample_domains"]
+		self.public_suffixes = parsed_json["public_suffixes"]
 
 	def locate_ip_addresses(self, addresses):
 		for address in addresses:

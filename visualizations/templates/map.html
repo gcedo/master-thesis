@@ -12,6 +12,7 @@
     <![endif]-->
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBjLu93p4ouLPm4CeQP9tTDR6hVbe7qjkc&sensor=false"></script>
     <script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script type="text/javascript">
       var map;
       var markersArray = [];
@@ -53,9 +54,10 @@
         console.log(id);
         for (var i = 0; i < markersArray.length; i++) { markersArray[i].setVisible(false); }
         for (var i = 0; i < markersDictionary[id].length; i++) {markersDictionary[id][i].setVisible(true); }
+        $("#" + id).show();
       }
 
-      function showAllMarkers() { for (var i = 0; i < markersArray.length; i++) { markersArray[i].setVisible(true); } }
+      function showAllMarkers() { for (var i = 0; i < markersArray.length; i++) { markersArray[i].setVisible(true); } $(".cluster-info").hide(); }
 
       function addMarker(location, color, id) {
         marker = new google.maps.Marker({
@@ -116,6 +118,48 @@
             <h3>Dashboard</h3>
             <p>
               <button type="button" onclick="showAllMarkers()" class="btn btn-primary">Clear Selection</button>
+            </p>
+            <p>
+              {% for cluster in clusters %}
+                <div class="panel panel-info cluster-info" id="{{ cluster.id }}">
+                  <div class="panel-heading"><h3 class="panel-title">{{ cluster.id }}</h3></div>
+                  <div class="panel-body">
+                    <!-- IP Addresses -->
+                    <table class="table">
+                      <thead>
+                        <tr><th>IP Address</th><th>City</th></tr>
+                      </thead>
+                      <tbody>
+                      {% for record in cluster.records %}
+                        <tr><td>{{ record["ip"] }}</td><td>{{ record["city"] }}</td></tr>
+                      {% endfor %}
+                      </tbody>
+                    </table>
+                    <!-- Suffixes -->
+                    <table class="table">
+                      <thead>
+                        <tr><th>Public Suffixes</th></tr>
+                      </thead>
+                      <tbody>
+                      {% for suffix in cluster.public_suffixes %}
+                        <tr><td>{{ suffix }}</td></tr>
+                      {% endfor %}
+                      </tbody>
+                    </table>
+                    <!-- Sample Domains -->
+                    <table class="table">
+                      <thead>
+                        <tr><th>Sample Domains</th></tr>
+                      </thead>
+                      <tbody>
+                      {% for domain in cluster.domains %}
+                        <tr><td>{{ domain }}</td></tr>
+                      {% endfor %}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              {% endfor %}
             </p>
           </div>
           <!-- /Dashboard -->
