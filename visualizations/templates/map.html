@@ -16,6 +16,7 @@
     <script type="text/javascript">
       var map;
       var markersArray = [];
+      var markersDictionary = {};
       var boxesArray = [];
       var bounds = new google.maps.LatLngBounds();
 
@@ -24,9 +25,15 @@
         {% for cluster in clusters %}
           color =  Math.floor(Math.random()*16777215).toString(16);
           {% for record in cluster.records %}
+            id = '{{ cluster.id }}';
             location = new google.maps.LatLng({{ record['latitude'] }},{{ record['longitude'] }});
-            addMarker(location, color);
-            addInfoBox(' {{ cluster.id }}');
+            addMarker(location, color, '{{ cluster.id }}');
+            addInfoBox('<table>' +
+                       '<tr><td>Cluster ID:</td><td> {{ cluster.id }}   </td></tr>' + 
+                       '<tr><td>IP Address:</td><td> {{ record["ip"] }} </td></tr>' + 
+                       '</table>' + 
+                       '<button type="button" onclick="isolateBotnet({% print "'" %}{{ cluster.id }}{% print "'" %})" class="btn btn-primary btn-xs">Isolate Botnet</button>'
+                       );
             bounds.extend(location);
           {% endfor %}
         {% endfor %}
@@ -43,14 +50,23 @@
         }
       }
 
-      function addMarker(location, color) {
+      function isolateBotnet(id) {
+        console.log(id);
+        for (var i = 0; i < markersArray.length; i++) { markersArray[i].setVisible(false); }
+        for (var i = 0; i < markersDictionary[id].length; i++) {markersDictionary[id][i].setVisible(true); }
+      }
+
+      function addMarker(location, color, id) {
         marker = new google.maps.Marker({
           position: location,
           map: map,
           icon: 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|' + color
         });
         markersArray.push(marker);
+        if (markersDictionary[id] == null ) { markersDictionary[id] = []; }
+        markersDictionary[id].push(marker);
       }
+
       function addInfoBox(content) {
         infoBox = new InfoBox({
           content: '<div class="infobox">' + content + '</div>',
@@ -60,7 +76,7 @@
           zIndex: null,
           boxStyle: {
             background: "url('http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/examples/tipbox.gif') no-repeat",
-            opacity: 0.75,
+            opacity: 0.9,
             width: "280px"
           },
           closeBoxMargin: "12px 4px 2px 2px",
