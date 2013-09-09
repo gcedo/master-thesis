@@ -3,8 +3,8 @@ import json
 from bulkwhois.shadowserver import BulkWhoisShadowserver
 
 gi = pygeoip.GeoIP('/usr/local/share/geoip/GeoLiteCity.dat')
-json_data = open('data/p_entropy_test.json')
-# json_data = open('data/p_entropy_test.small.json')
+# json_data = open('data/p_entropy_test.json')
+json_data = open('data/p_entropy_test.small.json')
 data = json.load(json_data)
 
 class Cluster(object):
