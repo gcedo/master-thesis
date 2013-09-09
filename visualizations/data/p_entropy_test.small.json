@@ -1,0 +1,112 @@
+{
+  "clusters": [
+    {
+      "ID": "d2e03",
+      "size": "37",
+      "ip_mapping_size": "2",
+      "sample_ip_mappings": [
+        "46.137.81.221",
+        "208.87.35.101"
+      ],
+      "length": [
+        3,
+        8
+      ],
+      "char_set_len": 35,
+      "numerical_characters_ratio": [
+        0.0,
+        1.0
+      ],
+      "public_suffixes": [
+        "org",
+        "net",
+        "com"
+      ],
+      "meaningful_word_ratio": [
+        0.0,
+        0.875
+      ],
+      "one_gram_normality_score": [
+        5.25,
+        5750.4
+      ],
+      "two_gram_normality_score": [
+        0.0,
+        385.0
+      ],
+      "three_gram_normality_score": [
+        0.0,
+        12.166666666666666
+      ],
+      "sample_domains": [
+        "zawn.net",
+        "naaer.com",
+        "qkqh.com",
+        "1959.com",
+        "nbyz.net",
+        "czeg.com",
+        "08736.com",
+        "nxon.com",
+        "fox4.net",
+        "juei.com"
+      ]
+    },
+    {
+      "ID": "08db6",
+      "size": "31",
+      "ip_mapping_size": "6",
+      "sample_ip_mappings": [
+        "72.233.69.6",
+        "74.200.243.251",
+        "76.74.254.120",
+        "76.74.254.123",
+        "72.233.2.58",
+        "74.200.244.59"
+      ],
+      "length": [
+        4,
+        13
+      ],
+      "char_set_len": 33,
+      "numerical_characters_ratio": [
+        0.0,
+        0.6666666666666666
+      ],
+      "public_suffixes": [
+        "me",
+        "org",
+        "net",
+        "com",
+        "co"
+      ],
+      "meaningful_word_ratio": [
+        0.0,
+        0.6666666666666666
+      ],
+      "one_gram_normality_score": [
+        171.5,
+        4165.6
+      ],
+      "two_gram_normality_score": [
+        0.4,
+        344.54545454545456
+      ],
+      "three_gram_normality_score": [
+        0.0,
+        101.7
+      ],
+      "sample_domains": [
+        "tracking2012.com",
+        "vudonxu.com",
+        "snoopyjnr.com",
+        "jb2011.com",
+        "jbjd.org",
+        "us20.org",
+        "80xproof.com",
+        "euslu.com",
+        "704dujour.com",
+        "30pixchix.com"
+      ]
+    }
+  ]
+}

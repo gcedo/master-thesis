@@ -111,27 +111,31 @@
           <!-- Google Map -->
           <div class="col-md-8">
             <div id="map-canvas"></div>
-          </div>
-          <!-- /Google Map -->
-          <!-- Dashboard -->
-          <div class="col-md-4">
             <h3>Dashboard</h3>
             <p>
               <button type="button" onclick="showAllMarkers()" class="btn btn-primary">Clear Selection</button>
             </p>
+          </div>
+          <!-- /Google Map -->
+          <!-- Dashboard -->
+          <div class="col-md-4">
             <p>
               {% for cluster in clusters %}
                 <div class="panel panel-info cluster-info" id="{{ cluster.id }}">
-                  <div class="panel-heading"><h3 class="panel-title">{{ cluster.id }}</h3></div>
+                  <div class="panel-heading"><h3 class="panel-title">Cluster ID: {{ cluster.id }}, Size: {{ cluster.size }}</h3></div>
                   <div class="panel-body">
                     <!-- IP Addresses -->
                     <table class="table">
                       <thead>
-                        <tr><th>IP Address</th><th>City</th></tr>
+                        <tr><th>IP Address</th><th>City</th><th>Registar</th></tr>
                       </thead>
                       <tbody>
                       {% for record in cluster.records %}
-                        <tr><td>{{ record["ip"] }}</td><td>{{ record["city"] }}</td></tr>
+                        <tr>
+                          <td>{{ record["ip"] }}</td>
+                          <td>{{ record["city"] }}</td>
+                          <td>{{ record["whois"]["org_name"] }}</td>
+                        </tr>
                       {% endfor %}
                       </tbody>
                     </table>
@@ -164,6 +168,7 @@
           </div>
           <!-- /Dashboard -->
         </div>
+        <!-- Textual Information -->
       </div>
   </body>
 </html>
