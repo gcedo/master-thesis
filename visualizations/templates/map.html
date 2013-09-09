@@ -53,8 +53,7 @@
     </script>
   </head>
   <body>
-    <div class="container">
-      <nav class="navbar navbar-default" role="navigation">
+    <nav class="navbar navbar-default" role="navigation">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
           <a class="navbar-brand" href="#">Phoenix</a>
@@ -70,7 +69,20 @@
           </ul>
         </div><!-- /.navbar-collapse -->
       </nav>
-      <div id="map-canvas"/>
-    </div>
+      <!-- Body content -->
+      <div class="container">
+        <div class="row">
+          <!-- Google Map -->
+          <div class="col-md-9">
+            <div id="map-canvas"></div>
+          </div>
+          <!-- /Google Map -->
+          <!-- Dashboard -->
+          <div class="col-md-3">
+            <h3>Dashboard</h3>
+          </div>
+          <!-- /Dashboard -->
+        </div>
+      </div>
   </body>
 </html>
