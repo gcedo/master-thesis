@@ -14,14 +14,29 @@
     <style type="text/css">
       html { height: 100% }
       body { height: 100%; margin: 0; padding: 0 }
+      .infobox {
+        border:2px solid black;
+        margin-top: 8px;
+        background:#333;
+        color:#FFF;
+        font-family:Arial, Helvetica, sans-serif;
+        font-size:12px;
+        padding: .5em 1em;
+        -webkit-border-radius: 2px;
+        -moz-border-radius: 2px;
+        border-radius: 2px;
+        text-shadow:0 -1px #000000;
+        -webkit-box-shadow: 0 0  8px #000;
+        box-shadow: 0 0 8px #000;
+      }
       #map-canvas { height: 500px; }
     </style>
-    <script type="text/javascript"
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBjLu93p4ouLPm4CeQP9tTDR6hVbe7qjkc&sensor=false">
-    </script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBjLu93p4ouLPm4CeQP9tTDR6hVbe7qjkc&sensor=false"></script>
+    <script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox.js"></script>
     <script type="text/javascript">
       var map;
       var markersArray = [];
+      var boxesArray = [];
       var bounds = new google.maps.LatLngBounds();
 
       function initialize() {
@@ -30,10 +45,17 @@
           color =  Math.floor(Math.random()*16777215).toString(16);
           {% for record in cluster.records %}
             location = new google.maps.LatLng({{ record['latitude'] }},{{ record['longitude'] }});
-            addMarker(location, color)
+            addMarker(location, color);
+            addInfoBox('pizza');
             bounds.extend(location);
           {% endfor %}
         {% endfor %}
+
+        for (var i in markersArray) {
+          google.maps.event.addListener(markersArray[i], 'click', function() {
+            boxesArray[i].open(map, this);
+          });
+        }
 
         var mapOptions = { mapTypeId: google.maps.MapTypeId.ROADMAP };
         map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
@@ -49,6 +71,24 @@
           icon: 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|' + color
         });
         markersArray.push(marker);
+      }
+      function addInfoBox(content) {
+        infoBox = new InfoBox({
+          content: '<div class="infobox">' + content + '</div>',
+          disableAutoPan: false,
+          maxWidth: 150,
+          pixelOffset: new google.maps.Size(-140, 0),
+          zIndex: null,
+          boxStyle: {
+            background: "url('http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/examples/tipbox.gif') no-repeat",
+            opacity: 0.75,
+            width: "280px"
+          },
+          closeBoxMargin: "12px 4px 2px 2px",
+          closeBoxURL: "http://www.google.com/intl/en_us/mapfiles/close.gif",
+          infoBoxClearance: new google.maps.Size(1, 1)
+        });
+        boxesArray.push(infoBox);
       }
       google.maps.event.addDomListener(window, 'load', initialize);
     </script>
