@@ -1,4 +1,4 @@
-from flask import Flask, g, render_template
+from flask import Flask, g, render_template, request
 from pymongo import Connection
 from scripts.geoip import get_clusters
 import scripts.domain as domain_engine
@@ -31,7 +31,10 @@ def map():
 
 @app.route("/domain/<domain>")
 def domain(domain):
-	return domain_engine.render_page_content(domain)
+	if 'json' in request.args:
+		return domain_engine.render_page_content(domain, mime='json')
+	else:
+		return domain_engine.render_page_content(domain, mime='html')
 
 if __name__ == "__main__":
     app.run(debug=True)
