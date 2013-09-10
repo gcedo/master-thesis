@@ -4,10 +4,10 @@ $(function() {
   function initialize() {
     var mapOptions = { 
       mapTypeId: google.maps.MapTypeId.ROADMAP,
-      center: new google.maps.LatLng(-34.397, 150.644),
-      zoom: 2
+      center: new google.maps.LatLng(31.802893, 9.316466),
+      zoom: 1
     };
-    map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+    map = new google.maps.Map(document.getElementById("map-canvas-domain"), mapOptions);
   }
 
   function getDomainJson(domain) {
@@ -24,11 +24,8 @@ $(function() {
   }
 
   function addMarkers(items) {
-    console.log(items)
     $.each(items, function(k, item) {
-      console.log(item)
       var loc = new google.maps.LatLng(parseFloat(item.lat), parseFloat(item.lon));
-      
       addMarker(loc);
     })
   }

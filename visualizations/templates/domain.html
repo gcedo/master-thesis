@@ -1,17 +1,35 @@
 {% extends 'layout/base.html' %}
 
+{% block style %}
+<link href="/static/css/flags32.css" rel="stylesheet" media="screen">
+{% endblock %}
+
 <!-- Body -->
 {% block container %}
 
 <div class="row">
 	<h2>{{ record.domain }}</h2>
 	<hr>
-	<div class="col-md-6">
+	<div class="col-md-5">
 		<h3>Map</h3>
-		<div id="map-canvas"></div>
+		<div id="map-canvas-domain"></div>
 	</div>
-	<div class="col-md-6">
+	<div class="col-md-7">
 		<h3>Timeline</h3>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-5">
+		<h3>Countries</h3>
+		<table class="f32">
+			{% for country in record.country_preview %}
+			<tr>
+				<td><div class="flag {{ country.country }}"></td>
+				<td>{{ country.country }}</td>
+			</tr>
+			{% endfor %}
+		</table>
 	</div>
 </div>
 
