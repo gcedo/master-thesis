@@ -1,174 +1,152 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-    <title>Phoenix</title>
-    <link href="/static/css/bootstrap.min.css" rel="stylesheet" media="screen">
-    <link href="/static/css/style.css" rel="stylesheet" media="screen">
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="../../assets/js/html5shiv.js"></script>
-      <script src="../../assets/js/respond.min.js"></script>
-    <![endif]-->
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBjLu93p4ouLPm4CeQP9tTDR6hVbe7qjkc&sensor=false"></script>
-    <script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox.js"></script>
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <script type="text/javascript">
-      var map;
-      var markersArray = [];
-      var markersDictionary = {};
-      var boxesArray = [];
-      var bounds = new google.maps.LatLngBounds();
+{% extends 'layout/base.html' %}
 
-      function initialize() {
-        var location;
+{% block container %}
+<!-- Body content -->
+<div class="container">
+  <div class="row">
+    <!-- Google Map -->
+    <div class="col-md-8">
+      <div id="map-canvas"></div>
+      <h3>Dashboard</h3>
+      <p>
+        <button type="button" onclick="showAllMarkers()" class="btn btn-primary">Clear Selection</button>
+      </p>
+    </div>
+    <!-- /Google Map -->
+    <!-- Dashboard -->
+    <div class="col-md-4">
+      <p>
         {% for cluster in clusters %}
-          color =  Math.floor(Math.random()*16777215).toString(16);
-          {% for record in cluster.records %}
-            id = '{{ cluster.id }}';
-            location = new google.maps.LatLng({{ record['latitude'] }},{{ record['longitude'] }});
-            addMarker(location, color, '{{ cluster.id }}');
-            addInfoBox('<table>' +
-                       '<tr><td>Cluster ID:</td><td> {{ cluster.id }}   </td></tr>' + 
-                       '<tr><td>IP Address:</td><td> {{ record["ip"] }} </td></tr>' + 
-                       '</table>' + 
-                       '<button type="button" onclick="isolateBotnet({% print "'" + cluster.id + "'" %})" class="btn btn-primary btn-xs">Isolate Botnet</button>'
-                       );
-            bounds.extend(location);
-          {% endfor %}
+          <div class="panel panel-info cluster-info" id="{{ cluster.id }}">
+            <div class="panel-heading"><h3 class="panel-title">Cluster ID: {{ cluster.id }}, Size: {{ cluster.size }}</h3></div>
+            <div class="panel-body">
+              <!-- IP Addresses -->
+              <table class="table">
+                <thead>
+                  <tr><th>IP Address</th><th>City</th><th>Registar</th></tr>
+                </thead>
+                <tbody>
+                {% for record in cluster.records %}
+                  <tr>
+                    <td>{{ record["ip"] }}</td>
+                    <td>{{ record["city"] }}</td>
+                    <td>{{ record["whois"]["org_name"] }}</td>
+                  </tr>
+                {% endfor %}
+                </tbody>
+              </table>
+              <!-- Suffixes -->
+              <table class="table">
+                <thead>
+                  <tr><th>Public Suffixes</th></tr>
+                </thead>
+                <tbody>
+                {% for suffix in cluster.public_suffixes %}
+                  <tr><td>{{ suffix }}</td></tr>
+                {% endfor %}
+                </tbody>
+              </table>
+              <!-- Sample Domains -->
+              <table class="table">
+                <thead>
+                  <tr><th>Sample Domains</th></tr>
+                </thead>
+                <tbody>
+                {% for domain in cluster.domains %}
+                  <tr><td>{{ domain }}</td></tr>
+                {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
         {% endfor %}
+      </p>
+    </div>
+    <!-- /Dashboard -->
+  </div>
+  <!-- Textual Information -->
+</div>
+{% endblock %}
 
-        var mapOptions = { mapTypeId: google.maps.MapTypeId.ROADMAP };
-        map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
-        map.fitBounds(bounds);
-        map.panToBounds(bounds);
-        for (var i in markersArray) {
-          markersArray[i].setMap(map);
-          google.maps.event.addListener(markersArray[i], 'click', function(innerKey) { 
-            return function() { boxesArray[innerKey].open(map, this); }
-          }(i));
-        }
+
+{% block scripts %}    
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBjLu93p4ouLPm4CeQP9tTDR6hVbe7qjkc&sensor=false"></script>
+  <script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox.js"></script>
+  <script type="text/javascript">
+    var map;
+    var markersArray = [];
+    var markersDictionary = {};
+    var boxesArray = [];
+    var bounds = new google.maps.LatLngBounds();
+
+    function initialize() {
+      var location;
+      {% for cluster in clusters %}
+        color =  Math.floor(Math.random()*16777215).toString(16);
+        {% for record in cluster.records %}
+          id = '{{ cluster.id }}';
+          location = new google.maps.LatLng({{ record['latitude'] }},{{ record['longitude'] }});
+          addMarker(location, color, '{{ cluster.id }}');
+          addInfoBox('<table>' +
+                     '<tr><td>Cluster ID:</td><td> {{ cluster.id }}   </td></tr>' + 
+                     '<tr><td>IP Address:</td><td> {{ record["ip"] }} </td></tr>' + 
+                     '</table>' + 
+                     '<button type="button" onclick="isolateBotnet({% print "'" + cluster.id + "'" %})" class="btn btn-primary btn-xs">Isolate Botnet</button>'
+                     );
+          bounds.extend(location);
+        {% endfor %}
+      {% endfor %}
+
+      var mapOptions = { mapTypeId: google.maps.MapTypeId.ROADMAP };
+      map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+      map.fitBounds(bounds);
+      map.panToBounds(bounds);
+      for (var i in markersArray) {
+        markersArray[i].setMap(map);
+        google.maps.event.addListener(markersArray[i], 'click', function(innerKey) { 
+          return function() { boxesArray[innerKey].open(map, this); }
+        }(i));
       }
+    }
 
-      function isolateBotnet(id) {
-        console.log(id);
-        for (var i = 0; i < markersArray.length; i++) { markersArray[i].setVisible(false); }
-        for (var i = 0; i < markersDictionary[id].length; i++) {markersDictionary[id][i].setVisible(true); }
-        $("#" + id).show();
-      }
+    function isolateBotnet(id) {
+      console.log(id);
+      for (var i = 0; i < markersArray.length; i++) { markersArray[i].setVisible(false); }
+      for (var i = 0; i < markersDictionary[id].length; i++) {markersDictionary[id][i].setVisible(true); }
+      $("#" + id).show();
+    }
 
-      function showAllMarkers() { for (var i = 0; i < markersArray.length; i++) { markersArray[i].setVisible(true); } $(".cluster-info").hide(); }
+    function showAllMarkers() { for (var i = 0; i < markersArray.length; i++) { markersArray[i].setVisible(true); } $(".cluster-info").hide(); }
 
-      function addMarker(location, color, id) {
-        marker = new google.maps.Marker({
-          position: location,
-          map: map,
-          icon: 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|' + color
-        });
-        markersArray.push(marker);
-        if (markersDictionary[id] == null ) { markersDictionary[id] = []; }
-        markersDictionary[id].push(marker);
-      }
+    function addMarker(location, color, id) {
+      marker = new google.maps.Marker({
+        position: location,
+        map: map,
+        icon: 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|' + color
+      });
+      markersArray.push(marker);
+      if (markersDictionary[id] == null ) { markersDictionary[id] = []; }
+      markersDictionary[id].push(marker);
+    }
 
-      function addInfoBox(content) {
-        infoBox = new InfoBox({
-          content: '<div class="infobox">' + content + '</div>',
-          disableAutoPan: false,
-          maxWidth: 150,
-          pixelOffset: new google.maps.Size(-140, 0),
-          zIndex: null,
-          boxStyle: {
-            background: "url('http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/examples/tipbox.gif') no-repeat",
-            opacity: 0.9,
-            width: "280px"
-          },
-          closeBoxMargin: "12px 4px 2px 2px",
-          closeBoxURL: "http://www.google.com/intl/en_us/mapfiles/close.gif",
-          infoBoxClearance: new google.maps.Size(1, 1)
-        });
-        boxesArray.push(infoBox);
-      }
-      google.maps.event.addDomListener(window, 'load', initialize);
-    </script>
-  </head>
-  <body>
-    <nav class="navbar navbar-default" role="navigation">
-        <div class="navbar-header">
-          <a class="navbar-brand" href="#">Phoenix</a>
-        </div>
-        <div class="collapse navbar-collapse navbar-ex1-collapse">
-          <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Link</a></li>
-            <li><a href="#">Link</a></li>
-          </ul>
-          <ul class="nav navbar-nav navbar-right">
-          </ul>
-        </div>
-      </nav>
-      <!-- Body content -->
-      <div class="container">
-        <div class="row">
-          <!-- Google Map -->
-          <div class="col-md-8">
-            <div id="map-canvas"></div>
-            <h3>Dashboard</h3>
-            <p>
-              <button type="button" onclick="showAllMarkers()" class="btn btn-primary">Clear Selection</button>
-            </p>
-          </div>
-          <!-- /Google Map -->
-          <!-- Dashboard -->
-          <div class="col-md-4">
-            <p>
-              {% for cluster in clusters %}
-                <div class="panel panel-info cluster-info" id="{{ cluster.id }}">
-                  <div class="panel-heading"><h3 class="panel-title">Cluster ID: {{ cluster.id }}, Size: {{ cluster.size }}</h3></div>
-                  <div class="panel-body">
-                    <!-- IP Addresses -->
-                    <table class="table">
-                      <thead>
-                        <tr><th>IP Address</th><th>City</th><th>Registar</th></tr>
-                      </thead>
-                      <tbody>
-                      {% for record in cluster.records %}
-                        <tr>
-                          <td>{{ record["ip"] }}</td>
-                          <td>{{ record["city"] }}</td>
-                          <td>{{ record["whois"]["org_name"] }}</td>
-                        </tr>
-                      {% endfor %}
-                      </tbody>
-                    </table>
-                    <!-- Suffixes -->
-                    <table class="table">
-                      <thead>
-                        <tr><th>Public Suffixes</th></tr>
-                      </thead>
-                      <tbody>
-                      {% for suffix in cluster.public_suffixes %}
-                        <tr><td>{{ suffix }}</td></tr>
-                      {% endfor %}
-                      </tbody>
-                    </table>
-                    <!-- Sample Domains -->
-                    <table class="table">
-                      <thead>
-                        <tr><th>Sample Domains</th></tr>
-                      </thead>
-                      <tbody>
-                      {% for domain in cluster.domains %}
-                        <tr><td>{{ domain }}</td></tr>
-                      {% endfor %}
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              {% endfor %}
-            </p>
-          </div>
-          <!-- /Dashboard -->
-        </div>
-        <!-- Textual Information -->
-      </div>
-  </body>
-</html>
+    function addInfoBox(content) {
+      infoBox = new InfoBox({
+        content: '<div class="infobox">' + content + '</div>',
+        disableAutoPan: false,
+        maxWidth: 150,
+        pixelOffset: new google.maps.Size(-140, 0),
+        zIndex: null,
+        boxStyle: {
+          background: "url('http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/examples/tipbox.gif') no-repeat",
+          opacity: 0.9,
+          width: "280px"
+        },
+        closeBoxMargin: "12px 4px 2px 2px",
+        closeBoxURL: "http://www.google.com/intl/en_us/mapfiles/close.gif",
+        infoBoxClearance: new google.maps.Size(1, 1)
+      });
+      boxesArray.push(infoBox);
+    }
+    google.maps.event.addDomListener(window, 'load', initialize);
+  </script>
+{% endblock %} 

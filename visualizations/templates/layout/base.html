@@ -10,7 +10,6 @@
       <script src="../../assets/js/html5shiv.js"></script>
       <script src="../../assets/js/respond.min.js"></script>
     <![endif]-->
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
   </head>
   <body>
     <!-- Nav Bar -->
@@ -23,5 +22,9 @@
 
     <!-- Footer -->
     {% include "layout/footer.html" %}
+
+    <!-- Javascripts -->
+    {% block scripts %}{% endblock %}
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
   </body>
 </html>
