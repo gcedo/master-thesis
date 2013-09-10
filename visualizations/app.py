@@ -31,7 +31,7 @@ def map():
 
 @app.route("/domain/<domain>")
 def domain(domain):
-	return domain_engine.render_page_content()
+	return domain_engine.render_page_content(domain)
 
 if __name__ == "__main__":
     app.run(debug=True)
