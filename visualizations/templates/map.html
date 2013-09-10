@@ -9,7 +9,7 @@
       <div id="map-canvas"></div>
       <h3>Dashboard</h3>
       <p>
-        <button type="button" onclick="showAllMarkers()" class="btn btn-primary">Clear Selection</button>
+        <button type="button" id="clear-selection" class="btn btn-primary">Clear Selection</button>
       </p>
     </div>
     <!-- /Google Map -->
@@ -70,6 +70,7 @@
 
 
 {% block scripts %}    
+  <script type="text/javascript" src="/static/js/map.js"></script>
   <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBjLu93p4ouLPm4CeQP9tTDR6hVbe7qjkc&sensor=false"></script>
   <script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox.js"></script>
   <script type="text/javascript">
