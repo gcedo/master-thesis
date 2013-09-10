@@ -2,6 +2,7 @@ from flask import Flask, g, render_template
 from pymongo import Connection
 from scripts.geoip import get_clusters
 import scripts.domain as domain_engine
+import scripts.map as map_engine
 
 app = Flask(__name__)
 
@@ -26,8 +27,7 @@ def hello():
 
 @app.route("/map")
 def map():
-	clusters = get_clusters()
-   	return render_template('map.html', clusters=clusters)
+   	return map_engine.render_page_content()
 
 @app.route("/domain/<domain>")
 def domain(domain):
