@@ -21,3 +21,8 @@
 
 #map-canvas { height: 500px; }
 #map-canvas-domain { height: 250px; }
+
+.vco-slider {
+    display: none;
+}
+.vco-storyjs .vco-feature .slider, .vco-storyjs .vco-feature .vco-slider {  box-shadow: none !important; }

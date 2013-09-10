@@ -16,6 +16,7 @@
 	</div>
 	<div class="col-md-7">
 		<h3>Timeline</h3>
+		 <div id="my-timeline"></div>
 	</div>
 </div>
 
@@ -40,4 +41,16 @@
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBjLu93p4ouLPm4CeQP9tTDR6hVbe7qjkc&sensor=false"></script>
 <script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox.js"></script>
 <script src="/static/js/domain.js"></script>
+<script type="text/javascript" src="/static/js/storyjs-embed.js"></script>
+<script>
+    $(document).ready(function() {
+        createStoryJS({
+            type:       'timeline',
+            width:      '100%',
+            height:     '230',
+            source:     '/domain/{{ record.domain }}?timeline',
+            embed_id:   'my-timeline'
+        });
+    });
+</script>
 {% endblock %}

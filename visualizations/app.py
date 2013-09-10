@@ -33,6 +33,8 @@ def map():
 def domain(domain):
 	if 'json' in request.args:
 		return domain_engine.render_page_content(domain, mime='json')
+	elif 'timeline' in request.args:
+		return domain_engine.get_timeline(domain)
 	else:
 		return domain_engine.render_page_content(domain, mime='html')
 
