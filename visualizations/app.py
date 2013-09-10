@@ -13,5 +13,9 @@ def map():
 	clusters = get_clusters()
    	return render_template('map.html', clusters=clusters)
 
+@app.route("/domain/<domain>")
+def domain(domain):
+	return render_template('domain.html')
+
 if __name__ == "__main__":
     app.run(debug=True)
