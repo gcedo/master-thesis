@@ -1,0 +1,149 @@
+{% extends 'layout/base.html' %}
+
+{% block style %}
+<link href="/static/css/flags32.css" rel="stylesheet" media="screen">
+{% endblock %}
+
+<!-- Body -->
+{% block container %}
+
+<div class="row">
+  <h2>{{ record.domain }}</h2>
+  <hr>
+  <div class="col-md-6">
+    <div class="panel panel-info" id="map-panel">
+      <div class="panel-heading">
+        <h3 class="panel-title">Map</h3>
+      </div>
+      <div class="panel-body">
+        <div id="map-canvas-domain"></div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="panel panel-info" id="map-panel">
+      <div class="panel-heading">
+        <h3 class="panel-title">Timeline</h3>
+      </div>
+      <div class="panel-body">
+        <div id="my-timeline"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-2">
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <h3 class="panel-title">Countries</h3>
+      </div>
+      <table class="table f32">
+        {% for country in record.country_preview %}
+        <tr>
+          <td><div class="flag {{ country.country }}"></div></td>
+          <td><span class="badge">{{ country.country }}</span></td>
+          <td><span class="label label-primary">42</span></td>
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <h3 class="panel-title">Autonomous Systems</h3>
+      </div>
+      <div class="panel-body">
+      <table>
+        <tr>
+          <td>AS2856 - BTnet UK Regional ...  2 IPs</td>
+        </tr>
+        <tr>
+          <td>AS2856 - BTnet UK Regional ...  2 IPs</td>
+        </tr>
+        <tr>
+          <td>AS2856 - BTnet UK Regional ...  2 IPs</td>
+        </tr>
+        <tr>
+          <td>AS2856 - BTnet UK Regional ...  2 IPs</td>
+        </tr>
+      </table>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-5">
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <h3 class="panel-title">Dates</h3>
+      </div>
+      <table class="table">
+        <tr>
+          <td>
+            <strong>First DNS resolution</strong>
+          </td>
+          <td>
+            <span class="glyphicon glyphicon-calendar">
+            {{ record.first_resolution_timestamp }}
+            <span class="glyphicon glyphicon-time"></span>
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <strong>Last DNS resolution</strong>
+          </td>
+          <td>
+            <span class="glyphicon glyphicon-calendar">
+            {{ record.last_resolution_timestamp }}
+            <span class="glyphicon glyphicon-time"></span>
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <strong>First DNS request</strong>
+          </td>
+          <td>
+            <span class="glyphicon glyphicon-calendar">
+            {{ record.first_request_timestamp }}
+            <span class="glyphicon glyphicon-time"></span>
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <strong>Last DNS request</strong>
+          </td>
+          <td>
+            <span class="glyphicon glyphicon-calendar">
+            {{ record.last_request_timestamp }}
+            <span class="glyphicon glyphicon-time"></span>
+            </span>
+          </td>
+        </tr>
+      </table>  
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+<!-- Scripts -->
+{% block scripts %}
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBjLu93p4ouLPm4CeQP9tTDR6hVbe7qjkc&sensor=false"></script>
+<script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox.js"></script>
+<script src="/static/js/domain.js"></script>
+<script type="text/javascript" src="/static/js/storyjs-embed.js"></script>
+<script>
+    $(document).ready(function() {
+        createStoryJS({
+            type:       'timeline',
+            width:      '100%',
+            height:     '230',
+            source:     '/domain/{{ record.domain }}?timeline',
+            embed_id:   'my-timeline'
+        });
+    });
+</script>
+{% endblock %}
