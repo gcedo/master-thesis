@@ -11,26 +11,44 @@
 	<h2>{{ record.domain }}</h2>
 	<hr>
 	<div class="col-md-5">
-		<h3>Map</h3>
-		<div id="map-canvas-domain"></div>
+		<div class="panel panel-info" id="map-panel">
+			<div class="panel-heading">
+				<h3 class="panel-title">Map</h3>
+			</div>
+			<div class="panel-body">
+				<div id="map-canvas-domain"></div>
+			</div>
+		</div>
 	</div>
 	<div class="col-md-7">
-		<h3>Timeline</h3>
-		 <div id="my-timeline"></div>
+		<div class="panel panel-info" id="map-panel">
+			<div class="panel-heading">
+				<h3 class="panel-title">Timeline</h3>
+			</div>
+			<div class="panel-body">
+				<div id="my-timeline"></div>
+			</div>
+		</div>
 	</div>
 </div>
 
 <div class="row">
 	<div class="col-md-5">
-		<h3>Countries</h3>
-		<table class="f32">
-			{% for country in record.country_preview %}
-			<tr>
-				<td><div class="flag {{ country.country }}"></td>
-				<td>{{ country.country }}</td>
-			</tr>
-			{% endfor %}
-		</table>
+		<div class="panel panel-info">
+			<div class="panel-heading">
+				<h3 class="panel-title">Countries</h3>
+			</div>
+			<div class="panel-body">
+			<table class="f32">
+				{% for country in record.country_preview %}
+				<tr>
+					<td><div class="flag {{ country.country }}"></div></td>
+					<td>{{ country.country }}</td>
+				</tr>
+				{% endfor %}
+			</table>
+			</div>
+		</div>
 	</div>
 </div>
 
