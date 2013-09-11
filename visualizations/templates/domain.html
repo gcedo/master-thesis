@@ -60,24 +60,17 @@
   <div class="col-md-4">
     <div class="panel panel-info">
       <div class="panel-heading">
-        <h3 class="panel-title">Autonomous Systems</h3>
+        <h3 class="panel-title">Autonomous Systems ( {{ record.as_count }} )</h3>
       </div>
-      <div class="panel-body">
-      <table>
+      <table class="table">
+        {% for as in record.as_preview %}
         <tr>
-          <td>AS2856 - BTnet UK Regional ...  2 IPs</td>
+          <td>{{ as.code }}</td>
+          <td>{{ as.name }}</td>
+          <td>{{ as.ip_count }}</td>
         </tr>
-        <tr>
-          <td>AS2856 - BTnet UK Regional ...  2 IPs</td>
-        </tr>
-        <tr>
-          <td>AS2856 - BTnet UK Regional ...  2 IPs</td>
-        </tr>
-        <tr>
-          <td>AS2856 - BTnet UK Regional ...  2 IPs</td>
-        </tr>
+        {% endfor %}
       </table>
-      </div>
     </div>
   </div>
   <div class="col-md-5">
