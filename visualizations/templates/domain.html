@@ -9,7 +9,15 @@
 
 <div class="row">
   <h2>{{ record.domain }}</h2>
+  {% for label in record.labels %}
+    <span class="label label-warning">{{ label }}
+    <span class="glyphicon glyphicon-tag"></span>
+    </span>
+  {% endfor %}
   <hr>
+</div>
+
+<div class="row">
   <div class="col-md-6">
     <div class="panel panel-info" id="map-panel">
       <div class="panel-heading">
