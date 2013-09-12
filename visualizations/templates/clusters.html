@@ -16,28 +16,49 @@
         }
       .tick { stroke: #fff; }
       svg { 
-            width: 400px;
-            height: 400px;
+            width: 500px;
+            height: 500px;
             background: #2d2d2d; }
     </style>
-
 {% endblock %}
 
 {% block container%}
+<div class="row">
+  <div class="col-md-6">
     <svg id="clusters-vis"></svg>
-    <select name="xaxis" id="xaxis">
+  </div>
+  <div class="col-md-6">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Dashboard</h3>
+      </div>
+      <div class="panel-body">
+        <label for="select-cluster">Select a cluster</label>
+          <select name="select-cluster" id="select-cluster" class="form-control">
+          </select>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-2">
+    <label for="xaxis">X Axis Domain</label>
+    <select name="xaxis" id="xaxis" class="form-control">
       <option value="cf1">CF1</option>
       <option value="cf2">CF2</option>
       <option value="cf3">CF3</option>
       <option value="cf4">CF4</option>
     </select>
-
-    <select name="yaxis" id="yaxis">
+    
+    <label for="yaxis">Y Axis Domain</label>
+    <select name="yaxis" id="yaxis" class="form-control">
       <option value="cf1">CF1</option>
       <option value="cf2">CF2</option>
       <option value="cf3">CF3</option>
       <option value="cf4">CF4</option>
     </select>
+  </div>
+</div>
 {% endblock %}
 {% block scripts %}
     <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
