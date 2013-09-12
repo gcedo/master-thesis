@@ -1,0 +1,586 @@
+{
+  "clusters": [
+    {
+      "ID": "d2e03",
+      "size": "37",
+      "ip_mapping_size": "2",
+      "sample_ip_mappings": [
+        "46.137.81.221",
+        "208.87.35.101"
+      ],
+      "length": [
+        3,
+        8
+      ],
+      "char_set_len": 35,
+      "numerical_characters_ratio": [
+        0.0,
+        1.0
+      ],
+      "public_suffixes": [
+        "org",
+        "net",
+        "com"
+      ],
+      "meaningful_word_ratio": [
+        0.0,
+        0.875
+      ],
+      "one_gram_normality_score": [
+        5.25,
+        5750.4
+      ],
+      "two_gram_normality_score": [
+        0.0,
+        385.0
+      ],
+      "three_gram_normality_score": [
+        0.0,
+        12.166666666666666
+      ],
+      "sample_domains": [
+        "zawn.net",
+        "naaer.com",
+        "qkqh.com",
+        "1959.com",
+        "nbyz.net",
+        "czeg.com",
+        "08736.com",
+        "nxon.com",
+        "fox4.net",
+        "juei.com"
+      ]
+    },
+    {
+      "ID": "5c59c",
+      "size": "43",
+      "ip_mapping_size": "1",
+      "sample_ip_mappings": [
+        "183.99.121.124"
+      ],
+      "length": [
+        5,
+        5
+      ],
+      "char_set_len": 15,
+      "numerical_characters_ratio": [
+        0.0,
+        1.0
+      ],
+      "public_suffixes": [
+        "com",
+        "cn"
+      ],
+      "meaningful_word_ratio": [
+        0.0,
+        0.6
+      ],
+      "one_gram_normality_score": [
+        4.8,
+        1657.2
+      ],
+      "two_gram_normality_score": [
+        0.0,
+        14.75
+      ],
+      "three_gram_normality_score": [
+        0.0,
+        1.0
+      ],
+      "sample_domains": [
+        "83991.com",
+        "63778.com",
+        "18676.com",
+        "81785.com",
+        "19527.com",
+        "81795.com",
+        "xhsky.cn",
+        "88819.com",
+        "65226.com",
+        "35166.com"
+      ]
+    },
+    {
+      "ID": "08db6",
+      "size": "31",
+      "ip_mapping_size": "6",
+      "sample_ip_mappings": [
+        "72.233.69.6",
+        "74.200.243.251",
+        "76.74.254.120",
+        "76.74.254.123",
+        "72.233.2.58",
+        "74.200.244.59"
+      ],
+      "length": [
+        4,
+        13
+      ],
+      "char_set_len": 33,
+      "numerical_characters_ratio": [
+        0.0,
+        0.6666666666666666
+      ],
+      "public_suffixes": [
+        "me",
+        "org",
+        "net",
+        "com",
+        "co"
+      ],
+      "meaningful_word_ratio": [
+        0.0,
+        0.6666666666666666
+      ],
+      "one_gram_normality_score": [
+        171.5,
+        4165.6
+      ],
+      "two_gram_normality_score": [
+        0.4,
+        344.54545454545456
+      ],
+      "three_gram_normality_score": [
+        0.0,
+        101.7
+      ],
+      "sample_domains": [
+        "tracking2012.com",
+        "vudonxu.com",
+        "snoopyjnr.com",
+        "jb2011.com",
+        "jbjd.org",
+        "us20.org",
+        "80xproof.com",
+        "euslu.com",
+        "704dujour.com",
+        "30pixchix.com"
+      ]
+    },
+    {
+      "ID": "43dca",
+      "size": "50",
+      "ip_mapping_size": "1",
+      "sample_ip_mappings": [
+        "208.73.210.29"
+      ],
+      "length": [
+        3,
+        7
+      ],
+      "char_set_len": 17,
+      "numerical_characters_ratio": [
+        0.0,
+        1.0
+      ],
+      "public_suffixes": [
+        "ca",
+        "com"
+      ],
+      "meaningful_word_ratio": [
+        0.0,
+        0.6
+      ],
+      "one_gram_normality_score": [
+        4.4,
+        4126.333333333333
+      ],
+      "two_gram_normality_score": [
+        0.0,
+        118.0
+      ],
+      "three_gram_normality_score": [
+        0.0,
+        2.0
+      ],
+      "sample_domains": [
+        "5151mp3.com",
+        "89083.com",
+        "69812.com",
+        "04309.com",
+        "09452.com",
+        "85886.com",
+        "34061.com",
+        "89454.com",
+        "75725.com",
+        "16011.com"
+      ]
+    },
+    {
+      "ID": "e8ecd",
+      "size": "1430",
+      "ip_mapping_size": "4",
+      "sample_ip_mappings": [
+        "217.119.57.22",
+        "91.215.158.57",
+        "178.162.164.24",
+        "94.103.151.195"
+      ],
+      "length": [
+        4,
+        18
+      ],
+      "char_set_len": 37,
+      "numerical_characters_ratio": [
+        0.0,
+        0.8
+      ],
+      "public_suffixes": [
+        "tk"
+      ],
+      "meaningful_word_ratio": [
+        0.0,
+        0.875
+      ],
+      "one_gram_normality_score": [
+        201.8,
+        4558.857142857143
+      ],
+      "two_gram_normality_score": [
+        0.0,
+        376.6666666666667
+      ],
+      "three_gram_normality_score": [
+        0.0,
+        36.375
+      ],
+      "sample_domains": [
+        "hahfgx71.tk",
+        "hahfgx43.tk",
+        "jhhfghf7.tk",
+        "uhjjijkk34.tk",
+        "uhjjijkk26.tk",
+        "haujjuuu35.tk",
+        "hahfgx63.tk",
+        "uxxjzpx.tk",
+        "faukiijjj15.tk",
+        "fbxxxfre.tk"
+      ],
+      "attribution": "unknown"
+    },
+    {
+      "ID": "169e6",
+      "size": "3870",
+      "ip_mapping_size": "9",
+      "sample_ip_mappings": [
+        "112.175.243.24",
+        "114.207.244.145",
+        "114.207.244.144",
+        "114.207.244.147",
+        "114.207.244.146",
+        "112.175.243.22",
+        "112.175.243.23",
+        "114.207.244.143",
+        "112.175.243.21"
+      ],
+      "length": [
+        3,
+        32
+      ],
+      "char_set_len": 36,
+      "numerical_characters_ratio": [
+        0.0,
+        0.875
+      ],
+      "public_suffixes": [
+        "co.cc"
+      ],
+      "meaningful_word_ratio": [
+        0.0,
+        0.6666666666666666
+      ],
+      "one_gram_normality_score": [
+        172.5625,
+        4542.0
+      ],
+      "two_gram_normality_score": [
+        0.0,
+        298.64285714285717
+      ],
+      "three_gram_normality_score": [
+        0.0,
+        41.54545454545455
+      ],
+      "sample_domains": [
+        "d1d0ecd57889cc53f4938a30c3e6617a.co.cc",
+        "62446a1af3f85b93f4eef982d07cc492.co.cc",
+        "0bf24e9a0cde1dc2090316dce5df2e9d.co.cc",
+        "2f33e02585ea4db96d8abdf653c18fc4.co.cc",
+        "708dff72f964cb37b4aaf9683e301316.co.cc",
+        "6a44b01fe26b7ff2185eca0bed294b66.co.cc",
+        "ea0783aeebd1f110a2b8a6b8d4898d6e.co.cc",
+        "0d1a81ab5bdfac9c8c6f6dd4278d99fb.co.cc",
+        "d99be27ba72a8420fb6e5d61a2ae7e15.co.cc",
+        "f1e01ace36ff2daabdea551b64079d86.co.cc"
+      ],
+      "attribution": "Bamital (http://research.zscaler.com/2011/05/another-trojan-bamital-pattern.html)"
+    },
+    {
+      "ID": "cb0cd",
+      "size": "38",
+      "ip_mapping_size": "4",
+      "sample_ip_mappings": [
+        "193.232.159.145",
+        "193.232.159.144",
+        "193.232.158.144",
+        "193.232.158.145"
+      ],
+      "length": [
+        3,
+        10
+      ],
+      "char_set_len": 33,
+      "numerical_characters_ratio": [
+        0.0,
+        1.0
+      ],
+      "public_suffixes": [
+        "ru"
+      ],
+      "meaningful_word_ratio": [
+        0.0,
+        1.0
+      ],
+      "one_gram_normality_score": [
+        2.0,
+        5415.75
+      ],
+      "two_gram_normality_score": [
+        0.0,
+        466.0
+      ],
+      "three_gram_normality_score": [
+        0.0,
+        56.333333333333336
+      ],
+      "sample_domains": [
+        "ed-z.ru",
+        "edni.ru",
+        "dlz.ru",
+        "777777.ru",
+        "jfaq.ru",
+        "cmyk.ru",
+        "bpp.ru",
+        "blazon.ru",
+        "buzzfilm.ru",
+        "ed8.ru"
+      ]
+    },
+    {
+      "ID": "4addb",
+      "size": "392",
+      "ip_mapping_size": "3",
+      "sample_ip_mappings": [
+        "93.170.52.40",
+        "93.170.52.30",
+        "93.170.52.20"
+      ],
+      "length": [
+        4,
+        20
+      ],
+      "char_set_len": 37,
+      "numerical_characters_ratio": [
+        0.0,
+        1.0
+      ],
+      "public_suffixes": [
+        "tk"
+      ],
+      "meaningful_word_ratio": [
+        0.0,
+        1.0
+      ],
+      "one_gram_normality_score": [
+        8.0,
+        4418.75
+      ],
+      "two_gram_normality_score": [
+        0.0,
+        393.4
+      ],
+      "three_gram_normality_score": [
+        0.0,
+        74.7
+      ],
+      "sample_domains": [
+        "zb2-1.tk",
+        "ls1-tv2.tk",
+        "iuy0l.tk",
+        "5dwam.tk",
+        "dqe8r.tk",
+        "3f48s.tk",
+        "gxyqo.tk",
+        "kyg4u.tk",
+        "35eg9.tk",
+        "vn56t.tk"
+      ],
+      "attribution": "SpyEye (https://spyeyetracker.abuse.ch/monitor.php?host=armnpls.tk)"
+    },
+    {
+      "ID": "df372",
+      "size": "404",
+      "ip_mapping_size": "3",
+      "sample_ip_mappings": [
+        "184.105.178.92",
+        "65.19.169.218",
+        "184.105.178.94"
+      ],
+      "length": [
+        4,
+        20
+      ],
+      "char_set_len": 37,
+      "numerical_characters_ratio": [
+        0.0,
+        1.0
+      ],
+      "public_suffixes": [
+        "net.cn",
+        "cn",
+        "com.cn"
+      ],
+      "meaningful_word_ratio": [
+        0.0,
+        0.7
+      ],
+      "one_gram_normality_score": [
+        6.916666666666667,
+        5235.571428571428
+      ],
+      "two_gram_normality_score": [
+        0.0,
+        513.0
+      ],
+      "three_gram_normality_score": [
+        0.0,
+        33.5
+      ],
+      "sample_domains": [
+        "l1k5u.cn",
+        "ngxip.cn",
+        "mrwlxr.cn",
+        "hvcvjxcc.cn",
+        "1x6u4.cn",
+        "hdnx0.cn",
+        "0bidk.cn",
+        "inyelu.cn",
+        "dom11z.cn",
+        "gihugyx.cn"
+      ],
+      "attribution": "Palevo (https://palevotracker.abuse.ch/?ipaddress=65.19.169.218)"
+    },
+    {
+      "ID": "88e73",
+      "size": "58",
+      "ip_mapping_size": "2",
+      "sample_ip_mappings": [
+        "176.74.176.175",
+        "208.87.35.107"
+      ],
+      "length": [
+        3,
+        3
+      ],
+      "char_set_len": 25,
+      "numerical_characters_ratio": [
+        0.0,
+        0.0
+      ],
+      "public_suffixes": [
+        "org",
+        "net",
+        "com"
+      ],
+      "meaningful_word_ratio": [
+        0.0,
+        1.0
+      ],
+      "one_gram_normality_score": [
+        636.6666666666666,
+        4762.333333333333
+      ],
+      "two_gram_normality_score": [
+        0.0,
+        579.5
+      ],
+      "three_gram_normality_score": [
+        0.0,
+        11.0
+      ],
+      "sample_domains": [
+        "rkk.org",
+        "uon.org",
+        "mzo.net",
+        "zuw.org",
+        "ntz.com",
+        "jhg.org",
+        "zuh.com",
+        "ldt.org",
+        "cbv.org",
+        "eks.org"
+      ],
+      "attribution": "Palevo(https://palevotracker.abuse.ch/?ipaddress=176.74.176.175)"
+    },
+    {
+      "ID": "07e21",
+      "size": "33771",
+      "ip_mapping_size": "9",
+      "sample_ip_mappings": [
+        "149.20.56.32",
+        "149.20.56.33",
+        "87.106.24.200",
+        "143.215.130.33",
+        "143.215.143.11",
+        "149.20.56.34",
+        "74.208.164.166",
+        "87.106.250.34",
+        "143.215.129.26"
+      ],
+      "length": [
+        5,
+        11
+      ],
+      "char_set_len": 26,
+      "numerical_characters_ratio": [
+        0.0,
+        0.0
+      ],
+      "public_suffixes": [
+        "info",
+        "org",
+        "biz",
+        "cc"
+      ],
+      "meaningful_word_ratio": [
+        0.0,
+        0.8571428571428571
+      ],
+      "one_gram_normality_score": [
+        245.2,
+        6089.8
+      ],
+      "two_gram_normality_score": [
+        0.0,
+        482.25
+      ],
+      "three_gram_normality_score": [
+        0.0,
+        144.4
+      ],
+      "sample_domains": [
+        "ojpttn.info",
+        "vehpxwwcbv.info",
+        "hccfucfu.info",
+        "uqmcddlk.org",
+        "kjlboivx.info",
+        "yodyxxu.info",
+        "qfwijckv.biz",
+        "ypqzi.info",
+        "igpgi.info",
+        "vtksmjfd.biz"
+      ],
+      "attribution": "Conficker (http://www.webboar.com/www/zbhrtp.org)"
+    }
+  ]
+}

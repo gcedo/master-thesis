@@ -10,6 +10,7 @@ $("#select-cluster").change(function() {
   $("svg circle").attr("stroke", "none");
   if ($("#select-cluster option:selected").attr("value") == "none") { return; }
   highlight_cluster($("#select-cluster option:selected").attr("value"));
+  load_cluster_info($("#select-cluster option:selected").attr("value"))
 })
 
 var colors = d3.scale.category20().range();
@@ -67,14 +68,17 @@ function init() {
          .text(id)); 
 
       $("." + id).hover(
+        function() { $("." + id).attr("stroke", "red");  },
+        function() { $("." + id).attr("stroke", "none"); }
+        );
+      $("." + id).click(
         function() {
-          $("." + id).attr("stroke", "red");
-        },
-        function() {
-          $("." + id).attr("stroke", "none");
-        })
+          highlight_cluster(id);
+          load_cluster_info(id);
+        }
+      );
     });
-    });
+  });
 }
 
 function update(data) {
@@ -101,6 +105,24 @@ function change_y_axis(domain) {
 
 function highlight_cluster(cluster) {
   $("." + cluster).attr("stroke", "red");
+}
+
+function load_cluster_info(cluster) {
+  $.getJSON('/static/data/p_entropy_test.json', function(data){
+    $.each(data.clusters, function(index, element) {
+      if (element.ID == cluster) {
+        $("#cluster-size").html(element.size);
+        $("#cluster-mapping").html(element.ip_mapping_size);
+        $("#cluster-length").html(element.length);
+        $("#cluster-char-length").html(element.char_set_len);
+        $("#cluster-num-ratio").html(element.numerical_characters_ratio);
+        $("#cluster-mean-ratio").html(element.meaningful_word_ratio);
+        $("#cluster-one-gram").html(element.one_gram_normality_score);
+        $("#cluster-two-gram").html(element.two_gram_normality_score);
+        $("#cluster-three-gram").html(element.three_gram_normality_score);
+      }
+    })
+  });
 }
 
 init();
