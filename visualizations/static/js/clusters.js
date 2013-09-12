@@ -6,6 +6,12 @@ $("#yaxis").change(function() {
   change_y_axis($("#yaxis option:selected").attr("value"));
 });
 
+$("#select-cluster").change(function() {
+  $("svg circle").attr("stroke", "none");
+  if ($("#select-cluster option:selected").attr("value") == "none") { return; }
+  highlight_cluster($("#select-cluster option:selected").attr("value"));
+})
+
 var colors = d3.scale.category20().range();
 var palette = {};
 var cluster_ids = Array();
@@ -91,6 +97,10 @@ function change_x_axis(domain) {
 function change_y_axis(domain) {
   circles.transition().duration(1000).ease("exp-in-out")
     .attr("cy", function(d) { return yRange(+d[domain])});
+}
+
+function highlight_cluster(cluster) {
+  $("." + cluster).attr("stroke", "red");
 }
 
 init();
