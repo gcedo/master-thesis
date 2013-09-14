@@ -1,0 +1,439 @@
+ID: d2e03
+Size: 37
+IP mappings size: 2
+Sample IP mappings:
+     -->  46.137.81.221
+     -->  208.87.35.101
+Length: (3, 8)
+Character set len: 35
+Numerical characters ratio: (0.0, 1.0)
+Public suffixes: set([u'org', u'net', u'com'])
+Meaningful word ratio: (0.0, 0.875)
+One gram normality score: (5.25, 5750.4)
+Two gram normality score: (0.0, 385.0)
+Three gram normality score: (0.0, 12.166666666666666)
+Sample domains:
+     -->  zawn.net
+     -->  naaer.com
+     -->  qkqh.com
+     -->  1959.com
+     -->  nbyz.net
+     -->  czeg.com
+     -->  08736.com
+     -->  nxon.com
+     -->  fox4.net
+     -->  juei.com
+#########################################
+ID: 5c59c
+Size: 43
+IP mappings size: 1
+Sample IP mappings:
+     -->  183.99.121.124
+Length: (5, 5)
+Character set len: 15
+Numerical characters ratio: (0.0, 1.0)
+Public suffixes: set([u'com', u'cn'])
+Meaningful word ratio: (0.0, 0.6)
+One gram normality score: (4.8, 1657.2)
+Two gram normality score: (0.0, 14.75)
+Three gram normality score: (0.0, 1.0)
+Sample domains:
+     -->  83991.com
+     -->  63778.com
+     -->  18676.com
+     -->  81785.com
+     -->  19527.com
+     -->  81795.com
+     -->  xhsky.cn
+     -->  88819.com
+     -->  65226.com
+     -->  35166.com
+#########################################
+ID: 08db6
+Size: 31
+IP mappings size: 6
+Sample IP mappings:
+     -->  72.233.69.6
+     -->  74.200.243.251
+     -->  76.74.254.120
+     -->  76.74.254.123
+     -->  72.233.2.58
+     -->  74.200.244.59
+Length: (4, 13)
+Character set len: 33
+Numerical characters ratio: (0.0, 0.6666666666666666)
+Public suffixes: set([u'me', u'org', u'net', u'com', u'co'])
+Meaningful word ratio: (0.0, 0.6666666666666666)
+One gram normality score: (171.5, 4165.6)
+Two gram normality score: (0.4, 344.54545454545456)
+Three gram normality score: (0.0, 101.7)
+Sample domains:
+     -->  tracking2012.com
+     -->  vudonxu.com
+     -->  snoopyjnr.com
+     -->  jb2011.com
+     -->  jbjd.org
+     -->  us20.org
+     -->  80xproof.com
+     -->  euslu.com
+     -->  704dujour.com
+     -->  30pixchix.com
+#########################################
+ID: 43dca
+Size: 50
+IP mappings size: 1
+Sample IP mappings:
+     -->  208.73.210.29
+Length: (3, 7)
+Character set len: 17
+Numerical characters ratio: (0.0, 1.0)
+Public suffixes: set([u'ca', u'com'])
+Meaningful word ratio: (0.0, 0.6)
+One gram normality score: (4.4, 4126.333333333333)
+Two gram normality score: (0.0, 118.0)
+Three gram normality score: (0.0, 2.0)
+Sample domains:
+     -->  5151mp3.com
+     -->  89083.com
+     -->  69812.com
+     -->  04309.com
+     -->  09452.com
+     -->  85886.com
+     -->  34061.com
+     -->  89454.com
+     -->  75725.com
+     -->  16011.com
+#########################################
+ID: e8ecd
+Size: 1430
+IP mappings size: 4
+Sample IP mappings:
+     -->  217.119.57.22
+     -->  91.215.158.57
+     -->  178.162.164.24
+     -->  94.103.151.195
+Length: (4, 18)
+Character set len: 37
+Numerical characters ratio: (0.0, 0.8)
+Public suffixes: set([u'tk'])
+Meaningful word ratio: (0.0, 0.875)
+One gram normality score: (201.8, 4558.857142857143)
+Two gram normality score: (0.0, 376.6666666666667)
+Three gram normality score: (0.0, 36.375)
+Sample domains:
+     -->  hahfgx71.tk
+     -->  hahfgx43.tk
+     -->  jhhfghf7.tk
+     -->  uhjjijkk34.tk
+     -->  uhjjijkk26.tk
+     -->  haujjuuu35.tk
+     -->  hahfgx63.tk
+     -->  uxxjzpx.tk
+     -->  faukiijjj15.tk
+     -->  fbxxxfre.tk
+Attribution: unknown
+#########################################
+ID: 169e6
+Size: 3870
+IP mappings size: 9
+Sample IP mappings:
+     -->  112.175.243.24
+     -->  114.207.244.145
+     -->  114.207.244.144
+     -->  114.207.244.147
+     -->  114.207.244.146
+     -->  112.175.243.22
+     -->  112.175.243.23
+     -->  114.207.244.143
+     -->  112.175.243.21
+Length: (3, 32)
+Character set len: 36
+Numerical characters ratio: (0.0, 0.875)
+Public suffixes: set([u'co.cc'])
+Meaningful word ratio: (0.0, 0.6666666666666666)
+One gram normality score: (172.5625, 4542.0)
+Two gram normality score: (0.0, 298.64285714285717)
+Three gram normality score: (0.0, 41.54545454545455)
+Sample domains:
+     -->  d1d0ecd57889cc53f4938a30c3e6617a.co.cc
+     -->  62446a1af3f85b93f4eef982d07cc492.co.cc
+     -->  0bf24e9a0cde1dc2090316dce5df2e9d.co.cc
+     -->  2f33e02585ea4db96d8abdf653c18fc4.co.cc
+     -->  708dff72f964cb37b4aaf9683e301316.co.cc
+     -->  6a44b01fe26b7ff2185eca0bed294b66.co.cc
+     -->  ea0783aeebd1f110a2b8a6b8d4898d6e.co.cc
+     -->  0d1a81ab5bdfac9c8c6f6dd4278d99fb.co.cc
+     -->  d99be27ba72a8420fb6e5d61a2ae7e15.co.cc
+     -->  f1e01ace36ff2daabdea551b64079d86.co.cc
+Attribution: Bamital (http://research.zscaler.com/2011/05/another-trojan-bamital-pattern.html)
+#########################################
+ID: cb0cd
+Size: 38
+IP mappings size: 4
+Sample IP mappings:
+     -->  193.232.159.145
+     -->  193.232.159.144
+     -->  193.232.158.144
+     -->  193.232.158.145
+Length: (3, 10)
+Character set len: 33
+Numerical characters ratio: (0.0, 1.0)
+Public suffixes: set([u'ru'])
+Meaningful word ratio: (0.0, 1.0)
+One gram normality score: (2.0, 5415.75)
+Two gram normality score: (0.0, 466.0)
+Three gram normality score: (0.0, 56.333333333333336)
+Sample domains:
+     -->  ed-z.ru
+     -->  edni.ru
+     -->  dlz.ru
+     -->  777777.ru
+     -->  jfaq.ru
+     -->  cmyk.ru
+     -->  bpp.ru
+     -->  blazon.ru
+     -->  buzzfilm.ru
+     -->  ed8.ru
+#########################################
+ID: 4addb
+Size: 392
+IP mappings size: 3
+Sample IP mappings:
+     -->  93.170.52.40
+     -->  93.170.52.30
+     -->  93.170.52.20
+Length: (4, 20)
+Character set len: 37
+Numerical characters ratio: (0.0, 1.0)
+Public suffixes: set([u'tk'])
+Meaningful word ratio: (0.0, 1.0)
+One gram normality score: (8.0, 4418.75)
+Two gram normality score: (0.0, 393.4)
+Three gram normality score: (0.0, 74.7)
+Sample domains:
+     -->  zb2-1.tk
+     -->  ls1-tv2.tk
+     -->  iuy0l.tk
+     -->  5dwam.tk
+     -->  dqe8r.tk
+     -->  3f48s.tk
+     -->  gxyqo.tk
+     -->  kyg4u.tk
+     -->  35eg9.tk
+     -->  vn56t.tk
+Attribution:SpyEye (https://spyeyetracker.abuse.ch/monitor.php?host=armnpls.tk)
+#########################################
+ID: df372
+Size: 404
+IP mappings size: 3
+Sample IP mappings:
+     -->  184.105.178.92
+     -->  65.19.169.218
+     -->  184.105.178.94
+Length: (4, 20)
+Character set len: 37
+Numerical characters ratio: (0.0, 1.0)
+Public suffixes: set([u'net.cn', u'cn', u'com.cn'])
+Meaningful word ratio: (0.0, 0.7)
+One gram normality score: (6.916666666666667, 5235.571428571428)
+Two gram normality score: (0.0, 513.0)
+Three gram normality score: (0.0, 33.5)
+Sample domains:
+     -->  l1k5u.cn
+     -->  ngxip.cn
+     -->  mrwlxr.cn
+     -->  hvcvjxcc.cn
+     -->  1x6u4.cn
+     -->  hdnx0.cn
+     -->  0bidk.cn
+     -->  inyelu.cn
+     -->  dom11z.cn
+     -->  gihugyx.cn
+Attribution: Palevo (https://palevotracker.abuse.ch/?ipaddress=65.19.169.218)
+#########################################
+ID: 88e73
+Size: 58
+IP mappings size: 2
+Sample IP mappings:
+     -->  176.74.176.175
+     -->  208.87.35.107
+Length: (3, 3)
+Character set len: 25
+Numerical characters ratio: (0.0, 0.0)
+Public suffixes: set([u'org', u'net', u'com'])
+Meaningful word ratio: (0.0, 1.0)
+One gram normality score: (636.6666666666666, 4762.333333333333)
+Two gram normality score: (0.0, 579.5)
+Three gram normality score: (0.0, 11.0)
+Sample domains:
+     -->  rkk.org
+     -->  uon.org
+     -->  mzo.net
+     -->  zuw.org
+     -->  ntz.com
+     -->  jhg.org
+     -->  zuh.com
+     -->  ldt.org
+     -->  cbv.org
+     -->  eks.org
+Attribution: Palevo(https://palevotracker.abuse.ch/?ipaddress=176.74.176.175)
+#########################################
+ID: 07e21
+Size: 33771
+IP mappings size: 9
+Sample IP mappings:
+     -->  149.20.56.32
+     -->  149.20.56.33
+     -->  87.106.24.200
+     -->  143.215.130.33
+     -->  143.215.143.11
+     -->  149.20.56.34
+     -->  74.208.164.166
+     -->  87.106.250.34
+     -->  143.215.129.26
+Length: (5, 11)
+Character set len: 26
+Numerical characters ratio: (0.0, 0.0)
+Public suffixes: set([u'info', u'org', u'biz', u'cc'])
+Meaningful word ratio: (0.0, 0.8571428571428571)
+One gram normality score: (245.2, 6089.8)
+Two gram normality score: (0.0, 482.25)
+Three gram normality score: (0.0, 144.4)
+Sample domains:
+     -->  ojpttn.info
+     -->  vehpxwwcbv.info
+     -->  hccfucfu.info
+     -->  uqmcddlk.org
+     -->  kjlboivx.info
+     -->  yodyxxu.info
+     -->  qfwijckv.biz
+     -->  ypqzi.info
+     -->  igpgi.info
+     -->  vtksmjfd.biz
+Attribution: Conficker (http://www.webboar.com/www/zbhrtp.org)
+
+
+
+#########################################
+Matching d2e03 against 5c59c: 1.57065552663e-12
+Matching d2e03 against 08db6: 9.89503533312e-08
+Matching d2e03 against 43dca: 4.28285620326e-12
+Matching d2e03 against e8ecd: 1.51818703176e-26
+Matching d2e03 against 169e6: 4.81718725839e-33
+Matching d2e03 against cb0cd: 0.00455514619334
+Matching d2e03 against 4addb: 6.58903787174e-20
+Matching d2e03 against df372: 7.50814000092e-18
+Matching d2e03 against 88e73: 4.10438073077e-14
+Matching d2e03 against 07e21: 1.68515562498e-22
+
+Matching 5c59c against 08db6: 7.40831147667e-09
+Matching 5c59c against 43dca: 1.0
+Matching 5c59c against e8ecd: 1.2062080363e-32
+Matching 5c59c against 169e6: 8.60015408538e-39
+Matching 5c59c against cb0cd: 0.000980778851866
+Matching 5c59c against 4addb: 1.3331315065e-11
+Matching 5c59c against df372: 5.73436087917e-05
+Matching 5c59c against 88e73: 4.05860134823e-23
+Matching 5c59c against 07e21: 5.11903616733e-28
+
+Matching 08db6 against 43dca: 7.27363126338e-09
+Matching 08db6 against e8ecd: 1.23709375315e-05
+Matching 08db6 against 169e6: 2.87478179013e-27
+Matching 08db6 against cb0cd: 0.0112826983763
+Matching 08db6 against 4addb: 0.146958546583
+Matching 08db6 against df372: 0.000546497544723
+Matching 08db6 against 88e73: 4.04941653853e-19
+Matching 08db6 against 07e21: 0.614439621176
+
+Matching 43dca against e8ecd: 5.3484804989e-36
+Matching 43dca against 169e6: 2.3619019097e-44
+Matching 43dca against cb0cd: 0.00255261827348
+Matching 43dca against 4addb: 2.75563707417e-12
+Matching 43dca against df372: 4.7703676617e-05
+Matching 43dca against 88e73: 4.61107715623e-24
+Matching 43dca against 07e21: 6.76049607697e-31
+
+Matching e8ecd against 169e6: 0.0
+Matching e8ecd against cb0cd: 4.22651917185e-16
+Matching e8ecd against 4addb: 2.27850347286e-55
+Matching e8ecd against df372: 9.82547613976e-142
+Matching e8ecd against 88e73: 1.32840930844e-50
+Matching e8ecd against 07e21: 9.88375743601e-163
+
+Matching 169e6 against cb0cd: 1.19172800566e-33
+Matching 169e6 against 4addb: 1.09645842989e-276
+Matching 169e6 against df372: 4.23448126837e-305
+Matching 169e6 against 88e73: 8.14080625756e-52
+Matching 169e6 against 07e21: 0.0
+
+
+
+Matching cb0cd against 4addb: 1.29175502582e-05
+Matching cb0cd against df372: 0.000147046389871
+Matching cb0cd against 88e73: 2.34468693947e-17
+Matching cb0cd against 07e21: 3.6047836223e-08
+
+
+Matching 4addb against df372: 2.67058988979e-16
+Matching 4addb against 88e73: 5.33665498508e-46
+Matching 4addb against 07e21: 6.67308066805e-27
+
+Matching df372 against 88e73: 3.5956500298e-46
+Matching df372 against 07e21: 1.57281966076e-82
+Matching 88e73 against 07e21: 1.64519965015e-52
+#########################################
+Matching eb1e7 against 25dad: 0.320142702272
+Matching eb1e7 against 0c41d: 0.237588861512
+Matching eb1e7 against bb747: 0.687205505387
+Matching eb1e7 against 7141e: 0.545081645855
+Matching eb1e7 against 1798a: 0.554383065416
+Matching eb1e7 against b6c59: 0.381840473149
+Matching eb1e7 against 35a87: 0.110944035799
+Matching eb1e7 against e7fd5: 0.96846100876
+Matching eb1e7 against 07e21: 0.0103398041356
+Matching eb1e7 against 94c7f: 0.670015840162
+Matching 25dad against 0c41d: 0.169830414153
+Matching 25dad against bb747: 0.163836253105
+Matching 25dad against 7141e: 0.415774950864
+Matching 25dad against 1798a: 0.423817442578
+Matching 25dad against b6c59: 0.124196864406
+Matching 25dad against 35a87: 0.0772599609614
+Matching 25dad against e7fd5: 0.999871756641
+Matching 25dad against 07e21: 0.0118998787779
+Matching 25dad against 94c7f: 0.163077442599
+Matching 0c41d against bb747: 0.213026057293
+Matching 0c41d against 7141e: 0.760684888528
+Matching 0c41d against 1798a: 0.0
+Matching 0c41d against b6c59: 0.148227613451
+Matching 0c41d against 35a87: 0.84119376306
+Matching 0c41d against e7fd5: 0.173318519333
+Matching 0c41d against 07e21: 0.245145224491
+Matching 0c41d against 94c7f: 0.190324083173
+Matching bb747 against 7141e: 0.500314459713
+Matching bb747 against 1798a: 0.509262133188
+Matching bb747 against b6c59: 0.136514132144
+Matching bb747 against 35a87: 0.0985489356909
+Matching bb747 against e7fd5: 0.986544630006
+Matching bb747 against 07e21: 0.0160305780467
+Matching bb747 against 94c7f: 0.0215954554021
+Matching 7141e against 1798a: 0.999836055311
+Matching 7141e against b6c59: 0.370624407624
+Matching 7141e against 35a87: 0.451396105499
+Matching 7141e against e7fd5: 0.422882911105
+Matching 7141e against 07e21: 0.0926401383356
+Matching 7141e against 94c7f: 0.43423759137
+Matching 1798a against b6c59: 0.378068594219
+Matching 1798a against 35a87: 0.443029954651
+Matching 1798a against e7fd5: 0.431012606789
+Matching 1798a against 07e21: 0.0904162621107
+Matching 1798a against 94c7f: 0.465341376149
+Matching b6c59 against 35a87: 0.0668504903778
+Matching b6c59 against e7fd5: 0.992563136012
+Matching b6c59 against 07e21: 0.00904330437763
+Matching b6c59 against 94c7f: 0.137520255118
+Matching 35a87 against e7fd5: 0.078955455908
+Matching 35a87 against 07e21: 0.477851009047
+Matching 35a87 against 94c7f: 0.0872805888836
+Matching e7fd5 against 07e21: 0.012632284152
+Matching e7fd5 against 94c7f: 0.99724963297
+Matching 07e21 against 94c7f: 0.0140656640195

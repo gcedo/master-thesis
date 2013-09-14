@@ -1,0 +1,213 @@
+[1m[33mID: [0mbamital
+[1m[33mSize: [0m83
+[1m[33mIP mappings size: [0m35
+[1m[33mSample IP mappings:
+[0m     -->  199.2.137.139
+     -->  95.211.76.168
+     -->  95.211.160.111
+     -->  62.212.64.2
+     -->  85.17.139.156
+     -->  66.197.224.59
+     -->  62.212.64.1
+     -->  95.211.72.195
+     -->  68.178.232.100
+     -->  127.0.0.2
+[1m[33mAS mappings size: [0m8
+[1m[33mSample AS mappings:
+[0m     -->  AS26496 GoDaddy.com, LLC
+     -->  Unknown Autonomous System
+     -->  AS30633 Leaseweb USA, Inc.
+     -->  AS3598 Microsoft Corp
+     -->  AS21788 Network Operations Center Inc.
+     -->  AS16265 LeaseWeb B.V.
+     -->  AS29182 ISPsystem Autonomous System
+     -->  AS39388 Forcraft Ltd.
+[1m[33mSample domains:
+[0m     -->  garadurowy.info
+     -->  fovefydigu.info
+     -->  pugubileli.info
+     -->  qasihynitewihil.info
+     -->  minycaqozy.info
+     -->  boqaroxonepidaf.info
+     -->  sogizogehu.info
+     -->  qumadeximubevab.info
+     -->  xirujyjojeqewuz.info
+     -->  pivinyqefu.info
+[1m[33m#########################################[0m
+[1m[33mID: [0me28ce
+[1m[33mSize: [0m11
+[1m[33mIP mappings size: [0m2
+[1m[33mSample IP mappings:
+[0m     -->  62.212.64.2
+     -->  62.212.64.1
+[1m[33mAS mappings size: [0m1
+[1m[33mSample AS mappings:
+[0m     -->  AS16265 LeaseWeb B.V.
+[1m[33mLength: [0m(10, 10)
+[1m[33mCharacter set len: [0m23
+[1m[33mNumerical characters ratio: [0m(0.0, 0.0)
+[1m[33mPublic suffixes: [0mset([u'info'])
+[1m[33mMeaningful word ratio: [0m(0.0, 0.3)
+[1m[33mOne gram normality score: [0m(2712.8, 4699.3)
+[1m[33mTwo gram normality score: [0m(75.66666666666667, 363.1111111111111)
+[1m[33mThree gram normality score: [0m(2.0, 34.0)
+[1m[33mSample domains:
+[0m     -->  vuposofosi.info
+     -->  vyzefykeno.info
+     -->  pyludydyne.info
+     -->  nebebewawy.info
+     -->  nipeziguxa.info
+     -->  debubywoso.info
+     -->  relusibeci.info
+     -->  xifobabime.info
+     -->  minycaqozy.info
+     -->  kicakipero.info
+[1m[33m#########################################[0m
+[1m[33mID: [0mb8cd5
+[1m[33mSize: [0m2
+[1m[33mIP mappings size: [0m1
+[1m[33mSample IP mappings:
+[0m     -->  95.211.72.195
+[1m[33mAS mappings size: [0m1
+[1m[33mSample AS mappings:
+[0m     -->  AS16265 LeaseWeb B.V.
+[1m[33mLength: [0m(15, 15)
+[1m[33mCharacter set len: [0m16
+[1m[33mNumerical characters ratio: [0m(0.0, 0.0)
+[1m[33mPublic suffixes: [0mset([u'info'])
+[1m[33mMeaningful word ratio: [0m(0.0, 0.2)
+[1m[33mOne gram normality score: [0m(3263.5333333333333, 3931.9333333333334)
+[1m[33mTwo gram normality score: [0m(187.14285714285714, 210.28571428571428)
+[1m[33mThree gram normality score: [0m(3.769230769230769, 7.615384615384615)
+[1m[33mSample domains:
+[0m     -->  setecymojijynas.info
+     -->  ryqymunacyrehev.info
+[1m[33m#########################################[0m
+[1m[33mID: [0m4b68c
+[1m[33mSize: [0m5
+[1m[33mIP mappings size: [0m2
+[1m[33mSample IP mappings:
+[0m     -->  199.2.137.141
+     -->  66.197.224.60
+[1m[33mAS mappings size: [0m2
+[1m[33mSample AS mappings:
+[0m     -->  AS3598 Microsoft Corp
+     -->  AS21788 Network Operations Center Inc.
+[1m[33mLength: [0m(10, 10)
+[1m[33mCharacter set len: [0m21
+[1m[33mNumerical characters ratio: [0m(0.0, 0.0)
+[1m[33mPublic suffixes: [0mset([u'info'])
+[1m[33mMeaningful word ratio: [0m(0.0, 0.4)
+[1m[33mOne gram normality score: [0m(3123.3, 4372.5)
+[1m[33mTwo gram normality score: [0m(96.77777777777777, 404.1111111111111)
+[1m[33mThree gram normality score: [0m(1.0, 41.5)
+[1m[33mSample domains:
+[0m     -->  mysotonego.info
+     -->  vajaqatebe.info
+     -->  mitinukowo.info
+     -->  jademanesu.info
+     -->  kazyrunyce.info
+[1m[33m#########################################[0m
+[1m[33mID: [0m8ff54
+[1m[33mSize: [0m6
+[1m[33mIP mappings size: [0m1
+[1m[33mSample IP mappings:
+[0m     -->  94.75.233.42
+[1m[33mAS mappings size: [0m1
+[1m[33mSample AS mappings:
+[0m     -->  AS16265 LeaseWeb B.V.
+[1m[33mLength: [0m(15, 15)
+[1m[33mCharacter set len: [0m26
+[1m[33mNumerical characters ratio: [0m(0.0, 0.0)
+[1m[33mPublic suffixes: [0mset([u'info'])
+[1m[33mMeaningful word ratio: [0m(0.0, 0.2)
+[1m[33mOne gram normality score: [0m(2014.2666666666667, 3751.266666666667)
+[1m[33mTwo gram normality score: [0m(64.5, 207.71428571428572)
+[1m[33mThree gram normality score: [0m(1.0769230769230769, 14.692307692307692)
+[1m[33mSample domains:
+[0m     -->  qiwijodapoduxoz.info
+     -->  biwonigygicyguw.info
+     -->  hycemirekikosog.info
+     -->  vaqimutenejozuf.info
+     -->  dolyqojoripomut.info
+     -->  qopaqoqyjunubuv.info
+[1m[33m#########################################[0m
+[1m[33mID: [0mf9a62
+[1m[33mSize: [0m10
+[1m[33mIP mappings size: [0m2
+[1m[33mSample IP mappings:
+[0m     -->  85.17.139.156
+     -->  184.82.79.74
+[1m[33mAS mappings size: [0m2
+[1m[33mSample AS mappings:
+[0m     -->  AS16265 LeaseWeb B.V.
+     -->  AS21788 Network Operations Center Inc.
+[1m[33mLength: [0m(15, 15)
+[1m[33mCharacter set len: [0m26
+[1m[33mNumerical characters ratio: [0m(0.0, 0.0)
+[1m[33mPublic suffixes: [0mset([u'info'])
+[1m[33mMeaningful word ratio: [0m(0.0, 0.6666666666666666)
+[1m[33mOne gram normality score: [0m(2358.8, 4608.466666666666)
+[1m[33mTwo gram normality score: [0m(78.85714285714286, 314.35714285714283)
+[1m[33mThree gram normality score: [0m(1.9230769230769231, 21.76923076923077)
+[1m[33mSample domains:
+[0m     -->  mowilakedotahil.info
+     -->  rysodaqiwasocez.info
+     -->  monuhucojaqunyx.info
+     -->  boqaroxonepidaf.info
+     -->  vypazakywimiluv.info
+     -->  soduzavodiqukaq.info
+     -->  nitagafaqejulaw.info
+     -->  qecitasicisirod.info
+     -->  gudetuxogilulav.info
+     -->  cumupohawobevus.info
+[1m[33m#########################################[0m
+[1m[33mID: [0m5ef35
+[1m[33mSize: [0m9
+[1m[33mIP mappings size: [0m2
+[1m[33mSample IP mappings:
+[0m     -->  199.2.137.139
+     -->  199.2.137.144
+[1m[33mAS mappings size: [0m1
+[1m[33mSample AS mappings:
+[0m     -->  AS3598 Microsoft Corp
+[1m[33mLength: [0m(15, 32)
+[1m[33mCharacter set len: [0m34
+[1m[33mNumerical characters ratio: [0m(0.0, 0.75)
+[1m[33mPublic suffixes: [0mset([u'info', u'org', u'in'])
+[1m[33mMeaningful word ratio: [0m(0.0, 0.4)
+[1m[33mOne gram normality score: [0m(767.65625, 3916.0666666666666)
+[1m[33mTwo gram normality score: [0m(0.3225806451612903, 235.28571428571428)
+[1m[33mThree gram normality score: [0m(0.03333333333333333, 13.692307692307692)
+[1m[33mSample domains:
+[0m     -->  nimyguvafihubiz.info
+     -->  zubycumowatodeh.in
+     -->  tugidogysebuwox.info
+     -->  10f37228315e990df44d2132543a7cb2.org
+     -->  sokefebykisimyp.in
+     -->  cumeqemobemugiq.info
+     -->  qasihynitewihil.info
+     -->  qecytysefehawag.info
+     -->  wunydohajysytin.info
+[1m[33m#########################################[0m
+[1m[33mID: [0m84a69
+[1m[33mSize: [0m3
+[1m[33mIP mappings size: [0m1
+[1m[33mSample IP mappings:
+[0m     -->  62.109.10.227
+[1m[33mAS mappings size: [0m1
+[1m[33mSample AS mappings:
+[0m     -->  AS29182 ISPsystem Autonomous System
+[1m[33mLength: [0m(10, 10)
+[1m[33mCharacter set len: [0m16
+[1m[33mNumerical characters ratio: [0m(0.0, 0.0)
+[1m[33mPublic suffixes: [0mset([u'info'])
+[1m[33mMeaningful word ratio: [0m(0.0, 0.3)
+[1m[33mOne gram normality score: [0m(3456.3, 3554.7)
+[1m[33mTwo gram normality score: [0m(150.66666666666666, 229.88888888888889)
+[1m[33mThree gram normality score: [0m(1.25, 15.875)
+[1m[33mSample domains:
+[0m     -->  cegilolajy.info
+     -->  bahizyniri.info
+     -->  pugubileli.info
+[1m[33m#########################################[0m
