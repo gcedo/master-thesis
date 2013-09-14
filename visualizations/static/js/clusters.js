@@ -21,9 +21,9 @@ var vis = d3.select("#clusters-vis"),
   height = 500,
   margins = {top: 20, right: 20, bottom: 20, left: 30},
   xMin = 0,
-  xMax = 300,
+  xMax = 4000,
   yMin = 0,
-  yMax = 300,
+  yMax = 500,
   xRange = d3.scale.linear()
              .range([margins.left, width - margins.right]).domain([xMin, xMax]),
   yRange = d3.scale.linear()
@@ -38,7 +38,8 @@ var vis = d3.select("#clusters-vis"),
   circles;
 
 function init() {
-  d3.json("/static/data/clusters.json", function(error, json) {
+  // d3.json("/static/data/clusters.json", function(error, json) {
+  d3.json("/static/data/edo_1379164428.json", function(error, json) {
     vis.append("g")
       .attr("class", "x axis")
       .attr("transform", "translate(0," + (height - margins.bottom) + ")")
@@ -86,8 +87,8 @@ function update(data) {
                  .data(data, function(d) { return d.url; });
   circles.enter()
     .insert("circle")
-      .attr("cx", function(d) { return xRange(+d.cf1); })
-      .attr("cy", function(d) { return yRange(+d.cf2); })
+      .attr("cx", function(d) { return xRange(+d.one_gram); })
+      .attr("cy", function(d) { return yRange(+d.two_gram); })
       .attr("class", function(d) { return d.cluster; })
       .attr("r", 2)
       .style("fill", function(d) { return palette[d.cluster]; });
