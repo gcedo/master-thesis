@@ -115,14 +115,23 @@ function load_cluster_info(cluster) {
         $("#cluster-mapping").html(element.ip_mapping_size);
         $("#cluster-length").html(element.length);
         $("#cluster-char-length").html(element.char_set_len);
-        $("#cluster-num-ratio").html(element.numerical_characters_ratio);
-        $("#cluster-mean-ratio").html(element.meaningful_word_ratio);
-        $("#cluster-one-gram").html(element.one_gram_normality_score);
-        $("#cluster-two-gram").html(element.two_gram_normality_score);
-        $("#cluster-three-gram").html(element.three_gram_normality_score);
+        $("#cluster-num-ratio")
+          .html(format_min_max(element.numerical_characters_ratio));
+        $("#cluster-mean-ratio")
+          .html(format_min_max(element.meaningful_word_ratio));
+        $("#cluster-one-gram")
+          .html(format_min_max(element.one_gram_normality_score));
+        $("#cluster-two-gram")
+          .html(format_min_max(element.two_gram_normality_score));
+        $("#cluster-three-gram")
+          .html(format_min_max(element.three_gram_normality_score));
       }
     })
   });
+}
+
+function format_min_max(values) {
+  return "Min: " + values[0] + " Max: " + values[1];
 }
 
 init();
