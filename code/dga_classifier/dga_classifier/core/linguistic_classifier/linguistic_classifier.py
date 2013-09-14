@@ -206,7 +206,7 @@ class DGAClassifier:
 
 		feature_set.set_DGA_label(label)
 
-		print jsontools.domain_feature_set_to_json(feature_set)
+		print jsontools.domain_feature_set_to_json(self._domain, feature_set)
 
 
 ########################################

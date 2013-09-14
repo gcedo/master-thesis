@@ -18,13 +18,14 @@ from termcolor import colored
 ## External test
 ########################################
 
-def external_test():
+def external_test(limit=True):
 	exposure_cluster_factory = DomainClusterDatabaseFactory(identifier = 'exposure', experiment = False)
 	exposure_cluster = exposure_cluster_factory.get()
 
 	# Reducing cluster size for testing purposes
-	cluster_toolbox = DomainClusterToolbox()
-	exposure_cluster = cluster_toolbox.split(exposure_cluster, 5000, 1)[0]
+	if limit:
+		cluster_toolbox = DomainClusterToolbox()
+		exposure_cluster = cluster_toolbox.split(exposure_cluster, 5000, 1)[0]
 
 	family_clusterer = FamilyClusterer(exposure_cluster)
 	dga_sublusters = family_clusterer.compute_clusters()
