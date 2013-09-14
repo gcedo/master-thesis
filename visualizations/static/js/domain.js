@@ -20,7 +20,6 @@ $(function() {
       });
       addMarkers(items);
     });
-
   }
 
   function addMarkers(items) {
@@ -39,4 +38,8 @@ $(function() {
 
   initialize();
   getDomainJson('sophosxl.com');
+
+  $( ".panel" ).draggable({ grid: [ 20,20 ] });
+  $( ".panel" ).resizable();
+
 });

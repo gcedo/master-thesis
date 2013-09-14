@@ -1,0 +1,114 @@
+{% extends 'layout/base.html' %}
+{% block style %}
+    <style>
+      .axis text
+        {
+          fill: #fff;
+          stroke: none;
+          font-family: sans-serif;
+          font-size: 10px;
+          font-weight: thin;
+        }
+      .axis .domain
+        {
+          stroke: #fff;
+          opacity: 0;
+        }
+      .tick { stroke: #fff; }
+      svg { 
+            width: 500px;
+            height: 500px;
+            background: #2d2d2d; }
+    </style>
+{% endblock %}
+
+{% block container%}
+<div class="row">
+  <div class="col-md-6">
+    <svg id="clusters-vis"></svg>
+  </div>
+  <div class="col-md-6">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Dashboard</h3>
+      </div>
+      <div class="panel-body">
+        <label for="select-cluster">Select a cluster</label>
+          <select name="select-cluster" id="select-cluster" class="form-control">
+            <option value="none">none</option>
+          </select>
+      </div>
+    </div>
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <h3 class="panel-title">Cluster Information</h3>
+      </div>
+      <table class="table">
+        <tr>
+          <td><strong>Size</strong></td>
+          <td id="cluster-size"></td>
+        </tr>
+        <tr>
+          <td><strong>IP Mapping Size</strong></td>
+          <td id="cluster-mapping"></td>
+        </tr>
+        <tr>
+          <td><strong>Length</strong></td>
+          <td id="cluster-length"></td>
+        </tr>
+        <tr>
+          <td><strong>Charset Length</strong></td>
+          <td id="cluster-char-length"></td>
+        </tr>
+        <tr>
+          <td><strong>Numerical Characters Ratio</strong></td>
+          <td id="cluster-num-ratio"></td>
+        </tr>
+        <tr>
+          <td><strong>Meaningful Word Ratio</strong></td>
+          <td id="cluster-mean-ratio"></td>
+        </tr>
+        <tr>
+          <td><strong>1-gram Normality Score</strong></td>
+          <td id="cluster-one-gram"></td>
+        </tr>
+        <tr>
+          <td><strong>2-gram Normality Score</strong></td>
+          <td id="cluster-two-gram"></td>
+        </tr>
+        <tr>
+          <td><strong>3-gram Normality Score</strong></td>
+          <td id="cluster-three-gram"></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-2">
+    <label for="xaxis">X Axis Domain</label>
+    <select name="xaxis" id="xaxis" class="form-control">
+      <option value="cf1">CF1</option>
+      <option value="cf2">CF2</option>
+      <option value="cf3">CF3</option>
+      <option value="cf4">CF4</option>
+    </select>
+    
+    <label for="yaxis">Y Axis Domain</label>
+    <select name="yaxis" id="yaxis" class="form-control">
+      <option value="cf1">CF1</option>
+      <option value="cf2">CF2</option>
+      <option value="cf3">CF3</option>
+      <option value="cf4">CF4</option>
+    </select>
+  </div>
+</div>
+{% endblock %}
+{% block scripts %}
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script src="/static/js/clusters.js"></script>
+{% endblock %}

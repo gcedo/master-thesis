@@ -38,5 +38,9 @@ def domain(domain):
 	else:
 		return domain_engine.render_page_content(domain, mime='html')
 
+@app.route("/clusters")
+def clusters():
+   	return render_template("clusters.html")
+
 if __name__ == "__main__":
     app.run(debug=True)
