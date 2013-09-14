@@ -1,0 +1,28 @@
+{
+  "domains": [
+    {
+      "url": "retunfawe38.tk",
+      "three_gram": 6.888888888888889,
+      "two_gram": 207.2,
+      "cluster": "non_DGA",
+      "one_gram": 3674.5454545454545,
+      "meaningful_word_ratio": 0.0
+    },
+    {
+      "url": "haugkjhj15.tk",
+      "three_gram": 0.875,
+      "two_gram": 37.44444444444444,
+      "cluster": "DGA",
+      "one_gram": 1226.1,
+      "meaningful_word_ratio": 0.0
+    },
+    {
+      "url": "christianmentoring.com",
+      "three_gram": 123.125,
+      "two_gram": 582.8235294117648,
+      "cluster": "non_DGA",
+      "one_gram": 4601.388888888889,
+      "meaningful_word_ratio": 0.8333333333333334
+    }
+    ]
+  }
