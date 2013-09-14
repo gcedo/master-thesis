@@ -6,6 +6,7 @@ from dga_classifier.core.linguistic_classifier.linguistic_features_extractors im
 #from dga_classifier.core.linguistic_classifier.linguistic_features_extractors import CharacterDigitTransitionsExtractor
 from dga_classifier.core.linguistic_classifier.linguistic_features_extractors import NGramNormalityExtractor
 from dga_classifier.core.clustering.cluster import DomainClusterFileFactory
+from dga_classifier.core.helper import jsontools
 from scipy.spatial.distance import mahalanobis
 import scipy
 import numpy
@@ -204,6 +205,8 @@ class DGAClassifier:
 			label = 'DGA'
 
 		feature_set.set_DGA_label(label)
+
+		print jsontools.domain_feature_set_to_json(feature_set)
 
 
 ########################################
