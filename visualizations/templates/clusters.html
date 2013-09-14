@@ -33,11 +33,36 @@
         <h3 class="panel-title">Dashboard</h3>
       </div>
       <div class="panel-body">
-        <label for="select-cluster">Select a cluster</label>
-          <select name="select-cluster" id="select-cluster" class="form-control">
-            <option value="none">none</option>
-          </select>
+        <div class="row">
+          <div class="col-md-12">
+            <label for="select-cluster">Select a cluster</label>
+            <select name="select-cluster" id="select-cluster" class="form-control">
+              <option value="none">none</option>
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <label for="xaxis">X Axis Domain</label>
+            <select name="xaxis" id="xaxis" class="form-control">
+              <option value="one_gram">One Gram</option>
+              <option value="two_gram">Two Gram</option>
+              <option value="three_gram">Three Gram</option>
+              <option value="meaningful_word_ratio">Meaningful Word Ratio</option>
+            </select>
+          </div>
+          <div class="col-md-6">
+            <label for="yaxis">Y Axis Domain</label>
+            <select name="yaxis" id="yaxis" class="form-control">
+              <option value="one_gram">One Gram</option>
+              <option value="two_gram">Two Gram</option>
+              <option value="three_gram">Three Gram</option>
+              <option value="meaningful_word_ratio">Meaningful Word Ratio</option>
+            </select>
+          </div>
+        </div>
       </div>
+
     </div>
     <div class="panel panel-info">
       <div class="panel-heading">
@@ -89,23 +114,7 @@
   </div>
 </div>
 <div class="row">
-  <div class="col-md-2">
-    <label for="xaxis">X Axis Domain</label>
-    <select name="xaxis" id="xaxis" class="form-control">
-      <option value="one_gram">One Gram</option>
-      <option value="two_gram">Two Gram</option>
-      <option value="three_gram">Three Gram</option>
-      <option value="meaningful_word_ratio">Meaningful Word Ratio</option>
-    </select>
-    
-    <label for="yaxis">Y Axis Domain</label>
-    <select name="yaxis" id="yaxis" class="form-control">
-      <option value="one_gram">One Gram</option>
-      <option value="two_gram">Two Gram</option>
-      <option value="three_gram">Three Gram</option>
-      <option value="meaningful_word_ratio">Meaningful Word Ratio</option>
-    </select>
-  </div>
+  
 </div>
 {% endblock %}
 {% block scripts %}
