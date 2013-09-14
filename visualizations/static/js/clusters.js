@@ -36,6 +36,7 @@ var vis = d3.select("#clusters-vis"),
             .tickSize(5)
             .orient("left"),
   circles;
+var drawingData;
 
 function init() {
   // d3.json("/static/data/clusters.json", function(error, json) {
@@ -59,7 +60,7 @@ function init() {
     $.each(cluster_ids, function(index, element) {
       palette[element] = colors[index];
     });
-
+    drawingData = json.domains;
     update(json.domains);
 
     $.each(cluster_ids, function(index, id) {
@@ -95,11 +96,24 @@ function update(data) {
 }
 
 function change_x_axis(domain) {
+  transition = vis.transition().duration(1000).ease("exp-in-out"); 
+  xRange.domain([
+    d3.min (drawingData, function(d) { return +d[domain]; }),
+    d3.max (drawingData, function(d) { return +d[domain]; })
+  ]);
+  transition.select(".x.axis").call(xAxis);
   circles.transition().duration(1000).ease("exp-in-out")
     .attr("cx", function(d) { return xRange(+d[domain])});
 }
 
 function change_y_axis(domain) {
+  transition = vis.transition().duration(1000).ease("exp-in-out");
+  yRange.domain([
+    d3.min (drawingData, function(d) { return +d[domain]; }),
+    d3.max (drawingData, function(d) { return +d[domain]; })
+  ]);
+  
+  transition.select(".y.axis").call(yAxis);
   circles.transition().duration(1000).ease("exp-in-out")
     .attr("cy", function(d) { return yRange(+d[domain])});
 }
