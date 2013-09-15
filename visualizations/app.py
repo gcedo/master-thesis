@@ -6,7 +6,7 @@ import scripts.map as map_engine
 
 app = Flask(__name__)
 
-
+# Database Handling
 def connect_db():
 	conn = Connection()
 	db = conn.botime
@@ -16,7 +16,6 @@ def connect_db():
 def before_request():
     g.conn, g.db = connect_db()
 
-
 @app.teardown_request
 def teardown_request(exception):
     g.conn.close()
@@ -25,6 +24,8 @@ def teardown_request(exception):
 def hello():
     return "Hello World!"
 
+
+# Malicious Results
 @app.route("/map")
 def map():
    	return map_engine.render_page_content()
@@ -38,9 +39,35 @@ def domain(domain):
 	else:
 		return domain_engine.render_page_content(domain, mime='html')
 
-@app.route("/clusters")
-def clusters():
-   	return render_template("clusters.html")
+@app.route("/domains")
+def domains():
+   	return render_template("domains.html")
 
+@app.route("/registars")
+def registars():
+   	return render_template("registars.html")
+
+@app.route("/ips")
+def ips():
+   	return render_template("ips.html")
+
+# How Phoenix Works routes
+@app.route("/how_it_works")
+def how():
+   	return render_template("how_it_works.html")
+
+@app.route("/filtering")
+def filtering():
+   	return render_template("agd_filtering.html")
+
+@app.route("/clustering")
+def clustering():
+   	return render_template("clustering.html")
+
+@app.route("/fingerprinting")
+def fingerprinting():
+   	return render_template("fingerprinting.html")
+
+# Main
 if __name__ == "__main__":
     app.run(debug=True)

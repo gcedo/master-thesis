@@ -24,6 +24,13 @@
 
 {% block container%}
 <div class="row">
+  <div class="col-md-12">
+    <h2>AGD Filtering</h2>
+    <hr>
+  </div>
+</div>
+
+<div class="row">
   <div class="col-md-6">
     <svg id="clusters-vis"></svg>
   </div>
@@ -64,7 +71,7 @@
       </div>
 
     </div>
-    <div class="panel panel-info">
+    <!-- <div class="panel panel-info">
       <div class="panel-heading">
         <h3 class="panel-title">Cluster Information</h3>
       </div>
@@ -105,19 +112,44 @@
           <td><strong>3-gram Normality Score</strong></td>
           <td id="cluster-three-gram"></td>
         </tr>
-        <tr>
-          <td></td>
-          <td></td>
-        </tr>
       </table>
-    </div>
+    </div> -->
   </div>
 </div>
 <div class="row">
-  
+  <div class="col-md-12">
+    <h2>Explanation</h2>
+    <hr>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-6">
+    <h3>Linguistic Features</h3>
+    <p>
+      Donec ullamcorper nulla non metus auctor fringilla. Vivamus sagittis lacus vel augue laoreet rutrum faucibus 
+      dolor auctor. Vestibulum id ligula porta felis euismod semper. Cras justo odio, dapibus ac facilisis in, 
+      egestas eget quam. Maecenas sed diam eget risus varius blandit sit amet non magna.
+    </p>
+  </div>
+  <div class="col-md-6">
+    <img src="http://placehold.it/500x350" alt="">
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-6">
+    <h3>Statistical Linguistic Filter</h3>
+    <p>
+      Donec ullamcorper nulla non metus auctor fringilla. Vivamus sagittis lacus vel augue laoreet rutrum faucibus 
+      dolor auctor. Vestibulum id ligula porta felis euismod semper. Cras justo odio, dapibus ac facilisis in, 
+      egestas eget quam. Maecenas sed diam eget risus varius blandit sit amet non magna.
+    </p>
+  </div>
+  <div class="col-md-6">
+    <img src="http://placehold.it/500x350" alt="">
+  </div>
 </div>
 {% endblock %}
 {% block scripts %}
     <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
-    <script src="/static/js/clusters.js"></script>
+    <script src="/static/js/filtering.js"></script>
 {% endblock %}
