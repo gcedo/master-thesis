@@ -11,7 +11,6 @@ $("#select-cluster").change(function() {
   $("svg circle").attr("stroke", "none");
   if ($("#select-cluster option:selected").attr("value") == "none") { return; }
   highlight_cluster($("#select-cluster option:selected").attr("value"));
-  load_cluster_info($("#select-cluster option:selected").attr("value"))
 });
 
 // d3js
