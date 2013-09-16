@@ -1,7 +1,7 @@
 {% extends 'layout/base.html' %}
 {% block style %}
     <style>
-      .axis text
+      #clusters-vis text
         {
           fill: #fff;
           stroke: none;
@@ -9,6 +9,10 @@
           font-size: 10px;
           font-weight: thin;
         }
+
+      #clusters-vis circle {
+        cursor: pointer;
+      }
       .axis .domain
         {
           stroke: #fff;
@@ -19,10 +23,15 @@
             width: 500px;
             height: 500px;
             background: #2d2d2d; }
+
       #radar-chart {
-        width: 300px;
-        height: 300px;
+        width: 250px;
+        height: 250px;
         background: #2d2d2d;
+      }
+
+      #radar-chart text {
+        fill: #fff;
       }
     </style>
 {% endblock %}
@@ -80,8 +89,34 @@
       <div class="panel-heading">
         <h3 class="panel-title">Domain Information</h3>
       </div>
-      <div class="panel-body">
-        <div id="radar-chart"></div>
+      <div class="row">
+        <div class="col-md-6">
+          <div id="radar-chart"></div>
+        </div>
+        <div class="col-md-6">
+          <table class="table">
+            <tr>
+              <td>Url</td>
+              <td id="domain-url"></td>
+            </tr>
+            <tr>
+              <td>Meaningful Word Ratio</td>
+              <td id="domain-meaningful"></td>
+            </tr>
+            <tr>
+              <td>One Gram</td>
+              <td id="domain-one_gram"></td>
+            </tr>
+            <tr>
+              <td>Two Gram</td>
+              <td id="domain-two_gram"></td>
+            </tr>
+            <tr>
+              <td>Three Gram</td>
+              <td id="domain-three_gram"></td>
+            </tr>
+          </table>
+        </div>
       </div>
     </div>
   </div>
