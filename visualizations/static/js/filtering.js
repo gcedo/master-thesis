@@ -1,3 +1,4 @@
+// Binders
 $("#xaxis").change(function() {
   change_x_axis($("#xaxis option:selected").attr("value"));
 });
@@ -11,8 +12,9 @@ $("#select-cluster").change(function() {
   if ($("#select-cluster option:selected").attr("value") == "none") { return; }
   highlight_cluster($("#select-cluster option:selected").attr("value"));
   load_cluster_info($("#select-cluster option:selected").attr("value"))
-})
+});
 
+// d3js
 var colors = d3.scale.category20().range();
 var palette = {};
 var cluster_ids = Array();
@@ -68,17 +70,6 @@ function init() {
          .append($("<option></option>")
          .attr("value", id)
          .text(id)); 
-
-      $("." + id).hover(
-        function() { $("." + id).attr("stroke", "red");  },
-        function() { $("." + id).attr("stroke", "none"); }
-        );
-      $("." + id).click(
-        function() {
-          highlight_cluster(id);
-          load_cluster_info(id);
-        }
-      );
     });
   });
 }
@@ -91,8 +82,21 @@ function update(data) {
       .attr("cx", function(d) { return xRange(+d.one_gram); })
       .attr("cy", function(d) { return yRange(+d.two_gram); })
       .attr("class", function(d) { return d.cluster; })
+      .attr("id", function(d) { return d.url })
       .attr("r", 2)
       .style("fill", function(d) { return palette[d.cluster]; });
+
+  $("circle").hover(
+    function() { $(this).attr("stroke", "red");  },
+    function() { $(this).attr("stroke", "none"); }
+  );
+
+  $("circle").click(
+  function() {
+    domain = $(this).attr("id");
+    load_domain_info(domain);
+  }
+);
 }
 
 function change_x_axis(domain) {
@@ -122,27 +126,8 @@ function highlight_cluster(cluster) {
   $("." + cluster).attr("stroke", "red");
 }
 
-function load_cluster_info(cluster) {
-  $.getJSON('/static/data/p_entropy_test.json', function(data){
-    $.each(data.clusters, function(index, element) {
-      if (element.ID == cluster) {
-        $("#cluster-size").html(element.size);
-        $("#cluster-mapping").html(element.ip_mapping_size);
-        $("#cluster-length").html(element.length);
-        $("#cluster-char-length").html(element.char_set_len);
-        $("#cluster-num-ratio")
-          .html(format_min_max(element.numerical_characters_ratio));
-        $("#cluster-mean-ratio")
-          .html(format_min_max(element.meaningful_word_ratio));
-        $("#cluster-one-gram")
-          .html(format_min_max(element.one_gram_normality_score));
-        $("#cluster-two-gram")
-          .html(format_min_max(element.two_gram_normality_score));
-        $("#cluster-three-gram")
-          .html(format_min_max(element.three_gram_normality_score));
-      }
-    })
-  });
+function load_domain_info(domain) {
+  console.log(domain);
 }
 
 function format_min_max(values) {
