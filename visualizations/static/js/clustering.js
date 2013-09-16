@@ -142,7 +142,7 @@ function getIPLocationJson() {
       $.each(data, function(key, val) {
         $.each(val, function(id, array) {
           $.each(array, function(i, j) {
-            items.push({"lat": j.lat, "lon": j.lon});
+            items.push({"lat": j.lat, "lon": j.lon, "cluster": id});
           });
         });
       });
@@ -153,14 +153,17 @@ function getIPLocationJson() {
 function addMarkers(items) {
   $.each(items, function(k, item) {
     var loc = new google.maps.LatLng(parseFloat(item.lat), parseFloat(item.lon));
-    addMarker(loc);
+    addMarker(loc, item.cluster);
   })
 }
 
-function addMarker(loc) {
+function addMarker(loc, cluster) {
+  console.log(cluster)
+  console.log(palette)
   marker = new google.maps.Marker({
     position: loc,
-    map: map
+    map: map,
+    icon: 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|' + palette[cluster].replace("#", "")
   });
 }
 
