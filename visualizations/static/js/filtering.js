@@ -127,7 +127,8 @@ function highlight_cluster(cluster) {
 }
 
 function load_domain_info(domain) {
-  console.log(domain);
+  console.log(drawingData);
+
 }
 
 function format_min_max(values) {
@@ -135,3 +136,15 @@ function format_min_max(values) {
 }
 
 init();
+
+// Radar Chart
+d = [
+     [
+       {axis: "meaningful word ratio", value: 0}, 
+       {axis: "one gram", value: 3674.5454545454545}, 
+       {axis: "two gram", value: 6.888888888888889},  
+       {axis: "three gram", value: 207.2}
+     ]
+];
+
+RadarChart.draw("#radar-chart", d);
