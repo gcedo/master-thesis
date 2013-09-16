@@ -2,8 +2,8 @@ var RadarChart = {
   draw: function(id, d, options){
     var cfg = {
      radius: 5,
-     w: 300,
-     h: 300,
+     w: 250,
+     h: 250,
      factor: 1,
      factorLegend: .85,
      levels: 3,
@@ -28,7 +28,6 @@ var RadarChart = {
     cfg.maxValues[3] = 250;
     
     var allAxis = (d[0].map(function(i, j){return i.axis}));
-    console.log(allAxis);
     var total = allAxis.length;
     var radius = cfg.factor*Math.min(cfg.w/2, cfg.h/2);
     d3.select(id).select("svg").remove();
@@ -70,7 +69,6 @@ var RadarChart = {
       dataValues = [];
       g.selectAll(".nodes")
         .data(y, function(j, i){
-          console.log("j: " + j + ", i: " + i);
           dataValues.push([
             cfg.w/2*(1-(parseFloat(Math.max(j.value, 0))/cfg.maxValues[i])*cfg.factor*Math.sin(i*cfg.radians/total)), 
             cfg.h/2*(1-(parseFloat(Math.max(j.value, 0))/cfg.maxValues[i])*cfg.factor*Math.cos(i*cfg.radians/total))

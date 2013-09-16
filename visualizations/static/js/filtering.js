@@ -15,6 +15,7 @@ $("#select-cluster").change(function() {
 });
 
 // d3js
+var format = d3.format(".2f");
 var colors = d3.scale.category20().range();
 var palette = {};
 var cluster_ids = Array();
@@ -127,8 +128,25 @@ function highlight_cluster(cluster) {
 }
 
 function load_domain_info(domain) {
-  console.log(drawingData);
-
+  $.each(drawingData, function(index, datum) {
+      if (datum.url == domain) {
+        d = [
+          [
+            {axis: "Meaningful Word Ratio", value: datum.meaningful_word_ratio}, 
+            {axis: "One Gram", value: datum.one_gram}, 
+            {axis: "Two Gram", value: datum.two_gram},  
+            {axis: "Three Gram", value: datum.three_gram}
+          ]
+        ];
+        RadarChart.draw("#radar-chart", d);
+        $("#domain-url").html(datum.url);
+        $("#domain-meaningful").html(format(datum.meaningful_word_ratio));
+        $("#domain-one_gram").html(format(datum.one_gram));
+        $("#domain-two_gram").html(format(datum.two_gram));
+        $("#domain-three_gram").html(format(datum.three_gram));
+        return false;
+      }
+    });
 }
 
 function format_min_max(values) {
@@ -140,11 +158,10 @@ init();
 // Radar Chart
 d = [
      [
-       {axis: "meaningful word ratio", value: 0}, 
-       {axis: "one gram", value: 3674.5454545454545}, 
-       {axis: "two gram", value: 6.888888888888889},  
-       {axis: "three gram", value: 207.2}
+       {axis: "Meaningful Word Ratio", value: 0}, 
+       {axis: "One Gram", value: 0}, 
+       {axis: "Two Gram", value: 0},  
+       {axis: "Three Gram", value: 0}
      ]
 ];
-
 RadarChart.draw("#radar-chart", d);
