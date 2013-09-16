@@ -11,6 +11,7 @@ from dga_classifier.core.timeseries.timeseries import TimeseriesToolbox
 from dga_classifier.core.export.webinterface import WebInterfaceGenerator
 from dga_classifier.core.linguistic_classifier.linguistic_classifier import DGAClassifier
 from dga_classifier.core.helper.tools import colored_label
+from dga_classifier.core.helper import jsontools
 from termcolor import colored
 
 
@@ -31,7 +32,8 @@ def external_test(limit=True):
 	dga_sublusters = family_clusterer.compute_clusters()
 
 	for subcluster in dga_sublusters:
-		print str(subcluster)
+		# print str(subcluster)
+		print jsontools.domain_cluster_to_json(subcluster)
 
 	# experiment_cluster_factory = DomainClusterDatabaseFactory(identifier = 'experiment', experiment = True)
 	# experiment_cluster = experiment_cluster_factory.get()

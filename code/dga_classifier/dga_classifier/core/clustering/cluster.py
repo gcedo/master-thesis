@@ -247,6 +247,9 @@ class DomainCluster:
 
 		return as_set
 
+	def get_domains(self):
+		return self._domain_list
+
 	def get_ip_set(self):
 		ip_set = set()
 
