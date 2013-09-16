@@ -1,3 +1,5 @@
+
+$(function() {
 // Binders
 $("#xaxis").change(function() {
   change_x_axis($("#xaxis option:selected").attr("value"));
@@ -14,6 +16,7 @@ $("#select-cluster").change(function() {
 });
 
 // d3js
+var map;
 var format = d3.format(".2f");
 var colors = d3.scale.category20().range();
 var palette = {};
@@ -79,7 +82,7 @@ function update(data) {
     .insert("circle")
       .attr("cx", function(d) { return xRange(+d.one_gram); })
       .attr("cy", function(d) { return yRange(+d.two_gram); })
-      .attr("class", function(d) { return d.cluster; })
+      .attr("class", function(d) { return d.cluster ? d.cluster : "none"; })
       .attr("id", function(d) { return d.url })
       .attr("r", 2)
       .style("fill", function(d) { return palette[d.cluster]; });
@@ -123,4 +126,45 @@ function highlight_cluster(cluster) {
   $("." + cluster).attr("stroke", "red");
 }
 
+// Map
+function map_init() {
+    var mapOptions = { 
+      mapTypeId: google.maps.MapTypeId.ROADMAP,
+      center: new google.maps.LatLng(31.802893, 9.316466),
+      zoom: 1
+    };
+    map = new google.maps.Map(document.getElementById("map-canvas-clustering"), mapOptions);
+}
+
+function getIPLocationJson() {
+    var items = [];
+    $.getJSON('/static/data/edo_1379334100_loc_ips.json', function(data){
+      $.each(data, function(key, val) {
+        $.each(val, function(id, array) {
+          $.each(array, function(i, j) {
+            items.push({"lat": j.lat, "lon": j.lon});
+          });
+        });
+      });
+      addMarkers(items);
+    });
+  }
+
+function addMarkers(items) {
+  $.each(items, function(k, item) {
+    var loc = new google.maps.LatLng(parseFloat(item.lat), parseFloat(item.lon));
+    addMarker(loc);
+  })
+}
+
+function addMarker(loc) {
+  marker = new google.maps.Marker({
+    position: loc,
+    map: map
+  });
+}
+
 init();
+map_init();
+getIPLocationJson();
+});

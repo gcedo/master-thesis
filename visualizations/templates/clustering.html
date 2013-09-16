@@ -2,6 +2,7 @@
 
 {% block style %}
 	<link href="/static/css/d3js.css" rel="stylesheet" media="screen">
+	<link href="/static/css/clustering.css" rel="stylesheet" media="screen">
 {% endblock %}
 
 {% block container %}
@@ -19,41 +20,50 @@
     <svg id="clusters-vis"></svg>
   </div>
   <div class="col-md-6">
-  	<div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title">Dashboard</h3>
-      </div>
-      <div class="panel-body">
-        <div class="row">
-          <div class="col-md-12">
-            <label for="select-cluster">Select a cluster</label>
-            <select name="select-cluster" id="select-cluster" class="form-control">
-              <option value="none">none</option>
-            </select>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-6">
-            <label for="xaxis">X Axis Domain</label>
-            <select name="xaxis" id="xaxis" class="form-control">
-              <option value="one_gram">One Gram</option>
-              <option value="two_gram">Two Gram</option>
-              <option value="three_gram">Three Gram</option>
-              <option value="meaningful_word_ratio">Meaningful Word Ratio</option>
-            </select>
-          </div>
-          <div class="col-md-6">
-            <label for="yaxis">Y Axis Domain</label>
-            <select name="yaxis" id="yaxis" class="form-control">
-              <option value="one_gram">One Gram</option>
-              <option value="two_gram">Two Gram</option>
-              <option value="three_gram">Three Gram</option>
-              <option value="meaningful_word_ratio">Meaningful Word Ratio</option>
-            </select>
-          </div>
-        </div>
-      </div>
-    </div>
+	  	<div class="panel panel-default">
+	      <div class="panel-heading">
+	        <h3 class="panel-title">Dashboard</h3>
+	      </div>
+	      <div class="panel-body">
+	        <div class="row">
+	          <div class="col-md-12">
+	            <label for="select-cluster">Select a cluster</label>
+	            <select name="select-cluster" id="select-cluster" class="form-control">
+	              <option value="none">none</option>
+	            </select>
+	          </div>
+	        </div>
+	        <div class="row">
+	          <div class="col-md-6">
+	            <label for="xaxis">X Axis Domain</label>
+	            <select name="xaxis" id="xaxis" class="form-control">
+	              <option value="one_gram">One Gram</option>
+	              <option value="two_gram">Two Gram</option>
+	              <option value="three_gram">Three Gram</option>
+	              <option value="meaningful_word_ratio">Meaningful Word Ratio</option>
+	            </select>
+	          </div>
+	          <div class="col-md-6">
+	            <label for="yaxis">Y Axis Domain</label>
+	            <select name="yaxis" id="yaxis" class="form-control">
+	              <option value="one_gram">One Gram</option>
+	              <option value="two_gram">Two Gram</option>
+	              <option value="three_gram">Three Gram</option>
+	              <option value="meaningful_word_ratio">Meaningful Word Ratio</option>
+	            </select>
+	          </div>
+	        </div>
+	      </div>
+	    </div>
+	    <div class="panel panel-info" id="map-panel">
+	      <div class="panel-heading">
+	        <h3 class="panel-title">Map</h3>
+	      </div>
+	      <div class="panel-body">
+	        <div id="map-canvas-clustering"></div>
+	      </div>
+	    </div>
+  	</div>
   </div>
  </div>
 
@@ -62,5 +72,6 @@
 {% block scripts %}
     <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
     <script src="/static/js/radar-chart.js"></script>
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBjLu93p4ouLPm4CeQP9tTDR6hVbe7qjkc&sensor=false"></script>
     <script src="/static/js/clustering.js"></script>
 {% endblock %}
