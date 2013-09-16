@@ -29,11 +29,12 @@ def external_test(limit=True):
 		exposure_cluster = cluster_toolbox.split(exposure_cluster, 5000, 1)[0]
 
 	family_clusterer = FamilyClusterer(exposure_cluster)
-	dga_sublusters = family_clusterer.compute_clusters()
+	dga_subclusters = family_clusterer.compute_clusters()
 
-	for subcluster in dga_sublusters:
-		# print str(subcluster)
-		print jsontools.domain_cluster_to_json(subcluster)
+	for subcluster in dga_subclusters:
+		print str(subcluster)
+	
+	print jsontools.domain_clusters_to_json(dga_subclusters)
 
 	# experiment_cluster_factory = DomainClusterDatabaseFactory(identifier = 'experiment', experiment = True)
 	# experiment_cluster = experiment_cluster_factory.get()

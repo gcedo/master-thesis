@@ -11,7 +11,12 @@ def domain_feature_set_to_json(domain, feature_set):
 
 	return json.dumps(dictionary)
 
+
 def domain_cluster_to_json(cluster):
+	return json.dumps(_domain_cluster_to_dictionary(cluster))
+
+
+def _domain_cluster_to_dictionary(cluster):
 	dictionary = dict()
 	dictionary["id"] = cluster.get_identifier()
 
@@ -30,5 +35,14 @@ def domain_cluster_to_json(cluster):
 	dictionary["one_gram"] = d.get_one_gram_normality_score_interval()
 	dictionary["two_gram"] = d.get_one_gram_normality_score_interval()
 	dictionary["three_gram"] = d.get_one_gram_normality_score_interval()
+
+	return dictionary
+
+
+def domain_clusters_to_json(clusters):
+	dictionary = dict()
+	dictionary["clusters"] = list()
+	for cluster in clusters:
+		dictionary["clusters"].append(_domain_cluster_to_dictionary(cluster))
 
 	return json.dumps(dictionary)
