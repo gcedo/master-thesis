@@ -1,0 +1,32 @@
+ #clusters-vis text
+        {
+          fill: #fff;
+          stroke: none;
+          font-family: sans-serif;
+          font-size: 10px;
+          font-weight: thin;
+        }
+
+      #clusters-vis circle {
+        cursor: pointer;
+      }
+      .axis .domain
+        {
+          stroke: #fff;
+          opacity: 0;
+        }
+      .tick { stroke: #fff; }
+      #clusters-vis { 
+            width: 500px;
+            height: 500px;
+            background: #2d2d2d; }
+
+      #radar-chart {
+        width: 250px;
+        height: 250px;
+        background: #2d2d2d;
+      }
+
+      #radar-chart text {
+        fill: #fff;
+      }
