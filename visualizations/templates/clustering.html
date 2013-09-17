@@ -71,37 +71,38 @@
     <hr>
   </div>
 </div>
+
 <div class="row">
   <div class="col-md-6">
-    <h3>Linguistic Features</h3>
-    <p>
-      Donec ullamcorper nulla non metus auctor fringilla. Vivamus sagittis lacus vel augue laoreet rutrum faucibus 
-      dolor auctor. Vestibulum id ligula porta felis euismod semper. Cras justo odio, dapibus ac facilisis in, 
-      egestas eget quam. Maecenas sed diam eget risus varius blandit sit amet non magna.
-    </p>
+    This step receives as input the set of domains $d \in D$ that have passed Step 1. These domains are such that $d_{Mah}(f(d)) > \Lambda$, which means that (beside being malicious) are likely to be automatically generated, because they are too far from the centroid of the HGDs.
+    Our goal is to cluster domains according to their similarity,    
   </div>
   <div class="col-md-6">
-    <img src="http://placehold.it/500x350" alt="">
+    where we define as similar two domains that resolved to similar sets of IP addresses. The rationale is that the botmaster of a DGA-based botnet registers several domains that, at different points in time, resolve to the same set of IPs (i.e., the C&ampC servers). These are the domains that we wish to group together.   
   </div>
 </div>
+
 <div class="row">
+  <hr>
   <div class="col-md-6">
-    <h3>Statistical Linguistic Filter</h3>
+    <h3>Bipartite Graph Recursive Clustering</h3>
     <p>
-      Donec ullamcorper nulla non metus auctor fringilla. Vivamus sagittis lacus vel augue laoreet rutrum faucibus 
-      dolor auctor. Vestibulum id ligula porta felis euismod semper. Cras justo odio, dapibus ac facilisis in, 
-      egestas eget quam. Maecenas sed diam eget risus varius blandit sit amet non magna.
+      To cluster the domain nodes D, we hierarchically (thus recursively) apply the DBSCAN clustering algorithm (see Han and Kamber, 2006), which is particularly fast and easy to implement in our scenario.
     </p>
   </div>
   <div class="col-md-6">
-    <img src="http://placehold.it/500x350" alt="">
+    <img src="http://placehold.it/500x350" alt="" class="img-rounded">
   </div>
 </div>
 {% endblock %}
 
 {% block scripts %}
-    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
-    <script src="/static/js/radar-chart.js"></script>
+  <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+  <script src="/static/js/radar-chart.js"></script>
   <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBjLu93p4ouLPm4CeQP9tTDR6hVbe7qjkc&sensor=false"></script>
-    <script src="/static/js/clustering.js"></script>
+  <script src="/static/js/clustering.js"></script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 {% endblock %}
