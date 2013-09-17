@@ -1,4 +1,3 @@
-
 $(function() {
 // Binders
 $("#xaxis").change(function() {
@@ -158,8 +157,6 @@ function addMarkers(items) {
 }
 
 function addMarker(loc, cluster) {
-  console.log(cluster)
-  console.log(palette)
   marker = new google.maps.Marker({
     position: loc,
     map: map,
