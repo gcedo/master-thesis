@@ -1,3 +1,10 @@
+footer {
+    height: 150px;
+    border-top: 1px solid #e6e6e6;
+    background: #F8F8F8;
+}
+
+
 .infobox {
         border:2px solid black;
         margin-top: 8px;
@@ -25,3 +32,8 @@
 
 .vco-slider { display: none; }
 .vco-storyjs .vco-feature .slider, .vco-storyjs .vco-feature .vco-slider {  box-shadow: none !important; }
+
+
+.full-width {
+    width: 100%;
+}
