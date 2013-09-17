@@ -1,5 +1,9 @@
 {% extends 'layout/base.html' %}
 
+{% block style %}
+	<link rel="stylesheet" href="/static/css/fingerprinting.css">
+{% endblock %}
+
 {% block container %}
 <div class="row">
 	<div class="col-md-12">
@@ -9,5 +13,16 @@
 		</h2>
 	</div>
 </div>
+<div class="row">
+	<div class="col-md-6">
+		<div id="clusters-force"></div>
+	</div>
+	<div class="col-md-6">
+	</div>
+</div>
+{% endblock %}
 
+{% block scripts %}
+	<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+	<script src="/static/js/fingerprinting.js"></script>
 {% endblock %}
