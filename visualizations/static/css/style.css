@@ -37,3 +37,13 @@ footer {
 .full-width {
     width: 100%;
 }
+
+/* Footer */
+#footer-row {
+    margin-top: 25px;
+}
+
+/* Images */
+#feature-vector {
+    margin-top: 50px;
+}
