@@ -7,18 +7,18 @@ import scripts.map as map_engine
 app = Flask(__name__)
 
 # Database Handling
-def connect_db():
-	conn = Connection()
-	db = conn.botime
-	return conn, db
+# def connect_db():
+# 	conn = Connection()
+# 	db = conn.botime
+# 	return conn, db
 
-@app.before_request
-def before_request():
-    g.conn, g.db = connect_db()
+# @app.before_request
+# def before_request():
+#     g.conn, g.db = connect_db()
 
-@app.teardown_request
-def teardown_request(exception):
-    g.conn.close()
+# @app.teardown_request
+# def teardown_request(exception):
+#     g.conn.close()
 
 @app.route("/")
 def hello():
