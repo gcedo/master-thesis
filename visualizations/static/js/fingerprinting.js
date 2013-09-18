@@ -6,7 +6,8 @@ $(function() {
       text_size = 20,
       root,
       texts,
-      rects;
+      rects,
+      json_data;
 
   var force = d3.layout.force()
     .on("tick", tick)
@@ -29,6 +30,7 @@ $(function() {
   });
 
   $.getJSON('/static/data/edo_1379334100_clusters.json', function(data){
+    json_data = data;
       $.each(data.clusters, function(key, cluster) {
         $('#select-cluster')
          .append($("<option></option>")
@@ -153,17 +155,15 @@ $(function() {
   }
 
   function load_cluster_info(cluster_id) {
-    $.getJSON('/static/data/edo_1379334100_clusters.json', function(data){
-      $.each(data.clusters, function(key, cluster) {
-        if (cluster.id == cluster_id) {
-          $("#cluster-suffixes").html(cluster.public_suffix.join(", "));
-          $("#cluster-ips").html(cluster.ips.join("<br>"));
-          $("#cluster-numerical").html(format_min_max(cluster.numerical_ratio));
-          $("#cluster-length").html(format_min_max(cluster.length_interval));
-          $("#cluster-cset").html(cluster.character_set.join(", "));
-          return;
-        }
-      });
+    $.each(json_data.clusters, function(key, cluster) {
+      if (cluster.id == cluster_id) {
+        $("#cluster-suffixes").html(cluster.public_suffix.join(", "));
+        $("#cluster-ips").html(cluster.ips.join("<br>"));
+        $("#cluster-numerical").html(format_min_max(cluster.numerical_ratio));
+        $("#cluster-length").html(format_min_max(cluster.length_interval));
+        $("#cluster-cset").html(cluster.character_set.join(", "));
+        return false;
+      }
     });
   }
 });
