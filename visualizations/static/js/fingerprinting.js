@@ -1,11 +1,6 @@
 $(function() {
 
-  $("#select-cluster").change(function() {
-    $("svg circle").attr("stroke", "none");
-    if ($("#select-cluster option:selected").attr("value") == "none") { return; }
-    highlight_cluster($("#select-cluster option:selected").attr("value"));
-  });
-
+  // Visualization
   var w = 500,
       h = 500,
       text_size = 20,
@@ -136,7 +131,39 @@ $(function() {
     return nodes;
   }
 
+
+  // Jquery
+  $("#select-cluster").change(function() {
+    var cluster = $("#select-cluster option:selected").attr("value")
+    $("svg circle").attr("stroke", "none");
+    if (cluster == "none") { return; }
+    highlight_cluster(cluster);
+    load_cluster_info(cluster);
+  });
+
+
+  // Helpers
+  function format_min_max(values) {
+    return "<span class='text-success'>Min:</span> " + values[0] + "<br>" +
+           "<span class='text-danger'>Max:</span> " + values[1];
+  }
+
   function highlight_cluster(cluster) {
     $("." + cluster).attr("stroke", "red");
+  }
+
+  function load_cluster_info(cluster_id) {
+    $.getJSON('/static/data/edo_1379334100_clusters.json', function(data){
+      $.each(data.clusters, function(key, cluster) {
+        if (cluster.id == cluster_id) {
+          $("#cluster-suffixes").html(cluster.public_suffix.join(", "));
+          $("#cluster-ips").html(cluster.ips.join("<br>"));
+          $("#cluster-numerical").html(format_min_max(cluster.numerical_ratio));
+          $("#cluster-length").html(format_min_max(cluster.length_interval));
+          $("#cluster-cset").html(cluster.character_set.join(", "));
+          return;
+        }
+      });
+    });
   }
 });

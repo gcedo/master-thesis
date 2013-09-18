@@ -148,10 +148,6 @@ function load_domain_info(domain) {
     });
 }
 
-function format_min_max(values) {
-  return "Min: " + values[0] + " Max: " + values[1];
-}
-
 init();
 
 // Radar Chart
