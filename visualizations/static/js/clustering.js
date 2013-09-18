@@ -1,19 +1,4 @@
 $(function() {
-// Binders
-$("#xaxis").change(function() {
-  change_x_axis($("#xaxis option:selected").attr("value"));
-});
-
-$("#yaxis").change(function() {
-  change_y_axis($("#yaxis option:selected").attr("value"));
-});
-
-$("#select-cluster").change(function() {
-  $("svg circle").attr("stroke", "none");
-  if ($("#select-cluster option:selected").attr("value") == "none") { return; }
-  highlight_cluster($("#select-cluster option:selected").attr("value"));
-});
-
 // d3js
 var map;
 var format = d3.format(".2f");
@@ -66,10 +51,12 @@ function init() {
     update(json.domains);
 
     $.each(cluster_ids, function(index, id) {
-      $('#select-cluster')
-         .append($("<option></option>")
-         .attr("value", id)
-         .text(id)); 
+      if (id) {
+        $('#select-cluster')
+           .append($("<option></option>")
+           .attr("value", id)
+           .text(id));
+      }
     });
   });
 }
@@ -163,6 +150,21 @@ function addMarker(loc, cluster) {
     icon: 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|' + palette[cluster].replace("#", "")
   });
 }
+
+// Binders
+$("#xaxis").change(function() {
+  change_x_axis($("#xaxis option:selected").attr("value"));
+});
+
+$("#yaxis").change(function() {
+  change_y_axis($("#yaxis option:selected").attr("value"));
+});
+
+$("#select-cluster").change(function() {
+  $("svg circle").attr("stroke", "none");
+  if ($("#select-cluster option:selected").attr("value") == "none") { return; }
+  highlight_cluster($("#select-cluster option:selected").attr("value"));
+});
 
 init();
 map_init();
