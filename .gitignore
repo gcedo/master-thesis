@@ -1,3 +1,4 @@
-*.pyc
+visualizations/*.pyc
+visualizations/scripts/*.pyc
 
 latex/output
