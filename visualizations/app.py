@@ -5,6 +5,7 @@ import scripts.domain as domain_engine
 import scripts.map as map_engine
 
 app = Flask(__name__)
+app.config['PROPAGATE_EXCEPTIONS'] = True
 
 #Database Handling
 def connect_db():
