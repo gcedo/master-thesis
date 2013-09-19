@@ -17,8 +17,8 @@ def before_request():
   g.db = connect_db()
 
 @app.route("/")
-def hello():
-  return "Hello World!"
+def index():
+  return render_template("index.html")
 
 
 # Malicious Results
@@ -26,18 +26,22 @@ def hello():
 def map():
   return map_engine.render_page_content()
 
-@app.route("/domain/<domain>")
-def domain(domain):
-	if 'json' in request.args:
-		return domain_engine.render_page_content(domain, mime='json')
-	elif 'timeline' in request.args:
-		return domain_engine.get_timeline(domain)
-	else:
-		return domain_engine.render_page_content(domain, mime='html')
+@app.route("/overview")
+def overview():
+  return render_template('results_overview.html')
 
 @app.route("/domains")
 def domains():
   return render_template("domains.html")
+
+@app.route("/domain/<domain>")
+def domain(domain):
+  if 'json' in request.args:
+    return domain_engine.render_page_content(domain, mime='json')
+  elif 'timeline' in request.args:
+    return domain_engine.get_timeline(domain)
+  else:
+    return domain_engine.render_page_content(domain, mime='html')
 
 @app.route("/registars")
 def registars():

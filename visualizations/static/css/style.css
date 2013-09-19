@@ -39,6 +39,28 @@ footer {
     width: 100%;
 }
 
+/* Landing Page */
+.landing {
+    height: 600px;
+    background: #2d2d2d;
+    position: relative;
+    top: -20px;
+    color: #fff;
+}
+
+#landing-box {
+    height: 600px;
+    background: url(/static/images/landing.png);
+}
+
+#landing-button-group {
+    height: 80px;
+    width: 400px;
+    position: relative;
+    left: 76px;
+    top: 440px;
+}
+
 /* Footer */
 #footer-row {
     margin-top: 25px;
@@ -50,9 +72,9 @@ footer {
 }
 
 #img-clustering {
-    margin-top: 50px;   
+    margin-top: 50px;
 }
 
 #img-fingerprinting {
-    margin-top: 25px;   
+    margin-top: 25px;
 }
