@@ -1,11 +1,11 @@
 import pygeoip
-import json 
+import json
 from bulkwhois.shadowserver import BulkWhoisShadowserver
 
-# gi = pygeoip.GeoIP('/usr/local/share/geoip/GeoLiteCity.dat')
-# json_data = open('data/p_entropy_test.json')
-# json_data = open('data/p_entropy_test.small.json')
-# data = json.load(json_data)
+gi = pygeoip.GeoIP('data/GeoLiteCity.dat')
+json_data = open('data/p_entropy_test.json')
+json_data = open('data/p_entropy_test.small.json')
+data = json.load(json_data)
 
 class Cluster(object):
 	"""object to store parsed json data"""
@@ -24,7 +24,7 @@ class Cluster(object):
 			r = gi.record_by_addr(address)
 			w = bulk_whois.lookup_ips([address])
 			record = {}
-			record['ip'] = address  
+			record['ip'] = address
 			record['latitude'] = r['latitude']
 			record['longitude'] = r['longitude']
 			record['city'] = r['city']
@@ -34,7 +34,7 @@ class Cluster(object):
 
 def get_clusters():
 	j_clusters = data['clusters']
-	clusters = []	
+	clusters = []
 	for cluster in j_clusters:
 		c = Cluster(cluster)
 		clusters.append(c)

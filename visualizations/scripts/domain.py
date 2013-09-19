@@ -80,12 +80,12 @@ def _get_formatted_date(date):
 	return str(date.year) + "," + str(date.month) + "," + str(date.day)
 
 def _localize_ip_addresses(addresses):
-	gi = pygeoip.GeoIP('/usr/local/share/geoip/GeoLiteCity.dat')
+	gi = pygeoip.GeoIP('data/GeoLiteCity.dat')
 	records = dict()
 	for address in addresses:
 		r = gi.record_by_addr(address["ip"])
 		record = dict()
-		record['ip'] = address  
+		record['ip'] = address
 		record['latitude'] = r['latitude']
 		record['longitude'] = r['longitude']
 		record['city'] = r['city']
