@@ -2,7 +2,7 @@ $(function() {
   var map;
 
   function initialize() {
-    var mapOptions = { 
+    var mapOptions = {
       mapTypeId: google.maps.MapTypeId.ROADMAP,
       center: new google.maps.LatLng(31.802893, 9.316466),
       zoom: 1
@@ -38,8 +38,4 @@ $(function() {
 
   initialize();
   getDomainJson('sophosxl.com');
-
-  $( ".panel" ).draggable({ grid: [ 20,20 ] });
-  $( ".panel" ).resizable();
-
 });
