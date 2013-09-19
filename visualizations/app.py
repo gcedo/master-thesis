@@ -8,26 +8,22 @@ app = Flask(__name__)
 
 #Database Handling
 def connect_db():
-	client = MongoClient()
+	client = MongoClient('mongodb://phoenix-user:vombato.is.cute42@ds045938.mongolab.com:45938/botime')
 	return client.botime
 
 @app.before_request
 def before_request():
-    g.db = connect_db()
-
-# @app.teardown_request
-# def teardown_request(exception):
-#     g.conn.close()
+  g.db = connect_db()
 
 @app.route("/")
 def hello():
-    return "Hello World!"
+  return "Hello World!"
 
 
 # Malicious Results
 @app.route("/map")
 def map():
-   	return map_engine.render_page_content()
+  return map_engine.render_page_content()
 
 @app.route("/domain/<domain>")
 def domain(domain):
@@ -40,32 +36,32 @@ def domain(domain):
 
 @app.route("/domains")
 def domains():
-   	return render_template("domains.html")
+  return render_template("domains.html")
 
 @app.route("/registars")
 def registars():
-   	return render_template("registars.html")
+  return render_template("registars.html")
 
 @app.route("/ips")
 def ips():
-   	return render_template("ips.html")
+  return render_template("ips.html")
 
 # How Phoenix Works routes
 @app.route("/how_it_works")
 def how():
-   	return render_template("how_it_works.html")
+  return render_template("how_it_works.html")
 
 @app.route("/filtering")
 def filtering():
-   	return render_template("agd_filtering.html")
+  return render_template("agd_filtering.html")
 
 @app.route("/clustering")
 def clustering():
-   	return render_template("clustering.html")
+  return render_template("clustering.html")
 
 @app.route("/fingerprinting")
 def fingerprinting():
-   	return render_template("fingerprinting.html")
+  return render_template("fingerprinting.html")
 
 # Main
 if __name__ == "__main__":
