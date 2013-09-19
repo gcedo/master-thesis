@@ -1,3 +1,5 @@
+*.pyc
+
 latex/output
 code/dga_classifier/dga_classifier/core/clustering/*.pyc
 code/dga_classifier/dga_classifier/core/database/*.pyc
