@@ -1,20 +1,19 @@
 from flask import Flask, g, render_template, request
-from pymongo import Connection
+from pymongo import MongoClient
 from scripts.geoip import get_clusters
 import scripts.domain as domain_engine
 import scripts.map as map_engine
 
 app = Flask(__name__)
 
-# Database Handling
-# def connect_db():
-# 	conn = Connection()
-# 	db = conn.botime
-# 	return conn, db
+#Database Handling
+def connect_db():
+	client = MongoClient()
+	return client.botime
 
-# @app.before_request
-# def before_request():
-#     g.conn, g.db = connect_db()
+@app.before_request
+def before_request():
+    g.db = connect_db()
 
 # @app.teardown_request
 # def teardown_request(exception):
@@ -70,4 +69,4 @@ def fingerprinting():
 
 # Main
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
