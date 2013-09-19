@@ -138,7 +138,7 @@ function load_domain_info(domain) {
           ]
         ];
         RadarChart.draw("#radar-chart", d);
-        $("#domain-url").html(datum.url);
+        $("#domain-url").html(datum.url.substring(0, 15));
         $("#domain-meaningful").html(format(datum.meaningful_word_ratio));
         $("#domain-one_gram").html(format(datum.one_gram));
         $("#domain-two_gram").html(format(datum.two_gram));
