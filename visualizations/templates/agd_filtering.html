@@ -136,9 +136,15 @@
   <div class="col-md-6">
     <h3>Distance Measurement &amp Threshold</h3>
     <p>
-      To tell whether a previously-unseen domain $d'$ resembles the typical features of HGDs, the filter measures the distance between the feature vector $f(d') = x$ and the centroid. To this end, we leverage the Mahalanobis distance:
+      To tell whether a previously-unseen domain $d'$ resembles the typical features of HGDs, the filter 
+      measures the distance between the feature vector $f(d') = x$ and the centroid. To this end, we 
+      leverage the Mahalanobis distance:
       $$ d_{Mah}(x) = \sqrt{(x − \mu)^T C^{−1}(x − \mu)}$$
-      A previously-unseen domain $d'$ is considered as automatically generated when its feature vector identifies a point that is too distant from the centroid: $d_{Mah}(x) > t$. To take a proper decision, we define the threshold t as the p-percentile of the distribution of the variable $dMah(\cdot)$ computed over the set DH GD , where $(1 − p)$ is the fraction of HGDs that we allow to confuse as AGDs. In this way, we can set a priori the amount of errors.
+      A previously-unseen domain $d'$ is considered as automatically generated when its feature vector 
+      identifies a point that is too distant from the centroid: $d_{Mah}(x) > t$. To take a proper 
+      decision, we define the threshold t as the p-percentile of the distribution of the variable 
+      $d_{Mah}(\cdot)$ computed over the set DH GD , where $(1 − p)$ is the fraction of HGDs that we 
+      allow to confuse as AGDs. In this way, we can set a priori the amount of errors.
     </p>
   </div>
 </div>
