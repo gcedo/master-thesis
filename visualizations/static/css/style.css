@@ -2,6 +2,7 @@ footer {
     height: 150px;
     border-top: 1px solid #e6e6e6;
     background: #F8F8F8;
+    margin-top: 75px;
 }
 
 
@@ -46,4 +47,8 @@ footer {
 /* Images */
 #feature-vector {
     margin-top: 50px;
+}
+
+#img-clustering {
+    margin-top: 50px;   
 }
