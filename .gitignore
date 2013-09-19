@@ -1,4 +1,5 @@
-*.pyc
+visualizations/*.pyc
+visualizations/scripts/*.pyc
 
 latex/output
 code/dga_classifier/dga_classifier/core/clustering/*.pyc
