@@ -59,6 +59,7 @@ function init() {
       }
     });
   });
+  map_init();
 }
 
 function update(data) {
@@ -168,5 +169,4 @@ $("#select-cluster").change(function() {
 });
 
 init();
-map_init();
 });
