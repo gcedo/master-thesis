@@ -75,10 +75,10 @@
 <div class="row">
   <div class="col-md-6">
     This step receives as input the set of domains $d \in D$ that have passed Step 1. These domains are such that $d_{Mah}(f(d)) > \Lambda$, which means that (beside being malicious) are likely to be automatically generated, because they are too far from the centroid of the HGDs.
-    Our goal is to cluster domains according to their similarity,    
+    Our goal is to cluster domains according to their similarity,
   </div>
   <div class="col-md-6">
-    where we define as similar two domains that resolved to similar sets of IP addresses. The rationale is that the botmaster of a DGA-based botnet registers several domains that, at different points in time, resolve to the same set of IPs (i.e., the C&ampC servers). These are the domains that we wish to group together.   
+    where we define as similar two domains that resolved to similar sets of IP addresses. The rationale is that the botmaster of a DGA-based botnet registers several domains that, at different points in time, resolve to the same set of IPs (i.e., the C&amp;C servers). These are the domains that we wish to group together.
   </div>
 </div>
 
@@ -87,14 +87,14 @@
   <div class="col-md-6">
     <h3>Bipartite Graph Recursive Clustering</h3>
     <p>
-      This step receives as input the set of domains $d \in D$ that have passed 
-      <a href="/filtering">Step 1</a>. These domains are such that $d_{Mah}(f(d)) > \Lambda$, which 
-      means that (beside being malicious) are likely to be automatically 
+      This step receives as input the set of domains $d \in D$ that have passed
+      <a href="/filtering">Step 1</a>. These domains are such that $d_{Mah}(f(d)) > \Lambda$, which
+      means that (beside being malicious) are likely to be automatically
       generated, because they are too far from the centroid of the HGDs.<br>
-      To cluster the domain nodes D, we hierarchically apply the DBSCAN clustering 
-      algorithm, which is particularly fast and easy to implement in our 
+      To cluster the domain nodes D, we hierarchically apply the DBSCAN clustering
+      algorithm, which is particularly fast and easy to implement in our
       scenario.
-      We represent the domain-to-ip relations as a bipartite graph where two sets of node exist: 
+      We represent the domain-to-ip relations as a bipartite graph where two sets of node exist:
       $K = |D|$ nodes represent the domains, and $L = | IPs(D)|$ nodes represent the IPs. An edge exists from a node $d \in D$ to node $l \in IPs(D)$ whenever domain $d$ pointed to IP $l$.
       We encode the bipartite graph as a sparse matrix $M \in
       RL \times K$ with $L$ rows and $K$ columns. Each cell $M_{l,k}$ holds the weight of an

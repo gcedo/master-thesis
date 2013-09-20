@@ -32,17 +32,34 @@
 		<div class="col-md-4 text-center">
 			<img src="/static/images/phoenix-feature_1.png" alt="Phoenix Feature 1" class="full-width">
 			<h2>Passive DNS</h2>
-			<p>Donec id elit non mi porta gravida at eget metus. Nullam quis risus eget urna mollis ornare vel eu leo. Curabitur blandit tempus porttitor. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+			<p>
+				Phoenix is fed with passeive top level DNS traffic data. Therefore it is easily
+				deployable, non-obtrusive and privacy preserving. The data is gathered by a SIE machine,
+				then sent to our <a href="https://en.wikipedia.org/wiki/Wombat">Vombato</a> server
+				(italian for <a href="https://en.wikipedia.org/wiki/Wombat">wombat</a>) where it is
+				crunched and analyzed.
+			</p>
 		</div>
 		<div class="col-md-4 text-center">
 			<img src="/static/images/phoenix-feature_2.png" alt="Phoenix Feature 2">
 			<h2>Botnets, clustered</h2>
-			<p>Donec id elit non mi porta gravida at eget metus. Nullam quis risus eget urna mollis ornare vel eu leo. Curabitur blandit tempus porttitor. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+			<p>
+				Phoenix starts its analysis by separating
+				<abbr title="Automatically Generated Domains">AGDs</abbr> from
+				<abbr title="Human Generated Domains">HGDs</abbr>.
+				Then it clusters the first depending on to which IPs they
+				resolve to, possibly the C&amp;Cs addresses. Final result? Clusters of malicious domains
+				and their relative botmaster IP address. Voilà!
+			</p>
 		</div>
 		<div class="col-md-4 text-center">
 			<img src="/static/images/json.png" alt="Phoenix Feature 3">
-			<h2>Json friendly</h2>
-			<p>Donec id elit non mi porta gravida at eget metus. Nullam quis risus eget urna mollis ornare vel eu leo. Curabitur blandit tempus porttitor. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+			<h2>JSON friendly</h2>
+			<p>
+				We will soon provide very fancy APIs if you want to produce your own tools using our results.
+				Basically just add <code>?json</code> at the end of each page belonging to the Results
+				sections and you will get a nice and tidy JSON object with the very same informations.
+			</p>
 		</div>
 	</div>
 
