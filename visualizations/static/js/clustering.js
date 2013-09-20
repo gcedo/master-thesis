@@ -86,7 +86,7 @@ function update(data) {
 }
 
 function change_x_axis(domain) {
-  transition = vis.transition().duration(1000).ease("exp-in-out"); 
+  transition = vis.transition().duration(1000).ease("exp-in-out");
   xRange.domain([
     d3.min (drawingData, function(d) { return +d[domain]; }),
     d3.max (drawingData, function(d) { return +d[domain]; })
@@ -102,7 +102,7 @@ function change_y_axis(domain) {
     d3.min (drawingData, function(d) { return +d[domain]; }),
     d3.max (drawingData, function(d) { return +d[domain]; })
   ]);
-  
+
   transition.select(".y.axis").call(yAxis);
   circles.transition().duration(1000).ease("exp-in-out")
     .attr("cy", function(d) { return yRange(+d[domain])});
@@ -114,12 +114,13 @@ function highlight_cluster(cluster) {
 
 // Map
 function map_init() {
-    var mapOptions = { 
+    var mapOptions = {
       mapTypeId: google.maps.MapTypeId.ROADMAP,
       center: new google.maps.LatLng(31.802893, 9.316466),
       zoom: 1
     };
     map = new google.maps.Map(document.getElementById("map-canvas-clustering"), mapOptions);
+    getIPLocationJson();
 }
 
 function getIPLocationJson() {
@@ -168,5 +169,4 @@ $("#select-cluster").change(function() {
 
 init();
 map_init();
-getIPLocationJson();
 });
