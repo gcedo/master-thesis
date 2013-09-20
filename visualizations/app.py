@@ -1,11 +1,21 @@
-from flask import Flask, g, render_template, request
+from flask import Flask, g, render_template, request, session, redirect, url_for
 from pymongo import MongoClient
 from scripts.geoip import get_clusters
 import scripts.domain as domain_engine
 import scripts.map as map_engine
 
 app = Flask(__name__)
+
+# Spaghetti Login Management
+USERNAME = "captain_kirk"
+PASSWORD = "vombato.is.cute42"
+SECRET_KEY = 'development key'
+ALLOWED_ITEMS = ["/static/css/bootstrap.min.css", "/static/js/bootstrap.min.js",
+                 "/login", "/static/js/jquery.min.js"]
+
+app.config.from_object(__name__)
 app.config['PROPAGATE_EXCEPTIONS'] = True
+
 
 #Database Handling
 def connect_db():
@@ -14,7 +24,23 @@ def connect_db():
 
 @app.before_request
 def before_request():
+  if not session.get('logged_in') and request.path not in ALLOWED_ITEMS:
+    return redirect(url_for('login'))
   g.db = connect_db()
+
+@app.route("/login", methods=['GET', 'POST'])
+def login():
+  error = None
+  if request.method == 'POST':
+    if request.form['username'] != USERNAME:
+      error = 'Invalid username'
+    elif request.form['password'] != PASSWORD:
+      error = 'Invalid password'
+    else:
+      session['logged_in'] = True
+      return redirect("/")
+  return render_template('login.html', error=error)
+
 
 @app.route("/")
 def index():
