@@ -3,7 +3,29 @@
 {% block container %}
 
 <div class="row">
-	<div class="col-md-12">
+	<div class="col-md-3">
+		<div class="panel panel-default" data-spy="affix" data-offset-top="200">
+  		<div class="panel-heading"><h3 class="panel-title">Dashboard</h3></div>
+  		<ul>
+  		 	<li class="list-group-item">
+  		 		Number of Queries
+  		 		<div id="slider-range"></div>
+  		 	</li>
+		  	<li class="list-group-item">
+		  		Since
+		  		<input type="text" id="datepicker-from">
+		  	</li>
+		  	<li class="list-group-item">
+		  		To
+		  		<input type="text" id="datepicker-to">
+		  	</li>
+		  	<li class="list-group-item">Porta ac consectetur ac</li>
+		  	<li class="list-group-item">Vestibulum at eros</li>
+		</ul>
+  	</div>
+  	<ul class="list-group">
+	</div>
+	<div class="col-md-9">
 		<h2>
 			Malicious Domains
 			<hr>
@@ -11,4 +33,8 @@
 	</div>
 </div>
 
+{% endblock %}
+
+{% block scripts %}
+	<script type="text/javascript" src="/static/js/domains.js"></script>
 {% endblock %}
