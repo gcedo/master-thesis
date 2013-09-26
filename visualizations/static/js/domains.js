@@ -18,10 +18,11 @@ $(function() {
 
     // Update page
     $("#update-button").click(function() {
-      var dga = "&dga=" + $("#dgaCheckbox").is(':checked');
+      var dga    = "&dga=" + $("#dgaCheckbox").is(':checked');
       var nonDga = "&nonDga=" + $("#nonDgaCheckbox").is(':checked');
+      var nx     = "&nx=" + $("#nxdomainCheckbox").is(':checked');
 
-      var url = "/domains?json" + dga + nonDga;
+      var url = "/domains?json" + dga + nonDga + nx;
 
       $.getJSON(url, function(d) {
         var r = new Array(), j = -1;

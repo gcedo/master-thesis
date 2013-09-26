@@ -1,7 +1,6 @@
 from flask import Response, render_template, abort, g, jsonify
 
 def render_page_content():
-
 	rows = g.db.webview_domains.find().limit(40)
 	return render_template('domains.html', rows=rows)
 
@@ -27,9 +26,16 @@ def render_json_answer(parameters):
 
 def _build_query_filter(parameters):
 	query_filter = dict()
+	query_filter["labels"] = list()
 
+	if parameters['nonDga'] == 'true':
+		del query_filter["labels"][:]
+	if parameters['nx'] == 'true':
+		query_filter["labels"].append("NXDOMAIN")
 	if parameters['dga'] == 'true':
-		query_filter["labels"] = "DGA"
+		query_filter["labels"].append("DGA")
+
+
 
 	return query_filter
 
