@@ -61,6 +61,8 @@ def overview():
 def domains():
   if 'json' in request.args:
     return domains_engine.render_json_answer(parameters=request.args)
+  if 'csv' in request.args:
+    return domains_engine.render_csv_response(parameters=request.args)
   else:
     return domains_engine.render_page_content()
 
