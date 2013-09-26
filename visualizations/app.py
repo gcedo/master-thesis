@@ -60,7 +60,9 @@ def overview():
 @app.route("/domains")
 def domains():
   if 'json' in request.args:
-    return 'json'
+    parameters = dict()
+    parameters["dga"] = request.args["dga"]
+    return domains_engine.render_json_answer(parameters=parameters)
   else:
     return domains_engine.render_page_content()
 

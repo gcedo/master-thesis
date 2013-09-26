@@ -15,4 +15,10 @@ $(function() {
     // Datepicker
     $( "#datepicker-from" ).datepicker();
     $( "#datepicker-to" ).datepicker();
+
+    // Update page
+    $("#update-button").click(function() {
+      var dga = $("#dgaCheckbox").is(':checked');
+      alert(dga);
+    });
 });
