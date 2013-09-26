@@ -18,7 +18,31 @@ $(function() {
 
     // Update page
     $("#update-button").click(function() {
-      var dga = $("#dgaCheckbox").is(':checked');
-      alert(dga);
+      var dga = "&dga=" + $("#dgaCheckbox").is(':checked');
+
+      var url = "/domains?json" + dga;
+
+      $.getJSON(url, function(d) {
+        var r = new Array(), j = -1;
+
+        $.each(d["data"], function(index, element) {
+          r[++j] = '<tr><td>';
+          r[++j] = element["domain"];
+          r[++j] = '</td><td>';
+          r[++j] = element["first_req_timestamp"];
+          r[++j] = '</td><td>';
+          r[++j] = element["last_req_timestamp"];
+          r[++j] = '</td><td>';
+          r[++j] = element["labels"];
+          r[++j] = '</td></tr>';
+        });
+
+        $("#domains-list").html(r.join(''));
+
+      });
+
+
+
+
     });
 });
