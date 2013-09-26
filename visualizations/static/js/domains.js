@@ -1,7 +1,7 @@
 $(function() {
 
   var SLIDER_MIN = 0, SLIDER_MAX = 3585;
-  var sliderMin = 0, sliderMax = 0;
+  var sliderMin = 0, sliderMax = 3585;
 	// Slider
 	$( "#slider-range" ).slider({
       range: true,
@@ -30,8 +30,6 @@ $(function() {
     var maxReqs = "&maxReqs=" + sliderMax;
 
     var url = "/domains?json" + dga + nonDga + nx + minReqs + maxReqs;
-
-    alert(url);
 
     $.getJSON(url, function(d) {
       var r = new Array(), j = -1;

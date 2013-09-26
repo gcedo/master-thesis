@@ -20,6 +20,7 @@ def render_json_answer(parameters):
 		temp["labels"] = row["labels"]
 		temp["first_req_timestamp"] = row["first_req_timestamp"]
 		temp["last_req_timestamp"] = row["last_req_timestamp"]
+		temp["reqs"] = row["req_count"]
 		response_array.append(temp)
 
 	response = dict()
