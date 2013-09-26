@@ -32,6 +32,11 @@ def _build_query_filter(parameters):
 	query_filter = dict()
 	query_filter["$or"] = list()
 
+	# Check #queries range
+	lowerBound = int(parameters['minReqs'])
+	upperBound = int(parameters['maxReqs'])
+	query_filter["req_count"] = { "$lt" : upperBound, "$gt" : lowerBound }
+
 	# Check NX
 	if parameters['nx'] == 'true':
 		query_filter["$or"].append({"labels" : ["NXDOMAIN"]})
