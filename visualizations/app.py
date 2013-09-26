@@ -3,6 +3,7 @@ from pymongo import MongoClient
 from scripts.geoip import get_clusters
 import scripts.domain as domain_engine
 import scripts.map as map_engine
+import scripts.domains_list as domains_engine
 
 app = Flask(__name__)
 
@@ -58,7 +59,10 @@ def overview():
 
 @app.route("/domains")
 def domains():
-  return render_template("domains.html")
+  if 'json' in request.args:
+    return 'json'
+  else:
+    return domains_engine.render_page_content()
 
 @app.route("/domain/<domain>")
 def domain(domain):

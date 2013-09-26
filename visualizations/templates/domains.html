@@ -30,6 +30,24 @@
 			Malicious Domains
 			<hr>
 		</h2>
+		<!-- Malicious Domains List -->
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Domain Name</th><th>Last Res.</th><th>Last Req.</th><th>Labels</th>
+				</tr>
+			</thead>
+			<tbody>
+			{% for row in rows %}
+				<tr>
+					<td>{{ row.domain }}</td>
+					<td>{{ row.first_req_timestamp }}</td>
+					<td>{{ row.last_req_timestamp }}</td>
+					<td>{{ row.labels }}</td>
+				</tr>
+			{% endfor %}
+			</tbody>
+		</table>
 	</div>
 </div>
 
