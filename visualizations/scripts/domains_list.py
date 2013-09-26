@@ -1,4 +1,4 @@
-from flask import Response, render_template, abort, g, jsonify
+from flask import render_template, g, jsonify, Response
 from dateutil import parser
 
 def render_page_content():
@@ -7,11 +7,36 @@ def render_page_content():
 
 
 def render_json_answer(parameters):
-	response_array = list()
-	query_filter = _build_query_filter(parameters)
+	response = dict()
+	response["data"] = _build_response_array(parameters)
+	return jsonify(response)
 
+def render_csv_response(parameters):
+	response_array = _build_response_array(parameters)
+	values_array = list()
+
+	for row in response_array:
+		values = list()
+		for key, value in row.items():
+			if key == "labels":
+				values.append(str(','.join(value)))
+			else:
+				values.append(str(value))
+		values_array.append(values)
+
+	print values_array
+	def generate():
+		yield "domain; labels; first_req_timestamp; last_req_timestamp; reqs\n"
+		for row in values_array:
+			yield ';'.join(row) + '\n'
+
+	return Response(generate(), mimetype='text/csv')
+
+def _build_response_array(parameters):
+	query_filter = _build_query_filter(parameters)
 	rows = g.db.webview_domains.find(query_filter)
 
+	response_array = list()
 	for row in rows:
 		temp = dict()
 		temp["domain"] = row["domain"]
@@ -21,10 +46,7 @@ def render_json_answer(parameters):
 		temp["reqs"] = row["req_count"]
 		response_array.append(temp)
 
-	response = dict()
-	response["data"] = response_array
-
-	return jsonify(response)
+	return response_array
 
 
 def _build_query_filter(parameters):
