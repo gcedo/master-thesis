@@ -9,8 +9,7 @@ def render_page_content():
 def render_json_answer(parameters):
 	response_array = list()
 
-	if parameters['dga'] == 'true':
-		rows = g.db.webview_domains.find({ 'labels': 'DGA'})
+	rows = g.db.webview_domains.find(_build_query_filter(parameters))
 
 	for row in rows:
 		temp = dict()
@@ -25,6 +24,14 @@ def render_json_answer(parameters):
 
 	return jsonify(response)
 
+
+def _build_query_filter(parameters):
+	query_filter = dict()
+
+	if parameters['dga'] == 'true':
+		query_filter["labels"] = "DGA"
+
+	return query_filter
 
 def _get_custom_results():
 	return None
