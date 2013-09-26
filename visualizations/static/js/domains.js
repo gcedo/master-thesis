@@ -2,6 +2,8 @@ $(function() {
 
   var SLIDER_MIN = 0, SLIDER_MAX = 3585;
   var sliderMin = 0, sliderMax = 3585;
+  var fromDate;
+  var toDate;
 	// Slider
 	$( "#slider-range" ).slider({
       range: true,
@@ -18,18 +20,29 @@ $(function() {
     " - $" + $( "#slider-range" ).slider( "values", 1 ) );
 
   // Datepicker
-  $( "#datepicker-from" ).datepicker();
-  $( "#datepicker-to" ).datepicker();
+  $( "#datepicker-from" ).datepicker({
+    onClose: function(selectedDate) {
+      fromDate = selectedDate;
+    }
+  });
+  $( "#datepicker-to" ).datepicker({
+    onClose: function(selectedDate) {
+      toDate = selectedDate;
+    }
+  });
 
   // Update page
   $("#update-button").click(function() {
-    var dga     = "&dga="    + $("#dgaCheckbox").is(':checked');
-    var nonDga  = "&nonDga=" + $("#nonDgaCheckbox").is(':checked');
-    var nx      = "&nx="     + $("#nxdomainCheckbox").is(':checked');
-    var minReqs = "&minReqs=" + sliderMin;
-    var maxReqs = "&maxReqs=" + sliderMax;
+    var dga      = "&dga="    + $("#dgaCheckbox").is(':checked');
+    var nonDga   = "&nonDga=" + $("#nonDgaCheckbox").is(':checked');
+    var nx       = "&nx="     + $("#nxdomainCheckbox").is(':checked');
+    var minReqs  = "&minReqs=" + sliderMin;
+    var maxReqs  = "&maxReqs=" + sliderMax;
+    var since    = "&since="   + fromDate;
+    var to       = "&to="      + toDate;
 
-    var url = "/domains?json" + dga + nonDga + nx + minReqs + maxReqs;
+    var url = "/domains?json" + dga + nonDga + nx + minReqs + maxReqs + since + to;
+    console.log(url);
 
     $.getJSON(url, function(d) {
       var r = new Array(), j = -1;
