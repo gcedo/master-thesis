@@ -1,4 +1,5 @@
 from flask import Response, render_template, abort, g, jsonify
+from dateutil import parser
 
 def render_page_content():
 	rows = g.db.webview_domains.find().limit(40)
@@ -37,6 +38,14 @@ def _build_query_filter(parameters):
 	lowerBound = int(parameters['minReqs'])
 	upperBound = int(parameters['maxReqs'])
 	query_filter["req_count"] = { "$lt" : upperBound, "$gt" : lowerBound }
+
+	# Check for dates
+	sinceDate = parser.parse(parameters["since"])
+	print sinceDate
+	toDate = parser.parse(parameters["to"])
+	print toDate
+	query_filter["first_req_timestamp"] = { "$gt" : sinceDate }
+	query_filter["last_req_timestamp"]  = { "$lt" : toDate }
 
 	# Check NX
 	if parameters['nx'] == 'true':
