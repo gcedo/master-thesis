@@ -33,15 +33,8 @@ $(function() {
 
   // Update page
   $("#update-button").click(function() {
-    var dga      = "&dga="    + $("#dgaCheckbox").is(':checked');
-    var nonDga   = "&nonDga=" + $("#nonDgaCheckbox").is(':checked');
-    var nx       = "&nx="     + $("#nxdomainCheckbox").is(':checked');
-    var minReqs  = "&minReqs=" + sliderMin;
-    var maxReqs  = "&maxReqs=" + sliderMax;
-    var since    = "&since="   + fromDate;
-    var to       = "&to="      + toDate;
 
-    var url = "/domains?json" + dga + nonDga + nx + minReqs + maxReqs + since + to;
+    var url = buildUrl();
     console.log(url);
 
     $.getJSON(url, function(d) {
@@ -63,4 +56,23 @@ $(function() {
 
     });
   });
+
+  $("#json-download-button").click(function() {
+    var url = buildUrl();
+     window.location.href = url;
+  });
+
+  function buildUrl() {
+    var dga      = "&dga="    + $("#dgaCheckbox").is(':checked');
+    var nonDga   = "&nonDga=" + $("#nonDgaCheckbox").is(':checked');
+    var nx       = "&nx="     + $("#nxdomainCheckbox").is(':checked');
+    var minReqs  = "&minReqs=" + sliderMin;
+    var maxReqs  = "&maxReqs=" + sliderMax;
+    var since    = "&since="   + fromDate;
+    var to       = "&to="      + toDate;
+
+    var url = "/domains?json" + dga + nonDga + nx + minReqs + maxReqs + since + to;
+    return url;
+  }
+
 });
