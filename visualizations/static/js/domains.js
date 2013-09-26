@@ -19,8 +19,9 @@ $(function() {
     // Update page
     $("#update-button").click(function() {
       var dga = "&dga=" + $("#dgaCheckbox").is(':checked');
+      var nonDga = "&nonDga=" + $("#nonDgaCheckbox").is(':checked');
 
-      var url = "/domains?json" + dga;
+      var url = "/domains?json" + dga + nonDga;
 
       $.getJSON(url, function(d) {
         var r = new Array(), j = -1;
@@ -40,9 +41,5 @@ $(function() {
         $("#domains-list").html(r.join(''));
 
       });
-
-
-
-
     });
 });
