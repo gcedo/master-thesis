@@ -4,7 +4,13 @@ $(function() {
   var sliderMin = 0, sliderMax = 3585;
   var fromDate;
   var toDate;
-	// Slider
+
+
+
+
+  // Slider
+  $("#queries-max").html(SLIDER_MAX);
+  $("#queries-min").html(SLIDER_MIN);
 	$( "#slider-range" ).slider({
       range: true,
       min: SLIDER_MIN,
@@ -13,6 +19,8 @@ $(function() {
       slide: function( event, ui ) {
         sliderMin = ui.values[0];
         sliderMax = ui.values[1];
+        $("#queries-max").html(ui.values[1]);
+        $("#queries-min").html(ui.values[0]);
       }
   });
 
