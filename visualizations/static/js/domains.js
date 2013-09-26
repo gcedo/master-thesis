@@ -5,9 +5,6 @@ $(function() {
   var fromDate;
   var toDate;
 
-
-
-
   // Slider
   $("#queries-max").html(SLIDER_MAX);
   $("#queries-min").html(SLIDER_MIN);
@@ -24,20 +21,12 @@ $(function() {
       }
   });
 
-  $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
-    " - $" + $( "#slider-range" ).slider( "values", 1 ) );
 
   // Datepicker
-  $( "#datepicker-from" ).datepicker({
-    onClose: function(selectedDate) {
-      fromDate = selectedDate;
-    }
-  });
-  $( "#datepicker-to" ).datepicker({
-    onClose: function(selectedDate) {
-      toDate = selectedDate;
-    }
-  });
+  $( "#datepicker-from" ).datepicker({ onClose: function(selectedDate) { fromDate = selectedDate; } });
+  $( "#datepicker-from" ).datepicker("setDate", new Date(2012,12,30));
+  $( "#datepicker-to" ).datepicker({ onClose: function(selectedDate) { toDate = selectedDate; } });
+  $( "#datepicker-to" ).datepicker("setDate", new Date());
 
   // Update page
   $("#update-button").click(function() {
@@ -65,20 +54,22 @@ $(function() {
     });
   });
 
+  // JSON download
   $("#json-download-button").click(function() {
     var url = buildUrl("json");
     window.location.href = url;
   });
 
+  // CSV
   $("#csv-download-button").click(function() {
     var url = buildUrl("csv");
     window.location.href = url;
   });
 
   function buildUrl(mime) {
-    var dga      = "&dga="    + $("#dgaCheckbox").is(':checked');
-    var nonDga   = "&nonDga=" + $("#nonDgaCheckbox").is(':checked');
-    var nx       = "&nx="     + $("#nxdomainCheckbox").is(':checked');
+    var dga      = "&dga="     + $("#dgaCheckbox").is(':checked');
+    var nonDga   = "&nonDga="  + $("#nonDgaCheckbox").is(':checked');
+    var nx       = "&nx="      + $("#nxdomainCheckbox").is(':checked');
     var minReqs  = "&minReqs=" + sliderMin;
     var maxReqs  = "&maxReqs=" + sliderMax;
     var since    = "&since="   + fromDate;

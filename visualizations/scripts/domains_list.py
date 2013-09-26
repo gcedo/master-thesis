@@ -24,7 +24,6 @@ def render_csv_response(parameters):
 				values.append(str(value))
 		values_array.append(values)
 
-	print values_array
 	def generate():
 		yield "domain; labels; first_req_timestamp; last_req_timestamp; reqs\n"
 		for row in values_array:
