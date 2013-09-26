@@ -10,10 +10,7 @@ def render_json_answer(parameters):
 	response_array = list()
 	query_filter = _build_query_filter(parameters)
 
-	if query_filter["$or"]:
-		rows = g.db.webview_domains.find(query_filter)
-	else:
-		rows = g.db.webview_domains.find()
+	rows = g.db.webview_domains.find(query_filter)
 
 	for row in rows:
 		temp = dict()
@@ -32,7 +29,6 @@ def render_json_answer(parameters):
 
 def _build_query_filter(parameters):
 	query_filter = dict()
-	query_filter["$or"] = list()
 
 	# Check #queries range
 	lowerBound = int(parameters['minReqs'])
@@ -47,25 +43,28 @@ def _build_query_filter(parameters):
 	query_filter["first_req_timestamp"] = { "$gt" : sinceDate }
 	query_filter["last_req_timestamp"]  = { "$lt" : toDate }
 
-	# Check NX
-	if parameters['nx'] == 'true':
-		query_filter["$or"].append({"labels" : ["NXDOMAIN"]})
-
-	# Check DGA
-	if parameters['dga'] == 'true':
-		if parameters['nx'] == 'true':
-			query_filter["$or"].append({"labels" : ["NXDOMAIN", "DGA"]})
-		else:
-			query_filter["$or"].append({"labels" : ["DGA"]})
-
-	# Check nonDGA
-	if parameters['nonDga'] == 'true':
+	if parameters['nx'] == 'true' or parameters['dga'] == 'true' or parameters['nonDga'] == 'true':
+		query_filter["$or"] = list()
+		# Check NX
 		if parameters['nx'] == 'true':
 			query_filter["$or"].append({"labels" : ["NXDOMAIN"]})
-		else:
-			query_filter["$or"].append({"labels" : []})
+
+		# Check DGA
+		if parameters['dga'] == 'true':
+			if parameters['nx'] == 'true':
+				query_filter["$or"].append({"labels" : ["NXDOMAIN", "DGA"]})
+			else:
+				query_filter["$or"].append({"labels" : ["DGA"]})
+
+		# Check nonDGA
+		if parameters['nonDga'] == 'true':
+			if parameters['nx'] == 'true':
+				query_filter["$or"].append({"labels" : ["NXDOMAIN"]})
+			else:
+				query_filter["$or"].append({"labels" : []})
 
 	return query_filter
+
 
 def _get_custom_results():
 	return None
