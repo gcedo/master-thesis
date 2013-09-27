@@ -1,6 +1,5 @@
 from flask import Flask, g, render_template, request, session, redirect, url_for
 from pymongo import MongoClient
-from scripts.geoip import get_clusters
 import scripts.domain as domain_engine
 import scripts.map as map_engine
 import scripts.domains_list as domains_engine

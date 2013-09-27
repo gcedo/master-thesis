@@ -4,7 +4,7 @@
 
 <div class="row">
 	<div class="col-md-3">
-		<div  data-spy="affix" data-offset-top="10"><!-- Dashboard -->
+		<div  data-spy="affix" data-offset-top="40"><!-- Dashboard -->
 				<div class="panel panel-default">
 		  		<div class="panel-heading"><h2 class="panel-title">Dashboard</h2></div>
 		  		<ul class="list-group">
@@ -90,12 +90,12 @@
 			</thead>
 			<tbody id="domains-list">
 			{% for row in rows %}
-				<tr>
-					<td>{{ row.domain }}</td>
-					<td>{{ row.first_req_timestamp }}</td>
-					<td>{{ row.last_req_timestamp }}</td>
-					<td>{{ row.labels }}</td>
-				</tr>
+					<tr>
+						<td><a href="/domain/{{ row.domain }}">{{ row.domain }}</a></td>
+						<td>{{ row.first_req_timestamp }}</td>
+						<td>{{ row.last_req_timestamp }}</td>
+						<td>{{ row.labels }}</td>
+					</tr>
 			{% endfor %}
 			</tbody>
 		</table>

@@ -82,9 +82,6 @@ $(function() {
   }
 
   function buildDateString(date) {
-    console.log(1 + date.getMonth());
-    console.log(date.getDate());
-    console.log(date.getFullYear());
     return (1 + date.getMonth()) + "/" + date.getDate() + "/" + date.getFullYear();
   }
 
