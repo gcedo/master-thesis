@@ -12,7 +12,7 @@ def render_json_answer(parameters):
 	return jsonify(response)
 
 def render_csv_response(parameters):
-	response_array = _build_response_array(parameters)
+	response_array = _build_response_array(parameters, False)
 	values_array = list()
 
 	for row in response_array:
@@ -31,7 +31,7 @@ def render_csv_response(parameters):
 
 	return Response(generate(), mimetype='text/csv')
 
-def _build_response_array(parameters):
+def _build_response_array(parameters, ips=True):
 	query_filter = _build_query_filter(parameters)
 	rows = g.db.webview_domains.find(query_filter)
 
@@ -43,6 +43,8 @@ def _build_response_array(parameters):
 		temp["first_req_timestamp"] = row["first_req_timestamp"]
 		temp["last_req_timestamp"] = row["last_req_timestamp"]
 		temp["reqs"] = row["req_count"]
+		if ips:
+			temp["ips"] = row["ip_preview"]
 		response_array.append(temp)
 
 	return response_array
@@ -85,7 +87,3 @@ def _build_query_filter(parameters):
 				query_filter["$or"].append({"labels" : []})
 
 	return query_filter
-
-
-def _get_custom_results():
-	return None
