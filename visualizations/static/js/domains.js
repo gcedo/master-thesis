@@ -26,18 +26,16 @@ $(function() {
   $( "#datepicker-from" ).datepicker({ onClose: function(selectedDate) { fromDate = selectedDate; } });
   $( "#datepicker-from" ).datepicker("setDate", fromDate);
   fromDate = buildDateString(fromDate);
-  console.log(fromDate);
   $( "#datepicker-to" ).datepicker({ onClose: function(selectedDate) { toDate = selectedDate; } });
   $( "#datepicker-to" ).datepicker("setDate", toDate);
   toDate = buildDateString(toDate);
-  console.log(toDate);
 
   // Update page
   $("#update-button").click(function() {
 
     var url = buildUrl("json");
-    console.log(url);
 
+    $('#myModal').modal('show');
     $.getJSON(url, function(d) {
       var r = [], j = -1;
 
@@ -54,7 +52,7 @@ $(function() {
       });
 
       $("#domains-list").html(r.join(''));
-
+      $('#myModal').modal('hide');
     });
   });
 
