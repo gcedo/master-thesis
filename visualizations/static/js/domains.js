@@ -1,9 +1,9 @@
 $(function() {
 
-  var SLIDER_MIN = 0, SLIDER_MAX = 3585;
-  var sliderMin = 0, sliderMax = 3585;
-  var fromDate;
-  var toDate;
+  var SLIDER_MIN = 0, SLIDER_MAX = 40135;
+  var sliderMin = SLIDER_MIN, sliderMax = SLIDER_MAX;
+  var fromDate = new Date(2012,11,30);
+  var toDate = new Date();
 
   // Slider
   $("#queries-max").html(SLIDER_MAX);
@@ -24,9 +24,13 @@ $(function() {
 
   // Datepicker
   $( "#datepicker-from" ).datepicker({ onClose: function(selectedDate) { fromDate = selectedDate; } });
-  $( "#datepicker-from" ).datepicker("setDate", new Date(2012,12,30));
+  $( "#datepicker-from" ).datepicker("setDate", fromDate);
+  fromDate = buildDateString(fromDate);
+  console.log(fromDate);
   $( "#datepicker-to" ).datepicker({ onClose: function(selectedDate) { toDate = selectedDate; } });
-  $( "#datepicker-to" ).datepicker("setDate", new Date());
+  $( "#datepicker-to" ).datepicker("setDate", toDate);
+  toDate = buildDateString(toDate);
+  console.log(toDate);
 
   // Update page
   $("#update-button").click(function() {
@@ -77,6 +81,13 @@ $(function() {
 
     var url = "/domains?" + mime + dga + nonDga + nx + minReqs + maxReqs + since + to;
     return url;
+  }
+
+  function buildDateString(date) {
+    console.log(1 + date.getMonth());
+    console.log(date.getDate());
+    console.log(date.getFullYear());
+    return (1 + date.getMonth()) + "/" + date.getDate() + "/" + date.getFullYear();
   }
 
 });
