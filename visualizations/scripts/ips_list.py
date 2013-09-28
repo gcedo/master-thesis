@@ -2,7 +2,7 @@ from flask import render_template, g, jsonify, Response
 
 def render_page_content():
 	countries, as_names, rows  = _build_response_array()
-	return render_template('ips.html', rows=rows)
+	return render_template('ips.html', rows=rows, countries=countries, as_names=as_names)
 
 
 def render_json_answer(parameters=None):
