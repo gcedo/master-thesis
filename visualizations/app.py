@@ -82,7 +82,7 @@ def registars():
 @app.route("/ips")
 def ips():
   if 'json' in request.args:
-    return ips_engine.render_json_answer()
+    return ips_engine.render_json_answer(request.args)
   else:
     return ips_engine.render_page_content()
 
