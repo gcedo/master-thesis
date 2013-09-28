@@ -5,6 +5,12 @@ def render_page_content():
 	return render_template('ips.html', rows=rows)
 
 
+def render_json_answer(parameters=None):
+	response = dict()
+	response["ips"] = _build_response_array(parameters)
+	return jsonify(response)
+
+
 def _build_response_array(parameters=None):
 	response_array = list()
 	if parameters:
@@ -15,10 +21,18 @@ def _build_response_array(parameters=None):
 	for row in rows:
 		temp = dict()
 		temp["ip"] = row["ip"]
+		temp["country_code"] = row["geolocalization"]["country_code"]
+		temp["as_name"] = row["as_name"]
+		temp["as_code"] = row["as_code"]
+
 		response_array.append(temp)
 
 	return response_array
 
+
+def _build_query_filter(parameters):
+	query_filter = dict()
+	return query_filter
 
 
 def _fetch_documents():

@@ -14,16 +14,58 @@
 <div class="row">
 	<!-- Dashboard -->
 	<div class="col-md-3">
-
+		<div  data-spy="affix" data-offset-top="40">
+			<div class="panel panel-default">
+				<div class="panel-heading"><h2 class="panel-title">Dashboard</h2></div>
+			</div>
+			<div class="panel panel-default">
+	  		<div class="panel-heading">
+	  			<h2 class="panel-title">Download</h2>
+	  		</div>
+	  			<ul class="list-group">
+						<li class="list-group-item">
+				  		<div class="row">
+					  		<div class="col-md-6">
+					  			<button class="btn btn-info full-width" id="json-download-button">.json</button>
+					  		</div>
+					  		<div class="col-md-6">
+					  			<button class="btn btn-info full-width" id="csv-download-button">.csv</button>
+					  		</div>
+				  		</div>
+				  	</li>
+			  	</ul>
+	  	</div>
+		</div>
 	</div><!-- / Dashboard -->
 	<!-- Ips -->
 	<div class="col-md-9">
 		<table class="table">
-			{% for row in rows %}
-				<tr><td>{{ row.ip }}</td></tr>
-			{% endfor %}
+			<!-- HEAD -->
+			<thead>
+				<tr>
+					<th>IP Address</th>
+					<th>Country</th>
+					<th>AS Name</th>
+					<th>AS Code</th>
+				</tr>
+			</thead>
+			<!-- BODY -->
+			<tbody>
+				{% for row in rows %}
+					<tr>
+						<td>{{ row.ip }}</td>
+						<td>{{ row.country_code }}</td>
+						<td>{{ row.as_name }}</td>
+						<td>{{ row.as_code }}</td>
+					</tr>
+				{% endfor %}
+			</tbody>
 		</table>
 	</div><!-- / Ips -->
 </div>
 
+{% endblock %}
+
+{% block scripts %}
+	<script src="/static/js/ips.js"></script>
 {% endblock %}
