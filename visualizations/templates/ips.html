@@ -17,7 +17,30 @@
 		<div  data-spy="affix" data-offset-top="40">
 			<div class="panel panel-default">
 				<div class="panel-heading"><h2 class="panel-title">Dashboard</h2></div>
+				<ul class="list-group">
+		  		<li class="list-group-item">
+		  			<h5>Countries</h5>
+		  			<div class="pre-scrollable" style="height: 100px; ">
+		  				{% for country in countries %}
+		  					<label class="checkbox-inline">
+							  	<input type="checkbox" class="country-checkbox" id="{{ country }}" checked> {{ country }}
+								</label><br>
+		  				{% endfor %}
+		  			</div>
+		  		</li>
+		  		<li class="list-group-item">
+		  			<h5>AS</h5>
+		  			<div class="pre-scrollable" style="height: 100px; ">
+		  				{% for as_name in as_names %}
+		  					<label class="checkbox-inline">
+							  	<input type="checkbox" class="as-checkbox" id="{{ as_name }}" checked> {{ as_name }}
+								</label><br>
+		  				{% endfor %}
+		  			</div>
+		  		</li>
+		  	</ul>
 			</div>
+
 			<div class="panel panel-default">
 	  		<div class="panel-heading">
 	  			<h2 class="panel-title">Download</h2>
