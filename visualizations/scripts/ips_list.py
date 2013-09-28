@@ -16,7 +16,9 @@ def _build_response_array(parameters=None):
 	countries = set()
 	as_names = set()
 	if parameters:
-		pass
+		query_filter = _build_query_filter(parameters)
+		print query_filter
+		rows = _fetch_documents(query_filter)
 	else:
 		rows = _fetch_documents()
 
@@ -38,10 +40,19 @@ def _build_response_array(parameters=None):
 
 def _build_query_filter(parameters):
 	query_filter = dict()
+
+	# Countries
+	query_filter["$or"] = list()
+	for country in parameters.getlist("countries"):
+		query_filter["$or"].append({"geolocalization.country_code" : country.encode('ascii','ignore')})
+
 	return query_filter
 
 
-def _fetch_documents():
-	return g.db.webview_ips.find({}, \
+def _fetch_documents(query_filter=None):
+	if query_filter:
+		return g.db.webview_ips.find(query_filter)
+	else:
+		return g.db.webview_ips.find({}, \
 			{'ip' : True, 'domain_count' : True, 'geolocalization' : True, 'as_code' : True, 'as_name' : True}) \
-	     .sort([('domain_count' , -1), ('ip', 1)]) \
+	     .sort([('domain_count' , -1), ('ip', 1)])

@@ -30,9 +30,26 @@ $(function() {
     window.location.href = url;
   });
 
+  // Update button
+  $("#update-button").click(function() {
+    var url = buildUrl("json");
+    console.log(url);
+  });
+
+  // Helpers
   function buildUrl(mime) {
-    var url = "/ips?" + mime;
+    var url = "/ips?" + mime + buildCountriesGETString();
     return url;
+  }
+
+  // Build countries GET string
+  function buildCountriesGETString() {
+    var string = "";
+    $.each(countries, function(index, country) {
+      string += "&countries=" + country;
+    });
+    console.log(string);
+    return string;
   }
 
 });
