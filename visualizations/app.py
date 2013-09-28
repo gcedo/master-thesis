@@ -3,6 +3,7 @@ from pymongo import MongoClient
 import scripts.domain as domain_engine
 import scripts.map as map_engine
 import scripts.domains_list as domains_engine
+import scripts.ips_list as ips_engine
 
 app = Flask(__name__)
 
@@ -80,7 +81,10 @@ def registars():
 
 @app.route("/ips")
 def ips():
-  return render_template("ips.html")
+  if 'json' in request.args:
+    pass
+  else:
+    return ips_engine.render_page_content()
 
 # How Phoenix Works routes
 @app.route("/how_it_works")

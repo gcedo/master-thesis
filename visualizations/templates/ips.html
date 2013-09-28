@@ -11,4 +11,19 @@
 	</div>
 </div>
 
+<div class="row">
+	<!-- Dashboard -->
+	<div class="col-md-3">
+
+	</div><!-- / Dashboard -->
+	<!-- Ips -->
+	<div class="col-md-9">
+		<table class="table">
+			{% for row in rows %}
+				<tr><td>{{ row.ip }}</td></tr>
+			{% endfor %}
+		</table>
+	</div><!-- / Ips -->
+</div>
+
 {% endblock %}
