@@ -33,7 +33,24 @@ $(function() {
   // Update button
   $("#update-button").click(function() {
     var url = buildUrl("json");
-    console.log(url);
+    var r = [], j = -1;
+
+    $('#myModal').modal('show');
+    $.getJSON(url, function(d) {
+      $.each(d["ips"], function(index, element) {
+        r[++j] = '<tr><td>';
+        r[++j] = element.ip;
+        r[++j] = '</td><td>';
+        r[++j] = element.country_code;
+        r[++j] = '</td><td>';
+        r[++j] = element.as_name;
+        r[++j] = '</td><td>';
+        r[++j] = element.as_code;
+        r[++j] = '</td></tr>';
+      });
+      $("#ips-table").html(r.join(''));
+      $('#myModal').modal('hide');
+    });
   });
 
   // Helpers
