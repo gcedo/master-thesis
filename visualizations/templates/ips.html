@@ -72,7 +72,7 @@
 	</div><!-- / Dashboard -->
 	<!-- Ips -->
 	<div class="col-md-9">
-		<table class="table f16" id="ips-table">
+		<table class="table f16">
 			<!-- HEAD -->
 			<thead>
 				<tr>
@@ -83,13 +83,13 @@
 				</tr>
 			</thead>
 			<!-- BODY -->
-			<tbody>
+			<tbody id="ips-table">
 				{% for row in rows %}
 					<tr>
 						<td>{{ row.ip }}</td>
 						<td class="uppercase">
 							<span class="flag {{ row.country_code }}"></span>
-								{{ row.country_code }}
+							{{ row.country_code }}
 						</td>
 						<td>{{ row.as_name }}</td>
 						<td>{{ row.as_code }}</td>
