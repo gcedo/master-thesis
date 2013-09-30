@@ -4,7 +4,6 @@ import scripts.domain as domain_engine
 import scripts.map as map_engine
 import scripts.domains_list as domains_engine
 import scripts.ips_list as ips_engine
-import scripts.registars_list as registars_engine
 
 app = Flask(__name__)
 
