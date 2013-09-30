@@ -7,6 +7,10 @@ $(function() {
   var skip = 1;
   var isLoading = false;
 
+  $("#domains-list tr").click(function() {
+    window.location.href = $(this).attr("href");
+  });
+
   // Slider
   $("#queries-max").html(SLIDER_MAX);
   $("#queries-min").html(SLIDER_MIN);

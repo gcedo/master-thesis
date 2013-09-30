@@ -1,18 +1,23 @@
 from flask import render_template, g, jsonify, Response
 
+BATCH_SIZE = 100
+
 def render_page_content():
-	countries, as_names, rows  = _build_response_array()
-	return render_template('ips.html', rows=rows, countries=countries, as_names=as_names)
+	rows  = _build_response_array()
+	countries = g.db.webview_ips.distinct('geolocalization.country_code')
+	countries = list(countries)
+	countries.sort()
+	return render_template('ips.html', rows=rows, countries=countries)
 
 
 def render_json_answer(parameters=None):
 	response = dict()
-	_, _, response["ips"] = _build_response_array(parameters)
+	response["ips"] = _build_response_array(parameters)
 	return jsonify(response)
 
 
 def render_csv_response(parameters=None):
-	_, _, response_array = _build_response_array(parameters)
+	response_array = _build_response_array(parameters)
 	values_array = list()
 
 	for row in response_array:
@@ -31,8 +36,7 @@ def render_csv_response(parameters=None):
 
 def _build_response_array(parameters=None):
 	response_array = list()
-	countries = set()
-	as_names = set()
+
 	if parameters and parameters.getlist("countries"):
 		query_filter = _build_query_filter(parameters)
 		print query_filter
@@ -45,17 +49,12 @@ def _build_response_array(parameters=None):
 		temp["ip"] = row["ip"]
 		country = row["geolocalization"]["country_code"]
 		temp["country_code"] = country
-		countries.add(country)
 		as_name = row["as_name"]
 		temp["as_name"] = as_name
-		as_names.add(as_name)
 		temp["as_code"] = row["as_code"]
 		response_array.append(temp)
 
-	sorted_countries = list(countries)
-	sorted_countries.sort()
-
-	return sorted_countries, as_names, response_array
+	return response_array
 
 
 def _build_query_filter(parameters):
