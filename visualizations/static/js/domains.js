@@ -41,13 +41,19 @@ $(function() {
 
       $.each(d["data"], function(index, element) {
         r[++j] = '<tr><td>';
+        r[++j] = '<span class="glyphicon glyphicon-globe"></span> ';
         r[++j] = element["domain"];
         r[++j] = '</td><td>';
+        r[++j] = '<span class="glyphicon glyphicon-calendar"></span> ';
         r[++j] = element["first_req_timestamp"];
         r[++j] = '</td><td>';
+        r[++j] = '<span class="glyphicon glyphicon-calendar"></span> ';
         r[++j] = element["last_req_timestamp"];
         r[++j] = '</td><td>';
-        r[++j] = element["labels"];
+        r[++j] = '<span class="glyphicon glyphicon-tags"></span> ';
+        $.each(element["labels"], function(index, label){
+          r[++j] = '<span class="label label-default">' + label + '</span>';
+        });
         r[++j] = '</td></tr>';
       });
 
