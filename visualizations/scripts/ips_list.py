@@ -70,8 +70,6 @@ def _build_query_filter(parameters):
 
 def _fetch_documents(query_filter=None):
 	if query_filter:
-		return g.db.webview_ips.find(query_filter).limit(100)
+		return g.db.webview_ips.find(query_filter).limit(BATCH_SIZE)
 	else:
-		return g.db.webview_ips.find({}, \
-			{'ip' : True, 'domain_count' : True, 'geolocalization' : True, 'as_code' : True, 'as_name' : True}) \
-	     .sort([('domain_count' , -1), ('ip', 1)]).limit(100)
+		return g.db.webview_ips.find().limit(BATCH_SIZE)
