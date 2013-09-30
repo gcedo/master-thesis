@@ -1,8 +1,10 @@
 from flask import render_template, g, jsonify, Response
 from dateutil import parser
 
+BATCH_SIZE = 100
+
 def render_page_content():
-	rows = g.db.webview_domains.find().limit(40)
+	rows = g.db.webview_domains.find().limit(BATCH_SIZE)
 	return render_template('domains.html', rows=rows)
 
 
@@ -33,7 +35,11 @@ def render_csv_response(parameters):
 
 def _build_response_array(parameters, ips=True):
 	query_filter = _build_query_filter(parameters)
-	rows = g.db.webview_domains.find(query_filter)
+	if parameters.get("skip") is not None:
+		skip = int(parameters.get("skip"))
+		rows = g.db.webview_domains.find(query_filter).limit(BATCH_SIZE).skip(skip * BATCH_SIZE)
+	else:
+		rows = g.db.webview_domains.find(query_filter).limit(BATCH_SIZE)
 
 	response_array = list()
 	for row in rows:

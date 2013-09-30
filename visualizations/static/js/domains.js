@@ -4,6 +4,8 @@ $(function() {
   var sliderMin = SLIDER_MIN, sliderMax = SLIDER_MAX;
   var fromDate = new Date(2012,11,30);
   var toDate = new Date();
+  var skip = 1;
+  var isLoading = false;
 
   // Slider
   $("#queries-max").html(SLIDER_MAX);
@@ -37,9 +39,16 @@ $(function() {
 
     $('#myModal').modal('show');
     $.getJSON(url, function(d) {
-      var r = [], j = -1;
+      r = buildTableHTML(d["data"]);
+      $("#domains-list").html(r);
+      $('#myModal').modal('hide');
+    });
+  });
 
-      $.each(d["data"], function(index, element) {
+  function buildTableHTML(data) {
+    var r = [], j = -1;
+
+      $.each(data, function(index, element) {
         r[++j] = '<tr><td>';
         r[++j] = '<span class="glyphicon glyphicon-globe"></span> ';
         r[++j] = element["domain"];
@@ -57,10 +66,8 @@ $(function() {
         r[++j] = '</td></tr>';
       });
 
-      $("#domains-list").html(r.join(''));
-      $('#myModal').modal('hide');
-    });
-  });
+      return r.join('');
+  }
 
   // JSON download
   $("#json-download-button").click(function() {
@@ -90,5 +97,25 @@ $(function() {
   function buildDateString(date) {
     return (1 + date.getMonth()) + "/" + date.getDate() + "/" + date.getFullYear();
   }
+
+  function loadMoreDomains() {
+    var url = buildUrl("json") + "&skip=" + skip;
+    skip++;
+    var tableHTML;
+
+    $.getJSON(url, function(d) {
+      isLoading = true;
+      console.log(d);
+      tableHTML = buildTableHTML(d["data"]);
+      $("#domains-table > tbody:last").append(tableHTML);
+    });
+    isLoading = false;
+  }
+
+  $(window).scroll(function() {
+    if ($(window).scrollTop() > $(window).height() - 20 && !isLoading) {
+      loadMoreDomains();
+    }
+  });
 
 });
