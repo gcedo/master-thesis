@@ -4,6 +4,7 @@ import scripts.domain as domain_engine
 import scripts.map as map_engine
 import scripts.domains_list as domains_engine
 import scripts.ips_list as ips_engine
+import scripts.registars_list as registars_engine
 
 app = Flask(__name__)
 
@@ -75,10 +76,6 @@ def domain(domain):
   else:
     return domain_engine.render_page_content(domain, mime='html')
 
-@app.route("/registars")
-def registars():
-  return render_template("registars.html")
-
 @app.route("/ips")
 def ips():
   if 'json' in request.args:
@@ -87,6 +84,7 @@ def ips():
     return ips_engine.render_csv_response(request.args)
   else:
     return ips_engine.render_page_content()
+
 
 # How Phoenix Works routes
 @app.route("/how_it_works")
