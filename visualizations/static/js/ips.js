@@ -38,7 +38,7 @@ $(function() {
         r[++j] = '<tr><td>';
         r[++j] = element.ip;
         r[++j] = '</td><td class="uppercase">';
-        r[++j] = '<span class="flag ' + element.country_code + '"></span>';
+        r[++j] = '<span class="flag ' + element.country_code + '"></span> ';
         r[++j] = element.country_code;
         r[++j] = '</td><td>';
         r[++j] = element.as_name;
