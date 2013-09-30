@@ -27,6 +27,11 @@ $(function() {
     window.location.href = url;
   });
 
+  $("#csv-download-button").click(function() {
+    var url = buildUrl("csv");
+    window.location.href = url;
+  });
+
   // Update button
   $("#update-button").click(function() {
     var url = buildUrl("json");
