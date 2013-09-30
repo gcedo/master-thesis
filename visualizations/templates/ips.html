@@ -2,6 +2,7 @@
 
 {% block style %}
 	<link href="/static/css/flags32.css" rel="stylesheet" media="screen">
+	<link href="/static/css/flags16.css" rel="stylesheet" media="screen">
 {% endblock %}
 
 {% block container %}
@@ -26,14 +27,14 @@
 		  			<h5>Countries</h5>
 		  			<div class="pre-scrollable scrolls f32" id="ips-countries-selector">
 		  				{% for country in countries %}
-		  					<label class="checkbox-inline">
+		  					<label class="checkbox-inline" style="line-height: 32px; ">
 		  						<input type="checkbox" class="country-checkbox" id="{{ country }}" checked>
 		  						<div class="row">
 		  							<div class="col-md-4">
 		  								<span class ="flag {{ country }}"></span>
 		  							</div>
-		  							<div class="col-md-6">
-		  								<p>{{ country }}</p>
+		  							<div class="col-md-6 uppercase">
+		  									{{ country }}
 		  							</div>
 		  						</div>
 								</label><br>
@@ -71,7 +72,7 @@
 	</div><!-- / Dashboard -->
 	<!-- Ips -->
 	<div class="col-md-9">
-		<table class="table" id="ips-table">
+		<table class="table f16" id="ips-table">
 			<!-- HEAD -->
 			<thead>
 				<tr>
@@ -86,7 +87,10 @@
 				{% for row in rows %}
 					<tr>
 						<td>{{ row.ip }}</td>
-						<td>{{ row.country_code }}</td>
+						<td class="uppercase">
+							<span class="flag {{ row.country_code }}"></span>
+								{{ row.country_code }}
+						</td>
 						<td>{{ row.as_name }}</td>
 						<td>{{ row.as_code }}</td>
 					</tr>
