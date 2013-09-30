@@ -1,4 +1,4 @@
-from flask import render_template, g, jsonify
+from flask import render_template, g, jsonify, Response
 
 def render_page_content():
 	countries, as_names, rows  = _build_response_array()
@@ -9,6 +9,24 @@ def render_json_answer(parameters=None):
 	response = dict()
 	_, _, response["ips"] = _build_response_array(parameters)
 	return jsonify(response)
+
+
+def render_csv_response(parameters=None):
+	_, _, response_array = _build_response_array(parameters)
+	values_array = list()
+
+	for row in response_array:
+		values = list()
+		for key, value in row.items():
+			values.append(value)
+		values_array.append(values)
+
+	def generate():
+		yield "as_code; as_name; country_code; ip\n"
+		for row in values_array:
+			yield ';'.join(row) + '\n'
+
+	return Response(generate(), mimetype='text/csv')
 
 
 def _build_response_array(parameters=None):
