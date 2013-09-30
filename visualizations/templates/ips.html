@@ -20,7 +20,7 @@
 				<ul class="list-group">
 		  		<li class="list-group-item">
 		  			<h5>Countries</h5>
-		  			<div class="pre-scrollable" style="height: 100px; ">
+		  			<div class="pre-scrollable scrolls" style="height: 100px; ">
 		  				{% for country in countries %}
 		  					<label class="checkbox-inline">
 							  	<input type="checkbox" class="country-checkbox" id="{{ country }}" checked> {{ country }}
@@ -30,7 +30,7 @@
 		  		</li>
 		  		<li class="list-group-item">
 		  			<h5>AS</h5>
-		  			<div class="pre-scrollable" style="height: 100px; ">
+		  			<div class="pre-scrollable scrolls">
 		  				{% for as_name in as_names %}
 		  					<label class="checkbox-inline">
 							  	<input type="checkbox" class="as-checkbox" id="{{ as_name }}" checked> {{ as_name }}

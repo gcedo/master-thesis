@@ -1,4 +1,4 @@
-from flask import render_template, g, jsonify, Response
+from flask import render_template, g, jsonify
 
 def render_page_content():
 	countries, as_names, rows  = _build_response_array()
@@ -34,8 +34,12 @@ def _build_response_array(parameters=None):
 		temp["as_code"] = row["as_code"]
 
 		response_array.append(temp)
+		sorted_countries = list()
+		for country in countries:
+			sorted_countries.append(country)
+		sorted_countries.sort()
 
-	return countries, as_names, response_array
+	return sorted_countries, as_names, response_array
 
 
 def _build_query_filter(parameters):
