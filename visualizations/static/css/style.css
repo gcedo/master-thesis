@@ -60,6 +60,11 @@
     top: 440px;
 }
 
+/* Ips */
+#ips-countries-selector {
+    height: 250px;
+}
+
 /* Footer */
 footer {
     height: 225px;
