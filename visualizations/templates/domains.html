@@ -84,18 +84,32 @@
 			<thead>
 				<tr>
 					<th>Domain Name</th>
-					<th>First Req.</th>
-					<th>Last Req.</th>
+					<th>First DNS Request</th>
+					<th>Last DNS Request</th>
 					<th>Labels</th>
 				</tr>
 			</thead>
 			<tbody id="domains-list">
 			{% for row in rows %}
 					<tr href="/domain/{{ row.domain }}">
-						<td>{{ row.domain }}</td>
-						<td>{{ row.first_req_timestamp }}</td>
-						<td>{{ row.last_req_timestamp }}</td>
-						<td>{{ row.labels }}</td>
+						<td>
+              <span class="glyphicon glyphicon-globe"></span>
+              {{ row.domain }}
+            </td>
+						<td>
+							<span class="glyphicon glyphicon-calendar"></span>
+							{{ row.first_req_timestamp.strftime('%a, %d %b %Y') }}
+						</td>
+						<td>
+							<span class="glyphicon glyphicon-calendar"></span>
+							{{ row.last_req_timestamp.strftime('%a, %d %b %Y') }}
+						</td>
+						<td>
+							<span class="glyphicon glyphicon-tags"></span>
+              {% for label in row.labels %}
+                  <span class="label label-default"> {{ label }} </span>
+              {% endfor %}
+						</td>
 					</tr>
 			{% endfor %}
 			</tbody>
