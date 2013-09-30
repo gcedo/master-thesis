@@ -102,18 +102,18 @@ $(function() {
     var url = buildUrl("json") + "&skip=" + skip;
     skip++;
     var tableHTML;
-
+    $('#myModal').modal('show');
     $.getJSON(url, function(d) {
       isLoading = true;
-      console.log(d);
       tableHTML = buildTableHTML(d["data"]);
       $("#domains-table > tbody:last").append(tableHTML);
+      isLoading = false;
+      $('#myModal').modal('hide');
     });
-    isLoading = false;
   }
 
   $(window).scroll(function() {
-    if ($(window).scrollTop() > $(window).height() - 20 && !isLoading) {
+    if ($(window).scrollTop() + $(window).height() > $(".container").height() - 20 && !isLoading) {
       loadMoreDomains();
     }
   });
