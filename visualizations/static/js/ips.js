@@ -3,7 +3,6 @@ $(function() {
   var countries = [];
   var as = [];
 
-
   // Checkboxes
   $(".country-checkbox").change(function() {
     var temp = $(".country-checkbox").filter(":checked");
@@ -11,7 +10,6 @@ $(function() {
     $.each(temp, function(index, country) {
       countries.push($(country).attr("id"));
     });
-    console.log(countries);
   });
 
   $(".as-checkbox").change(function() {
@@ -20,7 +18,6 @@ $(function() {
     $.each(temp, function(index, as_name) {
       as.push($(as_name).attr("id"));
     });
-    console.log(as);
   });
 
 
@@ -56,6 +53,7 @@ $(function() {
   // Helpers
   function buildUrl(mime) {
     var url = "/ips?" + mime + buildCountriesGETString();
+    console.log(url);
     return url;
   }
 
@@ -65,7 +63,14 @@ $(function() {
     $.each(countries, function(index, country) {
       string += "&countries=" + country;
     });
-    console.log(string);
+    return string;
+  }
+
+  function buildAsGETString(){
+    var string = "";
+    $.each(as, function(index, as) {
+      string += "&as=" + as;
+    });
     return string;
   }
 

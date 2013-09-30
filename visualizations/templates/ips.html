@@ -1,5 +1,9 @@
 {% extends 'layout/base.html' %}
 
+{% block style %}
+	<link href="/static/css/flags32.css" rel="stylesheet" media="screen">
+{% endblock %}
+
 {% block container %}
 
 <div class="row">
@@ -20,20 +24,18 @@
 				<ul class="list-group">
 		  		<li class="list-group-item">
 		  			<h5>Countries</h5>
-		  			<div class="pre-scrollable scrolls" style="height: 100px; ">
+		  			<div class="pre-scrollable scrolls f32" id="ips-countries-selector">
 		  				{% for country in countries %}
 		  					<label class="checkbox-inline">
-							  	<input type="checkbox" class="country-checkbox" id="{{ country }}" checked> {{ country }}
-								</label><br>
-		  				{% endfor %}
-		  			</div>
-		  		</li>
-		  		<li class="list-group-item">
-		  			<h5>AS</h5>
-		  			<div class="pre-scrollable scrolls">
-		  				{% for as_name in as_names %}
-		  					<label class="checkbox-inline">
-							  	<input type="checkbox" class="as-checkbox" id="{{ as_name }}" checked> {{ as_name }}
+		  						<input type="checkbox" class="country-checkbox" id="{{ country }}" checked>
+		  						<div class="row">
+		  							<div class="col-md-4">
+		  								<span class ="flag {{ country }}"></span>
+		  							</div>
+		  							<div class="col-md-6">
+		  								<p>{{ country }}</p>
+		  							</div>
+		  						</div>
 								</label><br>
 		  				{% endfor %}
 		  			</div>
