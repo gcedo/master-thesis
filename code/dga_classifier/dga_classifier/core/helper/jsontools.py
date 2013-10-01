@@ -13,8 +13,11 @@ def domain_feature_set_to_json(domain, feature_set):
 	db = Connection().botime
 	record = db.dns_compressed2.find({'domain' : dictionary['domain']})
 	for entry in record:
-		dictionary["first_req_timestamp"] = str(entry["first_query"])
-		dictionary["last_req_timestamp"]  = str(entry["last_query"])
+		dictionary["first_req_timestamp"] = entry["first_query"]
+		dictionary["last_req_timestamp"]  = entry["last_query"]
+		dictionary["first_res_timestamp"] = entry["first_reply"]
+		dictionary["last_res_timestamp"]  = entry["last_reply"]
+		dictionary["queries"] = entry["queries"]
 
 	ip_entries = db.dns_compressed_ips.find({'domain' : dictionary['domain']}, {"ip" : 1})
 	ips_list = list()
