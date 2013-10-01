@@ -1,0 +1,1 @@
+{ "options" : { "create" : "webapp_demo" }, "indexes" : [ { "v" : 1, "key" : { "_id" : 1 }, "ns" : "botime.webapp_demo", "name" : "_id_" } ] }

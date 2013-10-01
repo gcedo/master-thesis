@@ -13,13 +13,15 @@ def flatten_domain_name_string(domain_name_string):
 ########################################
 
 class Domain:
-	def __init__(self, str_domain_name, experiment):
+	# START: Web app: Oct 1 2013
+	def __init__(self, str_domain_name, experiment, webapp=False):
 		self._domain_name = DomainName(str_domain_name)
 		self._ip_mappings = None
 		self._linguistic_feature_set = None
 		self._bipartite_graph_feature_set = None
 		self._timeseries = None
 		self._experiment = experiment
+		self._webapp = webapp
 
 	def __str__(self):
 		return str(self._domain_name)
@@ -34,8 +36,8 @@ class Domain:
 			except DatabaseInterface as old_database_instance:
 				database_instance = old_database_instance
 
-			self._ip_mappings = database_instance.get_ip_addr_associated_with_domain(self, self._experiment)
-
+			self._ip_mappings = database_instance.get_ip_addr_associated_with_domain(self, self._experiment, self._webapp)
+		# END: Web app: Oct 1 2013
 		return self._ip_mappings
 
 	def set_linguistic_feature_set(self, feature_set):
@@ -86,7 +88,7 @@ class DomainName:
 
 		if (len(partition[2]) == 0):
 			raise Exception('The domain name ' + self._original_domain_name + ' can not be parsed correctly.')
-		
+
 		self._public_suffix = clean_string(partition[2])
 		secondary_labels = self._original_domain_name[0 : -len(self._public_suffix) - 1]
 		self._labels_list = string.split(secondary_labels, '.')

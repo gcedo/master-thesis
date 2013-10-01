@@ -41,7 +41,11 @@ class PostProcessor:
 			set2 = set(map(lambda x: apply_mask(x, 0), cluster2.get_ip_set()))
 			intersection = set1.intersection(set2)
 
-			return len(intersection) / float(min(len(set1), len(set2)))
+			min_len = float(min(len(set1), len(set2)))
+			if min_len == 0:
+				min_len = 1
+
+			return len(intersection) / min_len
 
 		toolbox = DomainClusterToolbox()
 		cluster_dictionary = dict()
@@ -80,7 +84,7 @@ class PostProcessor:
 			for cluster_id in main_dict:
 				if id1 in main_dict[cluster_id]:
 					del main_dict[cluster_id][id1]
-	
+
 				if id2 in main_dict[cluster_id]:
 					del main_dict[cluster_id][id2]
 

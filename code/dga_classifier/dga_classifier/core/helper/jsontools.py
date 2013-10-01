@@ -1,4 +1,5 @@
 import json
+from pymongo import Connection
 
 def domain_feature_set_to_json(domain, feature_set):
 	dictionary = dict()
@@ -9,7 +10,19 @@ def domain_feature_set_to_json(domain, feature_set):
 	dictionary["three-gram"] = feature_set.get_three_gram_normality_score()
 	dictionary["label"] = feature_set.get_DGA_label()
 
-	return json.dumps(dictionary)
+	db = Connection().botime
+	record = db.dns_compressed2.find({'domain' : dictionary['domain']})
+	for entry in record:
+		dictionary["first_req_timestamp"] = str(entry["first_query"])
+		dictionary["last_req_timestamp"]  = str(entry["last_query"])
+
+	ip_entries = db.dns_compressed_ips.find({'domain' : dictionary['domain']}, {"ip" : 1})
+	ips_list = list()
+	for ip_entry in ip_entries:
+		ips_list.append(ip_entry["ip"])
+	dictionary["ips"] = ips_list
+
+	db.webapp_demo.insert(dictionary)
 
 
 def domain_cluster_to_json(cluster):

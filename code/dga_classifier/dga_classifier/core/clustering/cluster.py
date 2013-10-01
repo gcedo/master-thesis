@@ -90,7 +90,7 @@ class DomainClusterToolbox:
 
 		for domain in cluster:
 			old_value = domain.get_bipartite_graph_feature_set().get_dimension_value(dimension)
-			
+
 			if std_dev > 0:
 				new_value = (old_value - average) / std_dev
 			else:
@@ -104,16 +104,17 @@ class DomainClusterToolbox:
 ########################################
 
 class DomainClusterDatabaseFactory:
-	def __init__(self, experiment, identifier = 'cluster_0'):
+	def __init__(self, experiment, identifier = 'cluster_0', webapp=False):
 		try:
 			database_instance = DatabaseInterface()
 		except DatabaseInterface as old_database_instance:
 			database_instance = old_database_instance
 
 		self._cluster = DomainCluster(identifier)
-
-		for domain_name in database_instance.get_all_domain_names(experiment):
-			self._cluster.add_domain(Domain(domain_name, experiment))
+		# START: Web app: Oct 1 2013
+		for domain_name in database_instance.get_all_domain_names(experiment, webapp):
+			self._cluster.add_domain(Domain(domain_name, experiment, webapp))
+		# END: Web app: Oct 1 2013
 
 	def get(self):
 		return self._cluster
@@ -133,7 +134,7 @@ class DomainClusterFileFactory:
 
 			for line in lines:
 				line = clean_string(line)
-				
+
 				if two_columns_format:
 					partition = line.partition(',')
 					str_domain_name = clean_string(partition[0])
@@ -183,7 +184,7 @@ class DomainCluster:
 
 		result = colored_label('ID: ') + self._identifier + '\n'
 		result += colored_label('Size: ') + str(len(self)) + '\n'
-		
+
 		if self._bipartite_graph_descriptor != None:
 			result += str(self._bipartite_graph_descriptor) + '\n'
 
@@ -196,7 +197,7 @@ class DomainCluster:
 		# result += 'Backbone IP mappings size: ' + str(len(ip_backbone_list)) + '\n'
 		# result += 'Backbone sample IP mappings:\n'
 		# result += '\n'.join(map(lambda x: '     -->  ' + str(x), ip_backbone_list[0:preview_ips])) + '\n'
-		
+
 		# as_list = list(self.get_as_set())
 		# result += colored_label('AS mappings size: ') + str(len(as_list)) + '\n'
 		# result += colored_label('Sample AS mappings:\n')
@@ -206,7 +207,7 @@ class DomainCluster:
 			result += str(self._linguistic_descriptor) + '\n'
 
 		result += colored_label('Sample domains:\n')
-		result += '\n'.join(map(lambda x: '     -->  ' + str(x), self._domain_list[0:preview_domains]))		
+		result += '\n'.join(map(lambda x: '     -->  ' + str(x), self._domain_list[0:preview_domains]))
 		result += '\n' + decoration
 
 		return result
@@ -230,7 +231,7 @@ class DomainCluster:
 	def clear_bipartite_graph_features(self):
 		self._bipartite_graph_descriptor = None
 
-		for domain in self._domain_list:		
+		for domain in self._domain_list:
 			domain.set_bipartite_graph_feature_set(None)
 
 	def get_as_set(self):
@@ -254,7 +255,7 @@ class DomainCluster:
 		ip_set = set()
 
 		for domain in self._domain_list:
-			for ip in domain.get_ip_mappings(): 
+			for ip in domain.get_ip_mappings():
 				ip_set.add(ip)
 
 		return ip_set

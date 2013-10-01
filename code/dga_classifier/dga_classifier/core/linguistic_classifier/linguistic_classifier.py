@@ -167,7 +167,7 @@ class FeaturesExtractor:
 		# features_set.set_character_digit_transitions_ratio(CharacterDigitTransitionsExtractor(self._domain).transitions_ratio())
 
 		n_gram_normality_extractor = NGramNormalityExtractor(self._domain)
-		
+
 		features_set.set_one_gram_normality_score(n_gram_normality_extractor.normality_score(1))
 		features_set.set_two_gram_normality_score(n_gram_normality_extractor.normality_score(2))
 		features_set.set_three_gram_normality_score(n_gram_normality_extractor.normality_score(3))
@@ -187,10 +187,10 @@ class DGAClassifier:
 		features_extractor = FeaturesExtractor(self._domain)
 		feature_set = features_extractor.compute_feature_set()
 
-		meaningful_words_ratio = feature_set.get_meaningful_word_ratio()
-		one_gram_normality_score = feature_set.get_one_gram_normality_score()
-		two_gram_normality_score = feature_set.get_two_gram_normality_score()
-		three_gram_normality_score = feature_set.get_three_gram_normality_score()
+		# meaningful_words_ratio = feature_set.get_meaningful_word_ratio()
+		# one_gram_normality_score = feature_set.get_one_gram_normality_score()
+		# two_gram_normality_score = feature_set.get_two_gram_normality_score()
+		# three_gram_normality_score = feature_set.get_three_gram_normality_score()
 
 		self._domain.set_linguistic_feature_set(feature_set)
 
@@ -206,7 +206,7 @@ class DGAClassifier:
 
 		feature_set.set_DGA_label(label)
 
-		print jsontools.domain_feature_set_to_json(self._domain, feature_set)
+		jsontools.domain_feature_set_to_json(self._domain, feature_set)
 
 
 ########################################
@@ -252,7 +252,7 @@ class LinguisticNormality:
 		three_gram_normality_score = domain.get_linguistic_feature_set().get_three_gram_normality_score()
 
 		current_sample = numpy.array([meaningful_word_ratio, one_gram_normality_score, two_gram_normality_score, three_gram_normality_score])
-		
+
 		for i in range(len(current_sample)):
 			if self._centroid[i] < current_sample[i]:
 				current_sample[i] = self._centroid[i]

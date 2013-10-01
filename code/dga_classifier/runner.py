@@ -33,7 +33,7 @@ def external_test(limit=True):
 
 	for subcluster in dga_subclusters:
 		print str(subcluster)
-	
+
 	print jsontools.domain_clusters_to_json(dga_subclusters)
 
 	# experiment_cluster_factory = DomainClusterDatabaseFactory(identifier = 'experiment', experiment = True)
@@ -47,6 +47,23 @@ def external_test(limit=True):
 	# 		continue
 
 	# 	print domain, classification
+
+
+########################################
+## Webapp test Oct 1 2013
+########################################
+def webapp_test():
+	print 'Getting database instance'
+	webapp_cluster_factory = DomainClusterDatabaseFactory(identifier='webapp', experiment=False, webapp=True)
+	webapp_cluster = webapp_cluster_factory.get()
+	print 'Getting database instance: OK'
+
+	print 'Computing clusters'
+	family_clusterer = FamilyClusterer(webapp_cluster)
+	dga_subclusters = family_clusterer.compute_clusters()
+	print 'Computing clusters: OK'
+
+	print jsontools.domain_clusters_to_json(dga_subclusters)
 
 
 ########################################
@@ -262,7 +279,7 @@ def entropy_test():
 
 			apart = _compute_average_entropy([subcluster_1, subcluster_2])
 			together = _compute_average_entropy([DomainClusterToolbox().merge([subcluster_1, subcluster_2], 'hello')])
-			
+
 			print 'Matching ' + str(subcluster_1.get_identifier()) + ' against ' + str(subcluster_2.get_identifier()) + ': ' + str(together - apart)
 
 
@@ -304,7 +321,7 @@ def migrations_test():
 def main(argv):
 	# print "Executing internal test"
 	# return internal_test()
-	return external_test()
+	# return external_test()
 	#return timeline_analysis()
 	#return agd_filtering_test()
 	# return sample_cluster()
@@ -312,6 +329,7 @@ def main(argv):
 	#return p_test()
 	#return entropy_test()
 	#return migrations_test()
+	return webapp_test()
 
 if __name__ == '__main__':
 	sys.exit(main(sys.argv))

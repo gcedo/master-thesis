@@ -1,0 +1,5 @@
+Getting database instance
+Fetching webapp data from database
+Webapp data fetched
+Getting database instance: OK
+Computing clusters
