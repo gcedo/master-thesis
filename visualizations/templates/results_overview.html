@@ -1,5 +1,71 @@
 {% extends 'layout/base.html' %}
 
 {% block container %}
+	<div class="row">
+		<div class="col-md-12">
+			<h2>Results Overview</h2>
+			<hr>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<h3>First Step: Phoenix</h3>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-6">
+			<p>
+				Phoenix is a malicious domain classifier that collects passive DNS data and tries to classify the domains and
+				cluster the eventual botnets. At the moment we are at an early development stage. Stefano Schiavoni (Google),
+				was able to implement the classifier and run it against the data he collected during his master thesis period and
+				to perform a few tests that confirmed the goodness of the model.
+			</p>
+			<p>
+				Once the data is crunched we have a list of domains along with some useful informations:
+			</p>
+			<ul class="disc">
+				<li>DGA or non-DGA label;</li>
+				<li>the eventual cluster it belongs to;</li>
+				<li>the history of its DNS requests and replies.</li>
+			</ul>
+			<p>
+				Given this huge and precious amount of data we aim at producing two main services:
+			</p>
+			<ul class="disc">
+				<li>a set of visualization tools to better investigate a single domain's data;</li>
+				<li>a set of APIs to retrieve the data Phoenix was able to produce.</li>
+			</ul>
+			<p>
+				We shall explain these two features in the next paragraphs.
+			</p>
+		</div>
+		<div class="col-md-6">
+			<img src="http://placehold.it/500x300" alt="Placeholder" class="full-width">
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-6">
+			<h3>Data, visualized</h3>
+			<p>
+				We want to produce a set of visualization tools aiming at making an analyst's work faster and easier. More specifically:
+			</p>
+			<dl>
+				<dt>Maps</dt>
+				<dd>To instantaneously get an idea of where the botmasters had located their machines.</dd>
+				<dt>Timeline</dt>
+				<dd>To instantaneously get an idea of the time range a domain has been used for communication purposes.</dd>
+				<dt>Area Charts</dt>
+				<dd>To visualize the botnet communication activity toward a specific domain over time.</dd>
+			</dl>
+		</div>
+		<div class="col-md-6">
+			<h3>JSON friendly</h3>
+			<p>
+				We aim at making all the data displayed in every results page retrievable via HTML GET requests. The data
+				can be downloaded both in <code>JSON</code> and <code>.csv</code> format. The APIs section explains thoroughly
+				how to retrieve the required data.
+			</p>
+		</div>
+	</div>
 
 {% endblock %}
