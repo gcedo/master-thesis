@@ -86,13 +86,12 @@ $(function() {
   function buildUrl(mime) {
     var dga      = "&dga="     + $("#dgaCheckbox").is(':checked');
     var nonDga   = "&nonDga="  + $("#nonDgaCheckbox").is(':checked');
-    var nx       = "&nx="      + $("#nxdomainCheckbox").is(':checked');
     var minReqs  = "&minReqs=" + sliderMin;
     var maxReqs  = "&maxReqs=" + sliderMax;
     var since    = "&since="   + fromDate;
     var to       = "&to="      + toDate;
 
-    var url = "/domains?" + mime + dga + nonDga + nx + minReqs + maxReqs + since + to;
+    var url = "/domains?" + mime + dga + nonDga + minReqs + maxReqs + since + to;
     return url;
   }
 
