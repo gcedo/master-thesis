@@ -4,7 +4,7 @@ from dateutil import parser
 BATCH_SIZE = 100
 
 def render_page_content():
-	rows = g.db.webview_domains.find().limit(BATCH_SIZE)
+	rows = g.db.webapp_demo.find().limit(BATCH_SIZE)
 	return render_template('domains.html', rows=rows)
 
 
@@ -37,20 +37,19 @@ def _build_response_array(parameters, ips=True):
 	query_filter = _build_query_filter(parameters)
 	if parameters.get("skip") is not None:
 		skip = int(parameters.get("skip"))
-		rows = g.db.webview_domains.find(query_filter).limit(BATCH_SIZE).skip(skip * BATCH_SIZE)
+		rows = g.db.webapp_demo.find(query_filter).limit(BATCH_SIZE).skip(skip * BATCH_SIZE)
 	else:
-		rows = g.db.webview_domains.find(query_filter).limit(BATCH_SIZE)
+		rows = g.db.webapp_demo.find(query_filter).limit(BATCH_SIZE)
 
 	response_array = list()
 	for row in rows:
 		temp = dict()
 		temp["domain"] = row["domain"]
-		temp["labels"] = row["labels"]
+		temp["label"] = row["label"]
 		temp["first_req_timestamp"] = row["first_req_timestamp"]
 		temp["last_req_timestamp"] = row["last_req_timestamp"]
-		temp["reqs"] = row["req_count"]
 		if ips:
-			temp["ips"] = row["ip_preview"]
+			temp["ips"] = row["ips"]
 		response_array.append(temp)
 
 	return response_array
@@ -60,11 +59,11 @@ def _build_query_filter(parameters):
 	query_filter = dict()
 
 	# Check #queries range
-	lowerBound = int(parameters['minReqs'])
-	upperBound = int(parameters['maxReqs'])
-	query_filter["req_count"] = { "$lt" : upperBound, "$gt" : lowerBound }
+	# lowerBound = int(parameters['minReqs'])
+	# upperBound = int(parameters['maxReqs'])
+	# query_filter["req_count"] = { "$lt" : upperBound, "$gt" : lowerBound }
 
-	# Check for dates
+	# # Check for dates
 	sinceDate = parser.parse(parameters["since"])
 	print sinceDate
 	toDate = parser.parse(parameters["to"])
@@ -72,24 +71,12 @@ def _build_query_filter(parameters):
 	query_filter["first_req_timestamp"] = { "$gt" : sinceDate }
 	query_filter["last_req_timestamp"]  = { "$lt" : toDate }
 
-	if parameters['nx'] == 'true' or parameters['dga'] == 'true' or parameters['nonDga'] == 'true':
-		query_filter["$or"] = list()
-		# Check NX
-		if parameters['nx'] == 'true':
-			query_filter["$or"].append({"labels" : ["NXDOMAIN"]})
-
-		# Check DGA
-		if parameters['dga'] == 'true':
-			if parameters['nx'] == 'true':
-				query_filter["$or"].append({"labels" : ["NXDOMAIN", "DGA"]})
-			else:
-				query_filter["$or"].append({"labels" : ["DGA"]})
-
-		# Check nonDGA
-		if parameters['nonDga'] == 'true':
-			if parameters['nx'] == 'true':
-				query_filter["$or"].append({"labels" : ["NXDOMAIN"]})
-			else:
-				query_filter["$or"].append({"labels" : []})
+	query_filter["$or"] = list()
+	# Check DGA
+	if parameters['dga'] == 'true':
+		query_filter["$or"].append({"label" : "DGA"})
+	# Check nonDGA
+	if parameters['nonDga'] == 'true':
+		query_filter["$or"].append({"label" : "non-DGA"})
 
 	return query_filter

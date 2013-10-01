@@ -64,9 +64,7 @@ $(function() {
         r[++j] = dateFormat(new Date(element["last_req_timestamp"]), "ddd, d mmm yyyy");
         r[++j] = '</td><td>';
         r[++j] = '<span class="glyphicon glyphicon-tags"></span> ';
-        $.each(element["labels"], function(index, label){
-          r[++j] = '<span class="label label-default">' + label + '</span> ';
-        });
+        r[++j] = '<span class="label label-default">' + element["label"] + '</span> ';
         r[++j] = '</td></tr>';
       });
 
