@@ -36,4 +36,3 @@ function addMarker(loc) {
 }
 
 initialize();
-// getDomainJson('sophosxl.com');

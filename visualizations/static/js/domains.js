@@ -1,6 +1,6 @@
 $(function() {
 
-  var SLIDER_MIN = 0, SLIDER_MAX = 40135;
+  var SLIDER_MIN = 0, SLIDER_MAX = 1200;
   var sliderMin = SLIDER_MIN, sliderMax = SLIDER_MAX;
   var fromDate = new Date(2012,11,30);
   var toDate = new Date();

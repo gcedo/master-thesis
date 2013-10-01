@@ -9,11 +9,9 @@
 
 <div class="row">
   <h2>{{ record.domain }}</h2>
-  {% for label in record.labels %}
-    <span class="label label-warning">{{ label }}
+    <span class="label label-warning">{{ record.label }}
     <span class="glyphicon glyphicon-tag"></span>
     </span>
-  {% endfor %}
   <hr>
 </div>
 
@@ -52,22 +50,6 @@
           <td><div class="flag {{ country.country }}"></div></td>
           <td><span class="badge">{{ country.country }}</span></td>
           <td><span class="label label-primary">{{ country.ip_count }}</span></td>
-        </tr>
-        {% endfor %}
-      </table>
-    </div>
-  </div>
-  <div class="col-md-4">
-    <div class="panel panel-info">
-      <div class="panel-heading">
-        <h3 class="panel-title">Autonomous Systems ( {{ record.as_count }} )</h3>
-      </div>
-      <table class="table">
-        {% for as in record.as_preview %}
-        <tr>
-          <td>{{ as.code }}</td>
-          <td>{{ as.name }}</td>
-          <td>{{ as.ip_count }}</td>
         </tr>
         {% endfor %}
       </table>
