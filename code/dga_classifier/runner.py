@@ -20,33 +20,37 @@ from termcolor import colored
 ########################################
 
 def external_test(limit=True):
+	print "Warming up..."
 	exposure_cluster_factory = DomainClusterDatabaseFactory(identifier = 'exposure', experiment = False)
 	exposure_cluster = exposure_cluster_factory.get()
+	print "Exposure dataset retrieved"
 
 	# Reducing cluster size for testing purposes
-	if limit:
+	if limit == True:
 		cluster_toolbox = DomainClusterToolbox()
 		exposure_cluster = cluster_toolbox.split(exposure_cluster, 5000, 1)[0]
 
+	print "Computing clusters"
 	family_clusterer = FamilyClusterer(exposure_cluster)
 	dga_subclusters = family_clusterer.compute_clusters()
+	print "Computing clusters: OK"
 
 	for subcluster in dga_subclusters:
 		print str(subcluster)
 
 	print jsontools.domain_clusters_to_json(dga_subclusters)
 
-	# experiment_cluster_factory = DomainClusterDatabaseFactory(identifier = 'experiment', experiment = True)
-	# experiment_cluster = experiment_cluster_factory.get()
+	experiment_cluster_factory = DomainClusterDatabaseFactory(identifier = 'experiment', experiment = True)
+	experiment_cluster = experiment_cluster_factory.get()
 
-	# for domain in experiment_cluster:
-	# 	unseen_domain_classifier = UnseenDomainClassifier(domain, dga_sublusters)
-	# 	classification = unseen_domain_classifier.get_classification()
+	for domain in experiment_cluster:
+		unseen_domain_classifier = UnseenDomainClassifier(domain, dga_subclusters)
+		classification = unseen_domain_classifier.get_classification()
 
-	# 	if classification.is_known_classification() == False:
-	# 		continue
+		if classification.is_known_classification() == False:
+			continue
 
-	# 	print domain, classification
+		print domain, classification
 
 
 ########################################
@@ -321,7 +325,7 @@ def migrations_test():
 def main(argv):
 	# print "Executing internal test"
 	# return internal_test()
-	# return external_test()
+	return external_test()
 	#return timeline_analysis()
 	#return agd_filtering_test()
 	# return sample_cluster()
@@ -329,7 +333,7 @@ def main(argv):
 	#return p_test()
 	#return entropy_test()
 	#return migrations_test()
-	return webapp_test()
+	# return webapp_test()
 
 if __name__ == '__main__':
 	sys.exit(main(sys.argv))
