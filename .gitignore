@@ -1,3 +1,9 @@
 latex/output
-
+code/dga_classifier/dga_classifier/core/clustering/*.pyc
+code/dga_classifier/dga_classifier/core/database/*.pyc
+code/dga_classifier/dga_classifier/core/dga_classifier/*.pyc
+code/dga_classifier/dga_classifier/core/domain/*.pyc
+code/dga_classifier/dga_classifier/core/export/*.pyc
+code/dga_classifier/dga_classifier/core/helper/*.pyc
+code/dga_classifier/dga_classifier/core/linguistic_classifier/*.pyc
 code/dga_classifier/plots
