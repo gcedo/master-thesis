@@ -321,7 +321,7 @@ def migrations_test():
 def main(argv):
 	# print "Executing internal test"
 	# return internal_test()
-	# return external_test()
+	return external_test()
 	#return timeline_analysis()
 	#return agd_filtering_test()
 	# return sample_cluster()
@@ -329,7 +329,7 @@ def main(argv):
 	#return p_test()
 	#return entropy_test()
 	#return migrations_test()
-	return webapp_test()
+	# return webapp_test()
 
 if __name__ == '__main__':
 	sys.exit(main(sys.argv))
