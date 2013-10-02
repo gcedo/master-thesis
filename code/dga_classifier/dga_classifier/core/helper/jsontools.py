@@ -11,13 +11,18 @@ def domain_feature_set_to_json(domain, feature_set):
 	dictionary["label"] = feature_set.get_DGA_label()
 
 	db = Connection().botime
-	record = db.dns_compressed2.find({'domain' : dictionary['domain']})
-	for entry in record:
+	records = db.dns_compressed2.find({'domain' : dictionary['domain']})
+	for entry in records:
 		dictionary["first_req_timestamp"] = entry["first_query"]
 		dictionary["last_req_timestamp"]  = entry["last_query"]
 		dictionary["first_res_timestamp"] = entry["first_reply"]
 		dictionary["last_res_timestamp"]  = entry["last_reply"]
 		dictionary["queries"] = entry["queries"]
+		req_count = 0
+		for query in entry["queries"]:
+			req_count += query["count"]
+		dictionary["req_count"] = req_count
+
 
 	ip_entries = db.dns_compressed_ips.find({'domain' : dictionary['domain']}, {"ip" : 1})
 	ips_list = list()
