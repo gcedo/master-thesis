@@ -32,10 +32,7 @@ class DatabaseInterface:
 		if webapp == True:
 			print "Fetching webapp data from database"
 			cursors = list()
-			cursors.append(self._db.dns_compressed2.find({"first_reply" :{ "$ne" : None }}).limit(2000).skip(200000))
-			cursors.append(self._db.dns_compressed2.find({"first_reply" :{ "$ne" : None }}).limit(2000).skip(300000))
-			cursors.append(self._db.dns_compressed2.find({"first_reply" :{ "$ne" : None }}).limit(2000).skip(400000))
-			cursors.append(self._db.dns_compressed2.find({"first_reply" :{ "$ne" : None }}).limit(2000).skip(500000))
+			cursors.append(self._db.domains_blacklisted.find({"first_reply" :{ "$ne" : None }}))
 			for cursor in cursors:
 				for row in cursor:
 					result.append(row['domain'])
@@ -61,12 +58,12 @@ class DatabaseInterface:
 		domain_name = str(domain.get_domain_name())
 
 		if webapp == True:
-			print 'Getting ip addresses for domains'
+			print 'Getting ip addresses for domain' + domain_name
 			results = self._db.dns_compressed_ips.find({'domain' : domain_name}, {'ip' : 1})
 			ips = list()
 			for result in results:
 				ips.append(result['ip'])
-			print 'Getting ip addresses for domains: OK'
+			print 'Getting ip addresses for domains'  + domain_name + 'OK'
 			return ips
 
 		# END: Web app: Oct 1 2013

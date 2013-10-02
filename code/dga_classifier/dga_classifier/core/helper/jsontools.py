@@ -30,7 +30,12 @@ def domain_feature_set_to_json(domain, feature_set):
 		ips_list.append(ip_entry["ip"])
 	dictionary["ips"] = ips_list
 
-	db.webapp_demo.insert(dictionary)
+	return json.dumps(dictionary)
+
+
+def store_document_to_database(document):
+	db = Connection().botime
+	db.webapp_demo.insert(document)
 
 
 def domain_cluster_to_json(cluster):
