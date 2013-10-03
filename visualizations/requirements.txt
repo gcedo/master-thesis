@@ -12,3 +12,4 @@ pymongo==2.6.1
 python-dateutil==1.5
 six==1.4.1
 wsgiref==0.1.2
+gunicorn==0.17.4
