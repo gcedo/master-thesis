@@ -104,17 +104,19 @@
             </td>
 						<td>
 							<span class="glyphicon glyphicon-calendar"></span>
-							{{ row.first_req_timestamp.strftime('%a, %d %b %Y') }}
+							{{ row.first_req_timestamp }}
+							{#{ row.first_req_timestamp.strftime('%a, %d %b %Y') }#}
 						</td>
 						<td>
 							<span class="glyphicon glyphicon-calendar"></span>
-							{{ row.last_req_timestamp.strftime('%a, %d %b %Y') }}
+							{#{ row.last_req_timestamp.strftime('%a, %d %b %Y') }#}
+							{{ row.last_req_timestamp }}
 						</td>
 						<td>
 							<span class="glyphicon glyphicon-tags"></span>
-              {% for label in row.labels %}
-                  <span class="label label-default"> {{ label }} </span>
-              {% endfor %}
+              {#% for label in row.labels %#}
+                  <span class="label label-default"> {{ row.label }} </span>
+              {#% endfor %#}
 						</td>
 					</tr>
 			{% endfor %}
