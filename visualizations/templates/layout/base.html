@@ -16,7 +16,8 @@
   <body>
     <!-- Nav Bar -->
     {% include "layout/nav.html" %}
-
+    {% block landing %}
+    {% endblock %}
     <!-- Page Content -->
     <div class="container">
       {% block container %}{% endblock %}
