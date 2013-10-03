@@ -45,9 +45,6 @@
 							<label class="checkbox-inline">
 							  <input type="checkbox" id="nonDgaCheckbox" checked> non DGA
 							</label>
-							<label class="checkbox-inline">
-							  <input type="checkbox" id="nxdomainCheckbox" checked> NX
-							</label>
 				  	</li>
 				  	<li class="list-group-item">
 				  		<div class="row">
@@ -104,19 +101,15 @@
             </td>
 						<td>
 							<span class="glyphicon glyphicon-calendar"></span>
-							{{ row.first_req_timestamp }}
-							{#{ row.first_req_timestamp.strftime('%a, %d %b %Y') }#}
+							{{ row.first_req_timestamp.strftime('%a, %d %b %Y') }}
 						</td>
 						<td>
 							<span class="glyphicon glyphicon-calendar"></span>
-							{#{ row.last_req_timestamp.strftime('%a, %d %b %Y') }#}
-							{{ row.last_req_timestamp }}
+							{{ row.last_req_timestamp.strftime('%a, %d %b %Y') }}
 						</td>
 						<td>
 							<span class="glyphicon glyphicon-tags"></span>
-              {#% for label in row.labels %#}
-                  <span class="label label-default"> {{ row.label }} </span>
-              {#% endfor %#}
+              <span class="label label-default"> {{ row.label }} </span>
 						</td>
 					</tr>
 			{% endfor %}

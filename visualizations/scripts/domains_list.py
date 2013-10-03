@@ -59,9 +59,9 @@ def _build_query_filter(parameters):
 	query_filter = dict()
 
 	# Check #queries range
-	# lowerBound = int(parameters['minReqs'])
-	# upperBound = int(parameters['maxReqs'])
-	# query_filter["req_count"] = { "$lt" : upperBound, "$gt" : lowerBound }
+	lowerBound = int(parameters['minReqs'])
+	upperBound = int(parameters['maxReqs'])
+	query_filter["req_count"] = { "$lt" : upperBound, "$gt" : lowerBound }
 
 	# # Check for dates
 	sinceDate = parser.parse(parameters["since"])
