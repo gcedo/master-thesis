@@ -8,7 +8,8 @@ def copy_dga_non_ok():
 	db = Connection().botime
 	dgas = db.dga_dns_backup
 
-	documents = dgas.find().limit(10000)
+	# documents = dgas.find()
+	documents = dgas.find({"domain": { "$gt" : "kugou.com"}},timeout=False)
 
 	for document in documents:
 		print "Analyzing domain " + document["domain"]
