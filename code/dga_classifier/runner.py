@@ -26,9 +26,9 @@ def external_test(limit=True):
 	print "Exposure dataset retrieved"
 
 	# Reducing cluster size for testing purposes
-	if limit == True:
-		cluster_toolbox = DomainClusterToolbox()
-		exposure_cluster = cluster_toolbox.split(exposure_cluster, 5000, 1)[0]
+	# if limit == True:
+		# cluster_toolbox = DomainClusterToolbox()
+		# exposure_cluster = cluster_toolbox.split(exposure_cluster, 5000, 1)[0]
 
 	print "Computing clusters"
 	family_clusterer = FamilyClusterer(exposure_cluster)
