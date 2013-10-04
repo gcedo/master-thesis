@@ -27,11 +27,13 @@ def get_timeline(domain):
 
 	first_request_date = _get_formatted_date(domain_info["first_req_timestamp"])
 	last_request_date = _get_formatted_date(domain_info["last_req_timestamp"])
+	last_resolution_date = _get_formatted_date(domain_info["last_res_timestamp"])
+	first_resolution_date = _get_formatted_date(domain_info["first_res_timestamp"])
 
 	timeline = {
     "timeline":
     {
-        "headline":"The Main Timeline Headline Goes here",
+        "headline":"Domain requests and replies",
         "type":"default",
         "date": [
             {
@@ -42,6 +44,16 @@ def get_timeline(domain):
             {
                 "startDate": last_request_date,
                 "endDate": last_request_date,
+                "headline":"Last DSN request"
+            },
+            {
+                "startDate": last_resolution_date,
+                "endDate": last_resolution_date,
+                "headline":"Last DSN request"
+            },
+            {
+                "startDate": first_resolution_date,
+                "endDate": last_resolution_date,
                 "headline":"Last DSN request"
             }
         ]
