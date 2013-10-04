@@ -38,11 +38,11 @@ def external_test(limit=True):
 	for subcluster in dga_subclusters:
 		print str(subcluster)
 
-	print jsontools.domain_clusters_to_json(dga_subclusters)
+	# print jsontools.domain_clusters_to_json(dga_subclusters)
 
 	experiment_cluster_factory = DomainClusterDatabaseFactory(identifier = 'experiment', experiment = True)
 	experiment_cluster = experiment_cluster_factory.get()
-
+	print "Unseen domain classifier"
 	for domain in experiment_cluster:
 		unseen_domain_classifier = UnseenDomainClassifier(domain, dga_subclusters)
 		classification = unseen_domain_classifier.get_classification()
