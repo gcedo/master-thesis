@@ -4,7 +4,7 @@ from dateutil import parser
 BATCH_SIZE = 100
 
 def render_page_content():
-	rows = g.db.webapp_demo.find().sort({"domain" : -1}).limit(BATCH_SIZE)
+	rows = g.db.webapp_demo.find().sort({"domain" : 1}).limit(BATCH_SIZE)
 	return render_template('domains.html', rows=rows)
 
 
