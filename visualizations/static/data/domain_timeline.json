@@ -1,0 +1,27 @@
+{
+  "domain": "a0f.net",
+  "first_request_timestamp": "Sun, 13 Jan 2013 13:51:14 GMT",
+  "first_resolution_timestamp": "Sun, 13 Jan 2013 13:51:14 GMT",
+  "ips": {
+    "64.147.21.130": {
+      "city": "",
+      "ip": "64.147.21.130",
+      "latitude": 38.0,
+      "longitude": -97.0
+    }
+  },
+  "label": "DGA",
+  "last_request_timestamp": "Mon, 14 Jan 2013 14:05:29 GMT",
+  "last_resolution_timestamp": "Sun, 13 Jan 2013 13:51:14 GMT",
+  "queries": [
+    {
+      "count": 1,
+      "date": "Sun, 13 Jan 2013 00:00:00 GMT"
+    },
+    {
+      "count": 3,
+      "date": "Mon, 14 Jan 2013 00:00:00 GMT"
+    }
+  ],
+  "req_count": 4
+}
