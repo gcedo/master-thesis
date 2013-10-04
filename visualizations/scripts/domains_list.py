@@ -37,9 +37,9 @@ def _build_response_array(parameters, ips=True):
 	query_filter = _build_query_filter(parameters)
 	if parameters.get("skip") is not None:
 		skip = int(parameters.get("skip"))
-		rows = g.db.webapp_demo.find(query_filter).limit(BATCH_SIZE).skip(skip * BATCH_SIZE)
+		rows = g.db.webapp_demo.find(query_filter).sort("domain").limit(BATCH_SIZE).skip(skip * BATCH_SIZE)
 	else:
-		rows = g.db.webapp_demo.find(query_filter).limit(BATCH_SIZE)
+		rows = g.db.webapp_demo.find(query_filter).sort("domain").limit(BATCH_SIZE)
 
 	response_array = list()
 	for row in rows:
