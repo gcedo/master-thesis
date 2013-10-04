@@ -9,6 +9,8 @@ def render_page_content(domain_name, mime="html"):
 	record["domain"] = domain_info["domain"]
 	record["first_request_timestamp"] = domain_info["first_req_timestamp"]
 	record["last_request_timestamp"] = domain_info["last_req_timestamp"]
+	record["first_resolution_timestamp"] = domain_info["first_res_timestamp"]
+	record["last_resolution_timestamp"] = domain_info["last_res_timestamp"]
 	record["label"] = domain_info["label"]
 	record["req_count"] = domain_info["req_count"]
 
