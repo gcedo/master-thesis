@@ -75,14 +75,14 @@ def domain(domain):
   else:
     return domain_engine.render_page_content(domain, mime='html')
 
-@app.route("/ips")
-def ips():
-  if 'json' in request.args:
-    return ips_engine.render_json_answer(request.args)
-  elif 'csv' in request.args:
-    return ips_engine.render_csv_response(request.args)
-  else:
-    return ips_engine.render_page_content()
+# @app.route("/ips")
+# def ips():
+#   if 'json' in request.args:
+#     return ips_engine.render_json_answer(request.args)
+#   elif 'csv' in request.args:
+#     return ips_engine.render_csv_response(request.args)
+#   else:
+#     return ips_engine.render_page_content()
 
 
 # How Phoenix Works routes
@@ -101,6 +101,11 @@ def clustering():
 @app.route("/fingerprinting")
 def fingerprinting():
   return render_template("fingerprinting.html")
+
+# Apis
+@app.route("/apis")
+def apis():
+  return render_template("apis.html")
 
 # Main
 if __name__ == "__main__":

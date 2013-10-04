@@ -41,6 +41,13 @@
     cursor: pointer;
 }
 
+/* Code */
+.highlight pre {
+    margin: 0;
+    border-radius: 0;
+    border: none;
+}
+
 /* Landing Page */
 .landing {
     height: 600px;
