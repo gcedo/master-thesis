@@ -36,7 +36,7 @@ function init() {
     vis.append("g")
       .attr("class", "y axis")
       .attr("transform", "translate(" + (margins.left) + ",0)")
-      .call(yAxis)
+      .call(yAxis);
 
     $.each(json.domains, function(index, domain) {
       if (cluster_ids.indexOf(domain.cluster) == -1) {
@@ -70,7 +70,7 @@ function update(data) {
       .attr("cx", function(d) { return xRange(+d.one_gram); })
       .attr("cy", function(d) { return yRange(+d.two_gram); })
       .attr("class", function(d) { return d.cluster ? d.cluster : "none"; })
-      .attr("id", function(d) { return d.url })
+      .attr("id", function(d) { return d.url; })
       .attr("r", 2)
       .style("fill", function(d) { return palette[d.cluster]; });
 
@@ -94,7 +94,8 @@ function change_x_axis(domain) {
   ]);
   transition.select(".x.axis").call(xAxis);
   circles.transition().duration(1000).ease("exp-in-out")
-    .attr("cx", function(d) { return xRange(+d[domain])});
+    .attr("cx", function(d) { return xRange(+d[domain]);
+    });
 }
 
 function change_y_axis(domain) {
@@ -106,7 +107,7 @@ function change_y_axis(domain) {
 
   transition.select(".y.axis").call(yAxis);
   circles.transition().duration(1000).ease("exp-in-out")
-    .attr("cy", function(d) { return yRange(+d[domain])});
+    .attr("cy", function(d) { return yRange(+d[domain]);});
 }
 
 function highlight_cluster(cluster) {
@@ -126,15 +127,16 @@ function map_init() {
 
 function getIPLocationJson() {
     var items = [];
-    $.getJSON('/static/data/edo_1379334100_loc_ips.json', function(data){
+    $.getJSON('/static/data/edo_1379334100_loc_ips.json', function(data) {
       $.each(data, function(key, val) {
         $.each(val, function(id, array) {
           $.each(array, function(i, j) {
             items.push({"lat": j.lat, "lon": j.lon, "cluster": id});
           });
+          addMarkers(items);
         });
       });
-      addMarkers(items);
+
     });
   }
 
@@ -142,7 +144,7 @@ function addMarkers(items) {
   $.each(items, function(k, item) {
     var loc = new google.maps.LatLng(parseFloat(item.lat), parseFloat(item.lon));
     addMarker(loc, item.cluster);
-  })
+  });
 }
 
 function addMarker(loc, cluster) {
