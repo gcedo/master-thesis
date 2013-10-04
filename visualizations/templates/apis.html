@@ -1,0 +1,117 @@
+{% extends 'layout/base.html' %}
+
+{% block container %}
+<div class="row">
+	<div class="col-md-12">
+		<h2>
+			Phoenix APIs
+			<hr>
+		</h2>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-3">
+		<ul class="nav nav-pills nav-stacked" data-spy="affix" data-offset-top="200">
+					<li><a href="/how_it_works"><strong>Domains APIs</strong></a></li>
+					<li><a href="/filtering"><strong>Single Domain APIs</strong></a></li>
+				</ul>
+	</div>
+	<div class="col-md-9">
+		<h3>Domains APIs</h3>
+		<hr>
+		<p>
+			Domains APIs are meant to retrieve a <code>.json</code> or <code>.csv</code> encoded list
+			of domains that respect certain criteria. Such APIs work in the fashion of HTTP GET request.
+			Here below you can find a complete example:
+		</p>
+
+		<div class="panel panel-info">
+			<div class="panel-heading"><h3 class="panel-title">JSON</h3></div>
+			<div class="highlight">
+			<pre>/domains?json&amp;dga=true&amp;nonDga=true&amp;minReqs=0&amp;maxReqs=787&amp;since=12/30/2012&amp;to=10/4/2013</pre>
+			</div>
+		</div>
+
+		<div class="panel panel-info">
+			<div class="panel-heading"><h3 class="panel-title">csv</h3></div>
+			<div class="highlight">
+			<pre>/domains?csv&amp;dga=true&amp;nonDga=true&amp;minReqs=0&amp;maxReqs=787&amp;since=12/30/2012&amp;to=10/4/2013</pre>
+			</div>
+		</div>
+
+		<table class="table">
+			<thead>
+				<th>Parameter</th>
+				<th>Type</th>
+				<th>Usage</th>
+			</thead>
+			<tbody>
+				<tr>
+					<td><code>dga</code></td>
+					<td><code>boolean</code></td>
+					<td>if true it includes in the results those domains labeled as DGA.</td>
+				</tr>
+				<tr>
+					<td><code>nonDga</code></td>
+					<td><code>boolean</code></td>
+					<td>if true it includes in the results those domains labeled as non-DGA.</td>
+				</tr>
+				<tr>
+					<td><code>minReqs</code></td>
+					<td><code>integer</code></td>
+					<td>it sets the minimum number of DNS requests for the domain.</td>
+				</tr>
+				<tr>
+					<td><code>maxReqs</code></td>
+					<td><code>integer</code></td>
+					<td>it sets the maximum number of DNS requests for the domain.</td>
+				</tr>
+				<tr>
+					<td><code>since</code></td>
+					<td><code>date</code></td>
+					<td>The first request date the domains must be filtered out by.</td>
+				</tr>
+				<tr>
+					<td><code>to</code></td>
+					<td><code>date</code></td>
+					<td>The last request date the domains must be filtered out by.</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<h3>Single Domain APIs</h3>
+		<hr>
+		<p>
+			Single Domain APIs are meant to retrieve in <code>.json</code> format the informations about a
+			single domain in the Phoenix dataset. It comes in the fashion of an HTTP GET request:
+		</p>
+		<div class="panel panel-info">
+			<div class="panel-heading"><h3 class="panel-title">Example</h3></div>
+			<div class="highlight">
+			<pre>/domain/&lt;domain name&gt;?json</pre>
+			</div>
+		</div>
+		<p>Here below an answer example:</p>
+<pre>
+{
+  "domain": "iw53fy4u3sk46y.com",
+  "first_request_timestamp": "Sun, 13 Jan 2013 04:50:33 GMT",
+  "first_resolution_timestamp": "Sun, 13 Jan 2013 04:50:33 GMT",
+  "ips": {
+    "128.127.113.2": {
+      "city": "",
+      "ip": "128.127.113.2",
+      "latitude": 46.0,
+      "longitude": 25.0
+    }
+  },
+  "label": "DGA",
+  "last_request_timestamp": "Sun, 13 Jan 2013 04:50:33 GMT",
+  "last_resolution_timestamp": "Sun, 13 Jan 2013 04:50:33 GMT",
+  "req_count": 1
+}</pre>
+	</div>
+</div>
+
+{% endblock %}
