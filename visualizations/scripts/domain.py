@@ -13,6 +13,7 @@ def render_page_content(domain_name, mime="html"):
 	record["last_resolution_timestamp"] = domain_info["last_res_timestamp"]
 	record["label"] = domain_info["label"]
 	record["req_count"] = domain_info["req_count"]
+	record["queries"] = domain_info["queries"]
 
 	record["ips"], countries = _localize_ip_addresses(domain_info["ips"])
 
