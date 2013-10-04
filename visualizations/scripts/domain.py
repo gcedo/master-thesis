@@ -14,10 +14,10 @@ def render_page_content(domain_name, mime="html"):
 	record["label"] = domain_info["label"]
 	record["req_count"] = domain_info["req_count"]
 
-	record["ips"] = _localize_ip_addresses(domain_info["ips"])
+	record["ips"], countries = _localize_ip_addresses(domain_info["ips"])
 
 	if (mime is "html"):
-		return render_template('domain.html', record=record)
+		return render_template('domain.html', record=record, countries=countries)
 	else:
 		response = jsonify(record)
 		return response
@@ -68,6 +68,7 @@ def _get_formatted_date(date):
 def _localize_ip_addresses(addresses):
 	gi = pygeoip.GeoIP('data/GeoLiteCity.dat')
 	records = dict()
+	countries = dict()
 	print addresses
 	for address in addresses:
 		r = gi.record_by_addr(address)
@@ -77,4 +78,5 @@ def _localize_ip_addresses(addresses):
 		record['longitude'] = r['longitude']
 		record['city'] = r['city']
 		records[address] = record
-	return records
+		countries[r['country_code'].lower()] = r['country_name']
+	return records, countries

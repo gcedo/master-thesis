@@ -1,7 +1,7 @@
 {% extends 'layout/base.html' %}
 
 {% block style %}
-<link href="/static/css/flags32.css" rel="stylesheet" media="screen">
+<link href="/static/css/flags16.css" rel="stylesheet" media="screen">
 {% endblock %}
 
 <!-- Body -->
@@ -42,69 +42,66 @@
   <div class="col-md-2">
     <div class="panel panel-info">
       <div class="panel-heading">
-        <h3 class="panel-title">Countries ( {{ record.country_count }} )</h3>
+        <h3 class="panel-title">Countries</h3>
       </div>
-      <table class="table f32">
-        {% for country in record.country_preview %}
+      <table class="table f16">
+        {% for country_code, country_name in countries.iteritems() %}
         <tr>
-          <td><div class="flag {{ country.country }}"></div></td>
-          <td><span class="badge">{{ country.country }}</span></td>
-          <td><span class="label label-primary">{{ country.ip_count }}</span></td>
+          <td><div class="flag {{ country_code }}"></div></td>
+          <td>{{ country_name }}</td>
         </tr>
         {% endfor %}
       </table>
     </div>
   </div>
-  <div class="col-md-5">
+  <div class="col-md-4">
     <div class="panel panel-info">
       <div class="panel-heading">
         <h3 class="panel-title">Dates</h3>
       </div>
       <table class="table">
-        <tr>
-          <td>
-            <strong>First DNS resolution</strong>
-          </td>
-          <td>
-            <span class="glyphicon glyphicon-calendar">
-            {{ record.first_resolution_timestamp }}
-            <span class="glyphicon glyphicon-time"></span>
-            </span>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <strong>Last DNS resolution</strong>
-          </td>
-          <td>
-            <span class="glyphicon glyphicon-calendar">
-            {{ record.last_resolution_timestamp }}
-            <span class="glyphicon glyphicon-time"></span>
-            </span>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <strong>First DNS request</strong>
-          </td>
-          <td>
-            <span class="glyphicon glyphicon-calendar">
-            {{ record.first_request_timestamp }}
-            <span class="glyphicon glyphicon-time"></span>
-            </span>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <strong>Last DNS request</strong>
-          </td>
-          <td>
-            <span class="glyphicon glyphicon-calendar">
-            {{ record.last_request_timestamp }}
-            <span class="glyphicon glyphicon-time"></span>
-            </span>
-          </td>
-        </tr>
+        <tbody>
+          <tr>
+            <td>
+              <strong>First DNS resolution</strong>
+            </td>
+            <td>
+              <span class="glyphicon glyphicon-calendar">
+              {{ record.first_resolution_timestamp.strftime('%a, %d %b %Y') }}
+              </span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <strong>Last DNS resolution</strong>
+            </td>
+            <td>
+              <span class="glyphicon glyphicon-calendar">
+              {{ record.last_resolution_timestamp.strftime('%a, %d %b %Y') }}
+              </span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <strong>First DNS request</strong>
+            </td>
+            <td>
+              <span class="glyphicon glyphicon-calendar">
+              {{ record.first_request_timestamp.strftime('%a, %d %b %Y') }}
+              </span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <strong>Last DNS request</strong>
+            </td>
+            <td>
+              <span class="glyphicon glyphicon-calendar">
+              {{ record.last_request_timestamp.strftime('%a, %d %b %Y') }}
+              </span>
+            </td>
+          </tr>
+        </tbody>
       </table>
     </div>
   </div>
