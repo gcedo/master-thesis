@@ -69,6 +69,7 @@ var x = d3.time.scale().range([0,w]),
 
 var svg = buildMainCanvas();
 var mini_map = buildMiniMap();
+var bars;
 
 d3.json("/static/data/domain_timeline.json", function(error, json) {
 	$.each(json.queries, function(index, element) {
@@ -114,13 +115,19 @@ function update(data) {
 
 
 function draw() {
-	svg.selectAll(".bar")
-		.data(data)
-	.enter().append("rect")
+	var bars = svg.selectAll(".bar")
+		.data(data);
+
+	bars.enter().append("rect")
 		.attr("class", "bar")
 		.attr("x", function(d) { return x(parse(d.date)); })
 		.attr("y", function(d){ return y(d.count); })
 		.attr("width", "10px")
+		.attr("height", function(d) { return h - y(d.count); });
+
+	bars
+		.attr("x", function(d) { return x(parse(d.date)); })
+		.attr("y", function(d){ return y(d.count); })
 		.attr("height", function(d) { return h - y(d.count); });
 }
 
