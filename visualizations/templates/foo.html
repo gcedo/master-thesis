@@ -23,11 +23,13 @@
 	#selector {
 		fill: #ddd;
 		opacity: 1;
+		cursor: move;
 	}
 
 	.selector-edge {
 		stroke: red;
 		stroke-width: 1px;
+		cursor: pointer;
 	}
 
 
@@ -48,7 +50,8 @@ var m = [40, 40, 80, 40],
     h = 480 - m[0] - m[2],
     h_mini = 120;
 
-var drag = d3.behavior.drag().on("drag", dragMove);
+var drag = d3.behavior.drag().on("drag", dragMoveSelector);
+var dragLeftEdge = d3.behavior.drag().on("drag", dragMoveLeftEdge);
 
 var x = d3.time.scale().range([0,w]),
 		y = d3.scale.linear().range([h,0]),
@@ -102,7 +105,7 @@ function update(data) {
 		.attr("width", "10px")
 		.attr("height", function(d) { return h_mini - y_mini(d.count); });
 
-	updateSelector(20, 60);
+	drawSelector(20, 60);
 }
 
 function buildMiniMap() {
@@ -142,15 +145,33 @@ svg.append("svg:g")
   return svg;
 }
 
-function dragMove(d) {
+function dragMoveSelector(d) {
+	var selector_width = this.getBBox().width;
 	d3.select(this)
-		.attr("y", d3.event.y)
 		.attr("x", d3.event.x);
+	d3.select("#selector-left-edge")
+		.attr("x1", d3.event.x - 1)
+		.attr("x2", d3.event.x - 1);
+	d3.select("#selector-right-edge")
+		.attr("x1", d3.event.x + selector_width + 1)
+		.attr("x2", d3.event.x + selector_width + 1);
+}
+
+function dragMoveLeftEdge(d) {
+	d3.select(this)
+		.attr("x1", d3.event.x)
+		.attr("x2", d3.event.x);
+	updateSelector(d3.event.x, d3.select("#selector-right-edge").node().getBBox().x);
 }
 
 function updateSelector(x1, x2) {
-		mini_map
-		.append("svg:rect")
+	d3.select("#selector")
+			.attr("width", x2 - x1)
+			.attr("x", x1);
+}
+
+function drawSelector(x1, x2) {
+		mini_map.append("svg:rect")
 			.attr("width", x2 - x1)
 			.attr("height", h_mini)
 			.attr("x", x1)
@@ -158,17 +179,16 @@ function updateSelector(x1, x2) {
 			.attr("id", "selector")
 			.call(drag);
 
-	mini_map
-		.append("svg:line")
+	mini_map.append("svg:line")
 			.attr("id", "selector-left-edge")
 			.attr("class", "selector-edge")
 			.attr("x1", x1)
 			.attr("x2", x1)
 			.attr("y1", 0)
-			.attr("y2", h_mini);
+			.attr("y2", h_mini)
+			.call(dragLeftEdge);
 
-	mini_map
-		.append("svg:line")
+	mini_map.append("svg:line")
 			.attr("id", "selector-right-edge")
 			.attr("class", "selector-edge")
 			.attr("x1", x2)
