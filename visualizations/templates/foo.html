@@ -12,13 +12,9 @@
 		font-family: sans-serif;
 	}
 
-	.y.axis line {
-		stroke: #ddd;
-	}
+	.y.axis line { stroke: #ddd; }
 
-	.minimap {
-
-	}
+	.minimap {}
 
 	#selector {
 		fill: #ddd;
@@ -52,7 +48,9 @@ var m = [40, 40, 80, 40],
     h = 480 - m[0] - m[2],
     h_mini = 120;
 
-var drag = d3.behavior.drag().on("drag", dragMoveSelector);
+var SIX_HOURS = 21600000;
+
+var dragSelector = d3.behavior.drag().on("drag", dragMoveSelector);
 var dragLeftEdge = d3.behavior.drag().on("drag", dragMoveLeftEdge);
 var dragRightEdge = d3.behavior.drag().on("drag", dragMoveRightEdge);
 var data;
@@ -61,10 +59,28 @@ var x = d3.time.scale().range([0,w]),
 		y = d3.scale.linear().range([h,0]),
 		x_mini = d3.time.scale().range([0,w]),
 		y_mini = d3.scale.linear().range([h_mini,0]),
-		xAxis = d3.svg.axis().scale(x).ticks(d3.time.day, 1).orient("bottom").tickSize(-h, 0).tickPadding(6),
-		yAxis = d3.svg.axis().scale(y).orient("right").tickSize(-w).tickPadding(6),
-		xAxisMini = d3.svg.axis().scale(x_mini).ticks(d3.time.day, 1).orient("bottom").tickSize(-h_mini, 0).tickPadding(6),
-		yAxisMini = d3.svg.axis().scale(y_mini).orient("right").tickSize(-w).tickPadding(6),
+		xAxis     = d3.svg.axis()
+									.scale(x)
+									.ticks(d3.time.day, 1)
+									.orient("bottom")
+									.tickSize(-h, 0)
+									.tickPadding(6),
+		yAxis     = d3.svg.axis()
+									.scale(y)
+									.orient("right")
+									.tickSize(-w)
+									.tickPadding(6),
+		xAxisMini = d3.svg.axis()
+									.scale(x_mini)
+									.ticks(d3.time.day, 1)
+									.orient("bottom")
+									.tickSize(-h_mini, 0)
+									.tickPadding(6),
+		yAxisMini = d3.svg.axis()
+									.scale(y_mini)
+									.orient("right")
+									.tickSize(-w)
+									.tickPadding(6),
 		parse = d3.time.format("%a, %d %b %Y %H:%M:%S").parse;
 
 var svg = buildMainCanvas();
@@ -72,13 +88,11 @@ var mini_map = buildMiniMap();
 var bars;
 
 d3.json("/static/data/domain_timeline.json", function(error, json) {
-	$.each(json.queries, function(index, element) {
-		data = json.queries;
-		update(data);
-	});
+	data = json.queries;
+	update(data);
 });
 
-drawSelector(20, 60);
+drawSelector(0, w);
 
 function setMainChartXDomain(xmin, xmax) {
 		x.domain([x_mini.invert(xmin),x_mini.invert(xmax)]);
@@ -93,14 +107,14 @@ function setMainChartXDomainByDate(xmin, xmax) {
 function update(data) {
 
 	setMainChartXDomainByDate(
-		new Date(d3.min(data, function(d) { return parse(d.date); }).getTime() - (21600000)),
-		new Date(d3.max(data, function(d) { return parse(d.date); }).getTime() + (21600000))
+		new Date(d3.min(data, function(d) { return parse(d.date); }).getTime() - SIX_HOURS),
+		new Date(d3.max(data, function(d) { return parse(d.date); }).getTime() + SIX_HOURS)
 		);
 	y.domain([0, d3.max(data, function(d) { return d.count;})]);
 	svg.select("g.y.axis").call(yAxis);
 
-	x_mini.domain([new Date(d3.min(data, function(d){ return parse(d.date); }).getTime() - (21600000)),
-								 new Date(d3.max(data, function(d) {return parse(d.date); }).getTime() + (21600000)) ]);
+	x_mini.domain([new Date(d3.min(data, function(d){ return parse(d.date); }).getTime() - SIX_HOURS),
+								 new Date(d3.max(data, function(d) {return parse(d.date); }).getTime() + SIX_HOURS) ]);
 	y_mini.domain([0, d3.max(data, function(d) { return d.count;})]);
 
 	mini_map.select("g.x.axis.mini").call(xAxisMini);
@@ -120,19 +134,20 @@ function update(data) {
 
 
 function draw() {
-	var bars = svg.selectAll(".bar")
-		.data(data);
+	var bars = svg.selectAll(".bar").data(data);
 
+	// Entering new data
 	bars.enter().append("rect")
 		.attr("class", "bar")
 		.attr("x", function(d) { return x(parse(d.date)); })
-		.attr("y", function(d){ return y(d.count); })
+		.attr("y", function(d) { return y(d.count); })
 		.attr("width", "10px")
 		.attr("height", function(d) { return h - y(d.count); });
 
+	// Updating existing bars
 	bars
 		.attr("x", function(d) { return x(parse(d.date)); })
-		.attr("y", function(d){ return y(d.count); })
+		.attr("y", function(d) { return y(d.count); })
 		.attr("height", function(d) { return h - y(d.count); });
 }
 
@@ -174,71 +189,70 @@ svg.append("svg:g")
 }
 
 function dragMoveSelector(d) {
-	var selector_width = this.getBBox().width;
+	var offset = this.getBBox().width / 2;
+	var edge_width = d3.select("#selector-left-edge").node().getBBox().width;
 	d3.select(this)
-		.attr("x", d3.event.x - selector_width / 2);
+		.attr("x", d3.event.x - offset);
 	d3.select("#selector-left-edge")
-		.attr("x1", d3.event.x - 1 - selector_width / 2)
-		.attr("x2", d3.event.x - 1 - selector_width / 2);
+		.attr("x1", d3.event.x - edge_width - offset)
+		.attr("x2", d3.event.x - edge_width - offset);
 	d3.select("#selector-right-edge")
-		.attr("x1", d3.event.x + selector_width + 1 - selector_width / 2)
-		.attr("x2", d3.event.x + selector_width + 1 - selector_width / 2);
+		.attr("x1", d3.event.x + edge_width + offset)
+		.attr("x2", d3.event.x + edge_width + offset);
 
-	setMainChartXDomain(d3.event.x - selector_width / 2, d3.event.x + selector_width / 2);
+	setMainChartXDomain(d3.event.x - offset, d3.event.x + offset);
 	draw();
 
 }
 
 function dragMoveLeftEdge(d) {
-	d3.select(this)
-		.attr("x1", d3.event.x)
-		.attr("x2", d3.event.x);
+	d3.select(this).attr("x1", d3.event.x).attr("x2", d3.event.x);
 	updateSelector(d3.event.x, d3.select("#selector-right-edge").node().getBBox().x);
-	setMainChartXDomain(d3.event.x, d3.select("#selector-right-edge").node().getBBox().x);
-	draw();
+	updateMainChart(d3.event.x, d3.select("#selector-right-edge").node().getBBox().x);
 }
 
 function dragMoveRightEdge(d) {
-	d3.select(this)
-		.attr("x1", d3.event.x)
-		.attr("x2", d3.event.x);
+	d3.select(this).attr("x1", d3.event.x).attr("x2", d3.event.x);
 	updateSelector(d3.select("#selector-left-edge").node().getBBox().x, d3.event.x);
-	setMainChartXDomain(d3.select("#selector-left-edge").node().getBBox().x, d3.event.x);
+	updateMainChart(d3.select("#selector-left-edge").node().getBBox().x, d3.event.x);
+
+}
+
+function updateMainChart(xmin, xmax) {
+	setMainChartXDomain(xmin, xmax);
 	draw();
 }
 
 function updateSelector(x1, x2) {
-	d3.select("#selector")
-			.attr("width", x2 - x1)
-			.attr("x", x1);
+	d3.select("#selector").attr("width", x2 - x1).attr("x", x1);
 }
 
 function drawSelector(x1, x2) {
 	mini_map.append("svg:rect")
-			.attr("width", x2 - x1)
-			.attr("height", h_mini)
-			.attr("x", x1)
-			.attr("y", 0)
-			.attr("id", "selector")
-			.call(drag);
+		.attr("width", x2 - x1)
+		.attr("height", h_mini)
+		.attr("x", x1)
+		.attr("y", 0)
+		.attr("id", "selector")
+		.call(dragSelector);
 
 	mini_map.append("svg:line")
-			.attr("id", "selector-left-edge")
-			.attr("class", "selector-edge")
-			.attr("x1", x1)
-			.attr("x2", x1)
-			.attr("y1", 0)
-			.attr("y2", h_mini)
-			.call(dragLeftEdge);
+		.attr("id", "selector-left-edge")
+		.attr("class", "selector-edge")
+		.attr("x1", x1)
+		.attr("x2", x1)
+		.attr("y1", 0)
+		.attr("y2", h_mini)
+		.call(dragLeftEdge);
 
 	mini_map.append("svg:line")
-			.attr("id", "selector-right-edge")
-			.attr("class", "selector-edge")
-			.attr("x1", x2)
-			.attr("x2", x2)
-			.attr("y1", 0)
-			.attr("y2", h_mini)
-			.call(dragRightEdge);
+		.attr("id", "selector-right-edge")
+		.attr("class", "selector-edge")
+		.attr("x1", x2)
+		.attr("x2", x2)
+		.attr("y1", 0)
+		.attr("y2", h_mini)
+		.call(dragRightEdge);
 }
 
 
