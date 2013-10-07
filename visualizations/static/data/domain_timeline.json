@@ -16,11 +16,11 @@
   "queries": [
     {
       "count": 1,
-      "date": "Sun, 13 Jan 2013 00:00:00 GMT"
+      "date": "Sun, 13 Jan 2013 00:00:00"
     },
     {
       "count": 3,
-      "date": "Mon, 14 Jan 2013 00:00:00 GMT"
+      "date": "Mon, 14 Jan 2013 00:00:00"
     }
   ],
   "req_count": 4

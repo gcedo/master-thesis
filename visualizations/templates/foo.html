@@ -1,0 +1,85 @@
+<head>
+<style>
+	.bar { fill: steelblue; }
+
+	svg path {
+		opacity: 0;
+	}
+</style>
+</head>
+
+
+<div id="timeline"></div>
+
+<script src="/static/js/d3.v3.min.js" charset="utf-8"></script>
+<script src="/static/js/jquery.min.js" charset="utf-8"></script>
+<script>
+
+var m = [79, 80, 160, 79],
+    w = 1280 - m[1] - m[3],
+    h = 800 - m[0] - m[2];
+
+var x = d3.time.scale().range([0,w]),
+		y = d3.scale.linear().range([h,0]),
+		xAxis = d3.svg.axis().scale(x).orient("bottom").tickSize(-h, 0).tickPadding(6),
+		yAxis = d3.svg.axis().scale(y).orient("right").tickSize(-w).tickPadding(6),
+		parse = d3.time.format("%a, %d %b %Y %H:%M:%S").parse;
+		// Mon, 14 Jan 2013 14:05:29 GMT
+
+var svg = d3.select("#timeline").append("svg:svg")
+		.attr("width", w + m[1] + m[3])
+    .attr("height", h + m[0] + m[2])
+	.append("svg:g")
+		.attr("transform", "translate(" + m[3] + "," + m[0] + ")");
+
+// An area generator.
+var area = d3.svg.area()
+    .interpolate("step-after")
+    .x(function(d) { return x(d.date); })
+    .y0(y(0))
+    .y1(function(d) { return y(d.value); });
+
+// A line generator.
+var line = d3.svg.line()
+    .interpolate("step-after")
+    .x(function(d) { return x(d.date); })
+    .y(function(d) { return y(d.value); });
+
+svg.append("svg:g")
+    .attr("class", "x axis")
+    .attr("transform", "translate(0," + h + ")");
+
+
+svg.append("svg:g")
+    .attr("class", "y axis")
+    .attr("transform", "translate(" + w + ",0)");
+
+
+d3.json("/static/data/domain_timeline.json", function(error, json) {
+	$.each(json.queries, function(index, element) {
+		update(json.queries);
+	});
+});
+
+function update(data) {
+	x.domain([new Date(2013, 0, 1), new Date(2013, 0, 16)]);
+	y.domain([0, d3.max(data, function(d) { return d.count;})]);
+
+	svg.select("g.x.axis").call(xAxis);
+	svg.select("g.y.axis").call(yAxis);
+
+	svg.selectAll(".bar")
+		.data(data)
+	.enter().append("rect")
+		.attr("class", "bar")
+		.attr("x", function(d) {
+			console.log(parse(d.date));
+			return x(parse(d.date)) - m[3];
+		})
+		.attr("y", function(d){ return y(d.count); } )
+		.attr("width", "10px")
+		.attr("height", function(d) { return h - y(d.count); });
+}
+
+
+</script>

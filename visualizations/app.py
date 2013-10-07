@@ -27,7 +27,11 @@ def connect_db():
 def before_request():
   if not session.get('logged_in') and request.path not in ALLOWED_ITEMS:
     return redirect(url_for('login'))
-  g.db = connect_db()
+  # g.db = connect_db()
+
+@app.route("/foo")
+def foo():
+  return render_template("foo.html")
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
