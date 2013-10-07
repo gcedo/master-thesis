@@ -22,15 +22,17 @@
 
 	#selector {
 		fill: #ddd;
-		opacity: 1;
+		opacity: 0.7;
 		cursor: move;
 	}
 
 	.selector-edge {
 		stroke: red;
 		stroke-width: 1px;
-		cursor: pointer;
 	}
+
+	#selector-left-edge { cursor: e-resize; }
+	#selector-right-edge { cursor: w-resize; }
 
 
 </style>
@@ -52,10 +54,12 @@ var m = [40, 40, 80, 40],
 
 var drag = d3.behavior.drag().on("drag", dragMoveSelector);
 var dragLeftEdge = d3.behavior.drag().on("drag", dragMoveLeftEdge);
+var dragRightEdge = d3.behavior.drag().on("drag", dragMoveRightEdge);
+var data;
 
 var x = d3.time.scale().range([0,w]),
 		y = d3.scale.linear().range([h,0]),
-		x_mini = x,
+		x_mini = d3.time.scale().range([0,w]),
 		y_mini = d3.scale.linear().range([h_mini,0]),
 		xAxis = d3.svg.axis().scale(x).ticks(d3.time.day, 1).orient("bottom").tickSize(-h, 0).tickPadding(6),
 		yAxis = d3.svg.axis().scale(y).orient("right").tickSize(-w).tickPadding(6),
@@ -68,33 +72,35 @@ var mini_map = buildMiniMap();
 
 d3.json("/static/data/domain_timeline.json", function(error, json) {
 	$.each(json.queries, function(index, element) {
-		update(json.queries);
+		data = json.queries;
+		update(data);
 	});
 });
 
+drawSelector(20, 60);
+
+function setMainChartXDomain(xmin, xmax) {
+		x.domain([xmin,xmax]);
+		svg.select("g.x.axis").call(xAxis);
+	}
+
 function update(data) {
-	x.domain([new Date(d3.min(data, function(d) { return parse(d.date); }).getTime() - (21600000)),
-						new Date(d3.max(data, function(d) { return parse(d.date); }).getTime() + (21600000)) ]);
+
+	setMainChartXDomain(
+		new Date(d3.min(data, function(d) { return parse(d.date); }).getTime() - (21600000)),
+		new Date(d3.max(data, function(d) { return parse(d.date); }).getTime() + (21600000))
+		);
+	y.domain([0, d3.max(data, function(d) { return d.count;})]);
+	svg.select("g.y.axis").call(yAxis);
+
 	x_mini.domain([new Date(d3.min(data, function(d){ return parse(d.date); }).getTime() - (21600000)),
 								 new Date(d3.max(data, function(d) {return parse(d.date); }).getTime() + (21600000)) ]);
-
-	y.domain([0, d3.max(data, function(d) { return d.count;})]);
 	y_mini.domain([0, d3.max(data, function(d) { return d.count;})]);
-
-	svg.select("g.x.axis").call(xAxis);
-	svg.select("g.y.axis").call(yAxis);
 
 	mini_map.select("g.x.axis.mini").call(xAxisMini);
 	mini_map.select("g.y.axis.mini").call(yAxisMini);
 
-	svg.selectAll(".bar")
-		.data(data)
-	.enter().append("rect")
-		.attr("class", "bar")
-		.attr("x", function(d) { return x(parse(d.date)); })
-		.attr("y", function(d){ return y(d.count); })
-		.attr("width", "10px")
-		.attr("height", function(d) { return h - y(d.count); });
+	draw();
 
 	mini_map.selectAll(".bar")
 		.data(data)
@@ -104,8 +110,18 @@ function update(data) {
 		.attr("y", function(d){ return y_mini(d.count); })
 		.attr("width", "10px")
 		.attr("height", function(d) { return h_mini - y_mini(d.count); });
+}
 
-	drawSelector(20, 60);
+
+function draw() {
+	svg.selectAll(".bar")
+		.data(data)
+	.enter().append("rect")
+		.attr("class", "bar")
+		.attr("x", function(d) { return x(parse(d.date)); })
+		.attr("y", function(d){ return y(d.count); })
+		.attr("width", "10px")
+		.attr("height", function(d) { return h - y(d.count); });
 }
 
 function buildMiniMap() {
@@ -148,13 +164,18 @@ svg.append("svg:g")
 function dragMoveSelector(d) {
 	var selector_width = this.getBBox().width;
 	d3.select(this)
-		.attr("x", d3.event.x);
+		.attr("x", d3.event.x - selector_width / 2);
 	d3.select("#selector-left-edge")
-		.attr("x1", d3.event.x - 1)
-		.attr("x2", d3.event.x - 1);
+		.attr("x1", d3.event.x - 1 - selector_width / 2)
+		.attr("x2", d3.event.x - 1 - selector_width / 2);
 	d3.select("#selector-right-edge")
-		.attr("x1", d3.event.x + selector_width + 1)
-		.attr("x2", d3.event.x + selector_width + 1);
+		.attr("x1", d3.event.x + selector_width + 1 - selector_width / 2)
+		.attr("x2", d3.event.x + selector_width + 1 - selector_width / 2);
+
+	console.log(x_mini.invert(d3.event.x));
+	setMainChartXDomain(x_mini.invert(d3.event.x - selector_width / 2), x_mini.invert(d3.event.x + selector_width / 2));
+	draw();
+
 }
 
 function dragMoveLeftEdge(d) {
@@ -162,6 +183,13 @@ function dragMoveLeftEdge(d) {
 		.attr("x1", d3.event.x)
 		.attr("x2", d3.event.x);
 	updateSelector(d3.event.x, d3.select("#selector-right-edge").node().getBBox().x);
+}
+
+function dragMoveRightEdge(d) {
+	d3.select(this)
+		.attr("x1", d3.event.x)
+		.attr("x2", d3.event.x);
+	updateSelector(d3.select("#selector-left-edge").node().getBBox().x, d3.event.x);
 }
 
 function updateSelector(x1, x2) {
@@ -194,7 +222,8 @@ function drawSelector(x1, x2) {
 			.attr("x1", x2)
 			.attr("x2", x2)
 			.attr("y1", 0)
-			.attr("y2", h_mini);
+			.attr("y2", h_mini)
+			.call(dragRightEdge);
 }
 
 
