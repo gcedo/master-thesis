@@ -27,13 +27,6 @@ def before_request():
   if not session.get('logged_in') and request.path not in ALLOWED_ITEMS:
     return redirect(url_for('login'))
   g.db = connect_db()
-<<<<<<< HEAD
-=======
-
-@app.route("/foo")
-def foo():
-  return render_template("foo.html")
->>>>>>> da6dffd... Timeline plugged into domain page
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
