@@ -81,13 +81,18 @@ d3.json("/static/data/domain_timeline.json", function(error, json) {
 drawSelector(20, 60);
 
 function setMainChartXDomain(xmin, xmax) {
-		x.domain([xmin,xmax]);
+		x.domain([x_mini.invert(xmin),x_mini.invert(xmax)]);
 		svg.select("g.x.axis").call(xAxis);
 	}
 
+function setMainChartXDomainByDate(xmin, xmax) {
+	x.domain([xmin,xmax]);
+	svg.select("g.x.axis").call(xAxis);
+}
+
 function update(data) {
 
-	setMainChartXDomain(
+	setMainChartXDomainByDate(
 		new Date(d3.min(data, function(d) { return parse(d.date); }).getTime() - (21600000)),
 		new Date(d3.max(data, function(d) { return parse(d.date); }).getTime() + (21600000))
 		);
@@ -179,8 +184,7 @@ function dragMoveSelector(d) {
 		.attr("x1", d3.event.x + selector_width + 1 - selector_width / 2)
 		.attr("x2", d3.event.x + selector_width + 1 - selector_width / 2);
 
-	console.log(x_mini.invert(d3.event.x));
-	setMainChartXDomain(x_mini.invert(d3.event.x - selector_width / 2), x_mini.invert(d3.event.x + selector_width / 2));
+	setMainChartXDomain(d3.event.x - selector_width / 2, d3.event.x + selector_width / 2);
 	draw();
 
 }
@@ -190,6 +194,8 @@ function dragMoveLeftEdge(d) {
 		.attr("x1", d3.event.x)
 		.attr("x2", d3.event.x);
 	updateSelector(d3.event.x, d3.select("#selector-right-edge").node().getBBox().x);
+	setMainChartXDomain(d3.event.x, d3.select("#selector-right-edge").node().getBBox().x);
+	draw();
 }
 
 function dragMoveRightEdge(d) {
@@ -197,6 +203,8 @@ function dragMoveRightEdge(d) {
 		.attr("x1", d3.event.x)
 		.attr("x2", d3.event.x);
 	updateSelector(d3.select("#selector-left-edge").node().getBBox().x, d3.event.x);
+	setMainChartXDomain(d3.select("#selector-left-edge").node().getBBox().x, d3.event.x);
+	draw();
 }
 
 function updateSelector(x1, x2) {
@@ -206,7 +214,7 @@ function updateSelector(x1, x2) {
 }
 
 function drawSelector(x1, x2) {
-		mini_map.append("svg:rect")
+	mini_map.append("svg:rect")
 			.attr("width", x2 - x1)
 			.attr("height", h_mini)
 			.attr("x", x1)

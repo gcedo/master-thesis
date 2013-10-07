@@ -37,6 +37,30 @@
     {
       "count": 5,
       "date": "Fri, 18 Jan 2013 00:00:00"
+    },
+    {
+      "count": 1,
+      "date": "Sat, 19 Jan 2013 00:00:00"
+    },
+    {
+      "count": 3,
+      "date": "Sun, 20 Jan 2013 00:00:00"
+    },
+    {
+      "count": 5,
+      "date": "Mon, 21 Jan 2013 00:00:00"
+    },
+    {
+      "count": 6,
+      "date": "Tue, 22 Jan 2013 00:00:00"
+    },
+    {
+      "count": 7,
+      "date": "Wed, 23 Jan 2013 00:00:00"
+    },
+    {
+      "count": 5,
+      "date": "Thu, 24 Jan 2013 00:00:00"
     }
   ],
   "req_count": 4
