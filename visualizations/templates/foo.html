@@ -1,4 +1,5 @@
 <head>
+<link href="static/css/ui-lightness/jquery-ui-1.10.3.custom.css" rel="stylesheet" media="screen">
 <style>
 	.bar { fill: steelblue; }
 
@@ -15,61 +16,73 @@
 		stroke: #ddd;
 	}
 
-	.x.axis line {
-		stroke: #ddd;
+	.minimap {
+
 	}
+
+	#selector {
+		fill: #ddd;
+		opacity: 1;
+	}
+
+	.selector-edge {
+		stroke: red;
+		stroke-width: 1px;
+	}
+
+
 </style>
 </head>
 
 
 <div id="timeline"></div>
+<div id="mini-timeline"></div>
 
 <script src="/static/js/d3.v3.min.js" charset="utf-8"></script>
 <script src="/static/js/jquery.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="/static/js/jquery-ui-1.10.3.custom.min.js"></script>
 <script>
 
 var m = [40, 40, 80, 40],
     w = 640 - m[1] - m[3],
-    h = 480 - m[0] - m[2];
+    h = 480 - m[0] - m[2],
+    h_mini = 120;
+
+var drag = d3.behavior.drag().on("drag", dragMove);
 
 var x = d3.time.scale().range([0,w]),
 		y = d3.scale.linear().range([h,0]),
+		x_mini = x,
+		y_mini = d3.scale.linear().range([h_mini,0]),
 		xAxis = d3.svg.axis().scale(x).ticks(d3.time.day, 1).orient("bottom").tickSize(-h, 0).tickPadding(6),
 		yAxis = d3.svg.axis().scale(y).orient("right").tickSize(-w).tickPadding(6),
+		xAxisMini = d3.svg.axis().scale(x_mini).ticks(d3.time.day, 1).orient("bottom").tickSize(-h_mini, 0).tickPadding(6),
+		yAxisMini = d3.svg.axis().scale(y_mini).orient("right").tickSize(-w).tickPadding(6),
 		parse = d3.time.format("%a, %d %b %Y %H:%M:%S").parse;
 
-var svg = d3.select("#timeline").append("svg:svg")
-		.attr("width", w + m[1] + m[3])
-    .attr("height", h + m[0] + m[2])
-	.append("svg:g")
-		.attr("transform", "translate(" + m[3] + "," + m[0] + ")");
-
-svg.append("svg:g")
-    .attr("class", "x axis")
-    .attr("transform", "translate(0," + h + ")");
-
-
-svg.append("svg:g")
-    .attr("class", "y axis")
-    .attr("transform", "translate(" + w + ",0)");
-
+var svg = buildMainCanvas();
+var mini_map = buildMiniMap();
 
 d3.json("/static/data/domain_timeline.json", function(error, json) {
 	$.each(json.queries, function(index, element) {
-		element.date = element.date.replace(" GMT", "");
 		update(json.queries);
 	});
 });
 
 function update(data) {
-	x.domain([new Date(d3.min(data, function(d) { return parse(d.date); }).getTime() - (6 * 60 * 60 * 1000)),
-						new Date(d3.max(data, function(d) { return parse(d.date); }).getTime() + (6 * 60 * 60 * 1000))
-						]);
+	x.domain([new Date(d3.min(data, function(d) { return parse(d.date); }).getTime() - (21600000)),
+						new Date(d3.max(data, function(d) { return parse(d.date); }).getTime() + (21600000)) ]);
+	x_mini.domain([new Date(d3.min(data, function(d){ return parse(d.date); }).getTime() - (21600000)),
+								 new Date(d3.max(data, function(d) {return parse(d.date); }).getTime() + (21600000)) ]);
 
 	y.domain([0, d3.max(data, function(d) { return d.count;})]);
+	y_mini.domain([0, d3.max(data, function(d) { return d.count;})]);
 
 	svg.select("g.x.axis").call(xAxis);
 	svg.select("g.y.axis").call(yAxis);
+
+	mini_map.select("g.x.axis.mini").call(xAxisMini);
+	mini_map.select("g.y.axis.mini").call(yAxisMini);
 
 	svg.selectAll(".bar")
 		.data(data)
@@ -79,6 +92,89 @@ function update(data) {
 		.attr("y", function(d){ return y(d.count); })
 		.attr("width", "10px")
 		.attr("height", function(d) { return h - y(d.count); });
+
+	mini_map.selectAll(".bar")
+		.data(data)
+	.enter().append("rect")
+		.attr("class", "bar")
+		.attr("x", function(d) { return x_mini(parse(d.date)); })
+		.attr("y", function(d){ return y_mini(d.count); })
+		.attr("width", "10px")
+		.attr("height", function(d) { return h_mini - y_mini(d.count); });
+
+	updateSelector(20, 60);
+}
+
+function buildMiniMap() {
+	var mini_map = d3.select("#mini-timeline").append("svg:svg")
+		.attr("width", w + m[1] + m[3])
+		.attr("height", h_mini + m[0] + m[2])
+	.append("svg:g")
+		.attr("transform", "translate(" + m[3] + ",0)")
+		.attr("class", "minimap");
+
+	mini_map.append("svg:g")
+		.attr("class", "x axis mini")
+		.attr("transform", "translate(0," + h_mini + ")");
+
+	mini_map.append("svg:g")
+    .attr("class", "y axis mini")
+    .attr("transform", "translate(" + w + ",0)");
+
+  return mini_map;
+}
+
+function buildMainCanvas() {
+	var svg = d3.select("#timeline").append("svg:svg")
+		.attr("width", w + m[1] + m[3])
+    .attr("height", h + m[0] + m[2])
+	.append("svg:g")
+		.attr("transform", "translate(" + m[3] + "," + m[0] + ")");
+
+svg.append("svg:g")
+    .attr("class", "x axis")
+    .attr("transform", "translate(0," + h + ")");
+
+svg.append("svg:g")
+    .attr("class", "y axis")
+    .attr("transform", "translate(" + w + ",0)");
+
+  return svg;
+}
+
+function dragMove(d) {
+	d3.select(this)
+		.attr("y", d3.event.y)
+		.attr("x", d3.event.x);
+}
+
+function updateSelector(x1, x2) {
+		mini_map
+		.append("svg:rect")
+			.attr("width", x2 - x1)
+			.attr("height", h_mini)
+			.attr("x", x1)
+			.attr("y", 0)
+			.attr("id", "selector")
+			.call(drag);
+
+	mini_map
+		.append("svg:line")
+			.attr("id", "selector-left-edge")
+			.attr("class", "selector-edge")
+			.attr("x1", x1)
+			.attr("x2", x1)
+			.attr("y1", 0)
+			.attr("y2", h_mini);
+
+	mini_map
+		.append("svg:line")
+			.attr("id", "selector-right-edge")
+			.attr("class", "selector-edge")
+			.attr("x1", x2)
+			.attr("x2", x2)
+			.attr("y1", 0)
+			.attr("y2", h_mini);
 }
 
 
