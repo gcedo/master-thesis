@@ -3,7 +3,6 @@ from pymongo import MongoClient
 import scripts.domain as domain_engine
 import scripts.map as map_engine
 import scripts.domains_list as domains_engine
-import scripts.ips_list as ips_engine
 
 app = Flask(__name__)
 
@@ -27,7 +26,7 @@ def connect_db():
 def before_request():
   if not session.get('logged_in') and request.path not in ALLOWED_ITEMS:
     return redirect(url_for('login'))
-  # g.db = connect_db()
+  g.db = connect_db()
 
 @app.route("/foo")
 def foo():

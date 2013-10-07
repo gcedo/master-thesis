@@ -1,8 +1,9 @@
 function drawTimeline(dataset) {
-  var m = [40, 40, 80, 40],
-    w = 640 - m[1] - m[3],
-    h = 480 - m[0] - m[2],
-    h_mini = 120;
+  var m = [40, 40, 25, 40],
+    w = 530 - m[1] - m[3],
+    h = 300,
+    m_mini = [10, 30];
+    h_mini = 150 - m_mini[0] - m_mini[1];
 
   var SIX_HOURS = 21600000;
 
@@ -112,9 +113,9 @@ function drawTimeline(dataset) {
   function buildMiniMap() {
     var mini_map = d3.select("#mini-timeline").append("svg:svg")
       .attr("width", w + m[1] + m[3])
-      .attr("height", h_mini + m[0] + m[2])
+      .attr("height", h_mini + m_mini[0] + m_mini[1])
     .append("svg:g")
-      .attr("transform", "translate(" + m[3] + ",0)")
+      .attr("transform", "translate(" + m[3] + "," + m_mini[0] + ")")
       .attr("class", "minimap");
 
     mini_map.append("svg:g")
