@@ -28,6 +28,10 @@ def before_request():
     return redirect(url_for('login'))
   g.db = connect_db()
 
+@app.route("/foo")
+def foo():
+  return render_template("foo.html")
+
 @app.route("/login", methods=['GET', 'POST'])
 def login():
   error = None

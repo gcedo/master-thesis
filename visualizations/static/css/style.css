@@ -91,3 +91,37 @@ footer {
 #feature-vector     { margin-top: 50px; }
 #img-clustering     { margin-top: 50px; }
 #img-fingerprinting { margin-top: 25px; }
+<<<<<<< HEAD
+=======
+
+
+/* Timeline  */
+.bar { fill: steelblue; }
+
+svg path {
+    opacity: 0;
+}
+
+svg text {
+    font-size: 10px;
+    font-family: sans-serif;
+}
+
+.y.axis line { stroke: #ddd; }
+
+.minimap {}
+
+#selector {
+    fill: #ddd;
+    opacity: 0.7;
+    cursor: move;
+}
+
+.selector-edge {
+    stroke: red;
+    stroke-width: 1px;
+}
+
+#selector-left-edge { cursor: e-resize; }
+#selector-right-edge { cursor: w-resize; }
+>>>>>>> domain-timeline

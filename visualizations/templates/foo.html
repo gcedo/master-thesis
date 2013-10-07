@@ -1,0 +1,16 @@
+{% extends 'layout/base.html' %}
+
+{% block container %}
+	<div id="timeline"></div>
+	<div id="mini-timeline"></div>
+{% endblock %}
+
+
+
+{% block scripts %}
+	<script src="/static/js/d3.v3.min.js" charset="utf-8"></script>
+	<script src="/static/js/domain_timeline.js"></script>
+	<script>
+		drawTimeline("/static/data/domain_timeline.json")
+	</script>
+{% endblock %}
