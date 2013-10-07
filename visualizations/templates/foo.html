@@ -190,14 +190,17 @@ svg.append("svg:g")
 function dragMoveSelector(d) {
 	var offset = this.getBBox().width / 2;
 	var edge_width = d3.select("#selector-left-edge").node().getBBox().width;
+	var left_boundary = d3.max([0, d3.event.x - offset]);
+	var right_boundary = d3.min([d3.event.x + offset, w]);
+	var width = right_boundary - left_boundary;
 	d3.select(this)
-		.attr("x", d3.event.x - offset);
+		.attr("x", left_boundary).attr("width", width);
 	d3.select("#selector-left-edge")
-		.attr("x1", d3.event.x - edge_width - offset)
-		.attr("x2", d3.event.x - edge_width - offset);
+		.attr("x1", left_boundary - edge_width)
+		.attr("x2", left_boundary - edge_width);
 	d3.select("#selector-right-edge")
-		.attr("x1", d3.event.x + edge_width + offset)
-		.attr("x2", d3.event.x + edge_width + offset);
+		.attr("x1", right_boundary + edge_width)
+		.attr("x2", right_boundary + edge_width);
 
 	setMainChartXDomain(d3.event.x - offset, d3.event.x + offset);
 	draw();
