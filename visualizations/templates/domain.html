@@ -25,21 +25,17 @@
         <div id="map-canvas-domain"></div>
       </div>
     </div>
-  </div>
-  <div class="col-md-6">
-    <div class="panel panel-info" id="map-panel">
-      <div class="panel-heading">
-        <h3 class="panel-title">Timeline</h3>
-      </div>
-      <div class="panel-body">
-        <div id="my-timeline"></div>
+    <div class="col-md-12 alpha omega">
+      <div class="panel panel-info" id="map-panel">
+        <div class="panel-heading">
+          <h3 class="panel-title">Timeline</h3>
+        </div>
+        <div class="panel-body">
+          <div id="my-timeline"></div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
-
-<div class="row">
-  <div class="col-md-2">
+    <div class="col-md-4 alpha">
     <div class="panel panel-info">
       <div class="panel-heading">
         <h3 class="panel-title">Countries</h3>
@@ -54,7 +50,7 @@
       </table>
     </div>
   </div>
-  <div class="col-md-4">
+  <div class="col-md-8 omega">
     <div class="panel panel-info">
       <div class="panel-heading">
         <h3 class="panel-title">Dates</h3>
@@ -105,6 +101,20 @@
       </table>
     </div>
   </div>
+  </div>
+  <div class="col-md-6">
+    <div class="panel panel-info" id="map-panel">
+      <div class="panel-heading">
+        <h3 class="panel-title">DNS Queries History</h3>
+      </div>
+      <div id="timeline"></div>
+      <div id="mini-timeline"></div>
+    </div>
+  </div>
+
+
+
+
 </div>
 
 {% endblock %}
@@ -126,7 +136,14 @@
         });
     });
 </script>
+<script src="/static/js/d3.v3.min.js" charset="utf-8"></script>
+<script src="/static/js/domain_timeline.js"></script>
 <script>
   getDomainJson('{{ record.domain }}');
 </script>
+<script>
+  drawTimeline('/domain/{{ record.domain }}?json');
+</script>
+
+
 {% endblock %}
