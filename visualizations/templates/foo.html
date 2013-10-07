@@ -106,15 +106,14 @@ function setMainChartXDomainByDate(xmin, xmax) {
 
 function update(data) {
 
-	setMainChartXDomainByDate(
-		new Date(d3.min(data, function(d) { return parse(d.date); }).getTime() - SIX_HOURS),
-		new Date(d3.max(data, function(d) { return parse(d.date); }).getTime() + SIX_HOURS)
-		);
+	var dateMin = new Date(d3.min(data, function(d) { return parse(d.date); }).getTime() - SIX_HOURS),
+			dateMax = new Date(d3.max(data, function(d) { return parse(d.date); }).getTime() + SIX_HOURS);
+
+	setMainChartXDomainByDate(dateMin, dateMax);
 	y.domain([0, d3.max(data, function(d) { return d.count;})]);
 	svg.select("g.y.axis").call(yAxis);
 
-	x_mini.domain([new Date(d3.min(data, function(d){ return parse(d.date); }).getTime() - SIX_HOURS),
-								 new Date(d3.max(data, function(d) {return parse(d.date); }).getTime() + SIX_HOURS) ]);
+	x_mini.domain([dateMin, dateMax]);
 	y_mini.domain([0, d3.max(data, function(d) { return d.count;})]);
 
 	mini_map.select("g.x.axis.mini").call(xAxisMini);
@@ -206,15 +205,19 @@ function dragMoveSelector(d) {
 }
 
 function dragMoveLeftEdge(d) {
-	d3.select(this).attr("x1", d3.event.x).attr("x2", d3.event.x);
-	updateSelector(d3.event.x, d3.select("#selector-right-edge").node().getBBox().x);
-	updateMainChart(d3.event.x, d3.select("#selector-right-edge").node().getBBox().x);
+	var right_boundary = d3.select("#selector-right-edge").node().getBBox().x;
+	var left_boundary = d3.max([0, d3.min([d3.event.x, right_boundary])]);
+	d3.select(this).attr("x1", left_boundary).attr("x2", left_boundary);
+	updateSelector(left_boundary, right_boundary);
+	updateMainChart(left_boundary, right_boundary);
 }
 
 function dragMoveRightEdge(d) {
-	d3.select(this).attr("x1", d3.event.x).attr("x2", d3.event.x);
-	updateSelector(d3.select("#selector-left-edge").node().getBBox().x, d3.event.x);
-	updateMainChart(d3.select("#selector-left-edge").node().getBBox().x, d3.event.x);
+	var left_boundary = d3.select("#selector-left-edge").node().getBBox().x;
+	var right_boundary = d3.min([d3.max([left_boundary, d3.event.x]), w]);
+	d3.select(this).attr("x1", right_boundary).attr("x2", right_boundary);
+	updateSelector(left_boundary, right_boundary);
+	updateMainChart(left_boundary, right_boundary);
 
 }
 
