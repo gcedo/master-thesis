@@ -91,8 +91,6 @@ footer {
 #feature-vector     { margin-top: 50px; }
 #img-clustering     { margin-top: 50px; }
 #img-fingerprinting { margin-top: 25px; }
-<<<<<<< HEAD
-=======
 
 
 /* Timeline  */
@@ -124,4 +122,3 @@ svg text {
 
 #selector-left-edge { cursor: e-resize; }
 #selector-right-edge { cursor: w-resize; }
->>>>>>> domain-timeline
