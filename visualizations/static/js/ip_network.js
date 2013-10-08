@@ -1,7 +1,7 @@
 function drawIPNetwork (dataset) {
   var width = 500,
       height = 300,
-      linkDistance = 100,
+      linkDistance = 120,
       charge = -300;
 
   var svg = d3.select("#graph").append("svg:svg")
@@ -20,6 +20,7 @@ function drawIPNetwork (dataset) {
   var color = d3.scale.category20();
   var links = [];
   var nodes = [];
+  var domain_text_width;
 
   nodes.push({"name" : dataset.domain, "group" : 1 });
   var counter = 0;
@@ -45,7 +46,19 @@ function drawIPNetwork (dataset) {
   .enter().append("svg:g")
     .attr("class", "node")
   .append("svg:rect")
-    .attr("width", rect_width)
+    .attr("width", function(d) {
+      if (d.group === 2) return rect_width;
+      else {
+        var tempText = svg.append("svg:text")
+          .text(d.name)
+          .attr("font-family", "sans-serif")
+          .attr("fill", "black")
+          .attr("font-size", font_size + "px");
+        domain_text_width = tempText.node().getBBox().width + 30;
+        tempText.remove();
+        return domain_text_width;
+      }
+    })
     .attr("height", rect_height)
     .attr("rx", "3px")
     .attr("ry", "3px")
@@ -70,7 +83,7 @@ function drawIPNetwork (dataset) {
         .attr("x2", function(d) { return d.target.x; })
         .attr("y2", function(d) { return d.target.y; });
 
-    node.attr("x", function(d) { return d.x - rect_width / 2; })
+    node.attr("x", function(d) { return d.x - this.getBBox().width / 2; })
         .attr("y", function(d) { return d.y - rect_height / 2; });
 
     texts.attr("transform", function(d) {
