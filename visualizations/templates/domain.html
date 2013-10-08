@@ -122,10 +122,6 @@
       <div id="graph"></div>
     </div>
   </div>
-
-
-
-
 </div>
 
 {% endblock %}
@@ -134,7 +130,9 @@
 {% block scripts %}
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBjLu93p4ouLPm4CeQP9tTDR6hVbe7qjkc&sensor=false"></script>
 <script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox.js"></script>
-<script src="/static/js/domain.js"></script>
+<script src="/static/js/d3.v3.min.js" charset="utf-8"></script>
+
+<!-- Visualizations -->
 <script type="text/javascript" src="/static/js/storyjs-embed.js"></script>
 <script>
     $(document).ready(function() {
@@ -147,17 +145,13 @@
         });
     });
 </script>
-<script src="/static/js/d3.v3.min.js" charset="utf-8"></script>
+
 <script src="/static/js/domain_timeline.js"></script>
 <script src="/static/js/ip_network.js"></script>
+<script src="/static/js/domain_map.js"></script>
+<script src="/static/js/domain.js"></script>
 <script>
-  getDomainJson('{{ record.domain }}');
-</script>
-<script>
-  drawTimeline('/domain/{{ record.domain }}?json');
-</script>
-<script>
-  drawIPNetwork('/domain/{{ record.domain }}?json');
+  loadVisualizations('/domain/{{ record.domain }}?json');
 </script>
 
 

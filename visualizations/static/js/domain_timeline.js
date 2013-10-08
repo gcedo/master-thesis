@@ -44,13 +44,11 @@ function drawTimeline(dataset) {
   var mini_map = buildMiniMap();
   var bars;
 
-  d3.json(dataset, function(error, json) {
-    data = json.queries;
-    $.each(data, function(index, element) {
-      element.date = element.date.replace(" GMT", "");
-    });
-    update(data);
+  data = dataset.queries;
+  $.each(data, function(index, element) {
+    element.date = element.date.replace(" GMT", "");
   });
+  update(data);
 
   drawSelector(0, w);
 
