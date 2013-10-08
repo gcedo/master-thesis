@@ -18,7 +18,7 @@ function drawTimeline(dataset) {
       y_mini = d3.scale.linear().range([h_mini,0]),
       xAxis     = d3.svg.axis()
                     .scale(x)
-                    .ticks(d3.time.day, 1)
+                    .ticks(10)
                     .orient("bottom")
                     .tickSize(-h, 0)
                     .tickPadding(6),
@@ -29,7 +29,7 @@ function drawTimeline(dataset) {
                     .tickPadding(6),
       xAxisMini = d3.svg.axis()
                     .scale(x_mini)
-                    .ticks(d3.time.day, 1)
+                    .ticks(10)
                     .orient("bottom")
                     .tickSize(-h_mini, 0)
                     .tickPadding(6),
