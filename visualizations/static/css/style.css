@@ -94,7 +94,7 @@ footer {
 
 
 /* Timeline  */
-.bar { fill: steelblue; }
+.bar { fill: steelblue; opacity: 0.5; stroke: steelblue; }
 
 svg path {
     opacity: 0;
@@ -118,7 +118,7 @@ svg text {
 
 .selector-edge {
     stroke: red;
-    stroke-width: 1px;
+    stroke-width: 3px;
 }
 
 #selector-left-edge { cursor: e-resize; }

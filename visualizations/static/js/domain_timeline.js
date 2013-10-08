@@ -1,5 +1,5 @@
 function drawTimeline(dataset) {
-  var m = [40, 40, 25, 40],
+  var m = [40, 40, 30, 40],
     w = 530 - m[1] - m[3],
     h = 300,
     m_mini = [10, 30];
@@ -85,11 +85,7 @@ function drawTimeline(dataset) {
       .attr("class", "bar")
       .attr("x", function(d) { return x_mini(parse(d.date)); })
       .attr("y", function(d){ return y_mini(d.count); })
-      .attr("width", function(d) {
-        var oneDay = 24*60*60*1000;
-        var diffDays = Math.round(Math.abs(x.domain()[1] - x.domain()[0]) / oneDay);
-        return (w / diffDays - 8) + "px";
-      })
+      .attr("width", function(d) { return calculateBinsWidth(); })
       .attr("height", function(d) { return h_mini - y_mini(d.count); });
   }
 
@@ -102,22 +98,14 @@ function drawTimeline(dataset) {
       .attr("class", "bar")
       .attr("x", function(d) { return x(parse(d.date)); })
       .attr("y", function(d) { return y(d.count); })
-      .attr("width", function(d) {
-        var oneDay = 24*60*60*1000;
-        var diffDays = Math.round(Math.abs(x.domain()[1] - x.domain()[0]) / oneDay);
-        return (w / diffDays - 8) + "px";
-      })
+      .attr("width", function(d) { return calculateBinsWidth(); })
       .attr("height", function(d) { return h - y(d.count); });
 
     // Updating existing bars
     bars
       .attr("x", function(d) { return x(parse(d.date)); })
       .attr("y", function(d) { return y(d.count); })
-      .attr("width", function(d) {
-        var oneDay = 24*60*60*1000;
-        var diffDays = Math.round(Math.abs(x.domain()[1] - x.domain()[0]) / oneDay);
-        return (w / diffDays - 8) + "px";
-      })
+      .attr("width", function(d) { return calculateBinsWidth(); })
       .attr("height", function(d) { return h - y(d.count); });
   }
 
@@ -202,6 +190,12 @@ function drawTimeline(dataset) {
 
   function updateSelector(x1, x2) {
     d3.select("#selector").attr("width", x2 - x1).attr("x", x1);
+  }
+
+  function calculateBinsWidth() {
+    var oneDay = 24*60*60*1000;
+    var diffDays = Math.round(Math.abs(x.domain()[1] - x.domain()[0]) / oneDay);
+    return (w / diffDays - 8) + "px";
   }
 
   function drawSelector(x1, x2) {
