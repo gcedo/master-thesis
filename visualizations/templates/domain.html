@@ -17,6 +17,7 @@
 
 <div class="row">
   <div class="col-md-6">
+    <!-- Map Panel -->
     <div class="panel panel-info" id="map-panel">
       <div class="panel-heading">
         <h3 class="panel-title">Map</h3>
@@ -25,6 +26,7 @@
         <div id="map-canvas-domain"></div>
       </div>
     </div>
+    <!-- Timeline -->
     <div class="col-md-12 alpha omega">
       <div class="panel panel-info" id="map-panel">
         <div class="panel-heading">
@@ -35,6 +37,7 @@
         </div>
       </div>
     </div>
+    <!-- Countries -->
     <div class="col-md-4 alpha">
     <div class="panel panel-info">
       <div class="panel-heading">
@@ -50,6 +53,7 @@
       </table>
     </div>
   </div>
+  <!-- Dates -->
   <div class="col-md-8 omega">
     <div class="panel panel-info">
       <div class="panel-heading">
@@ -102,6 +106,7 @@
     </div>
   </div>
   </div>
+  <!-- DNS Queries -->
   <div class="col-md-6">
     <div class="panel panel-info" id="map-panel">
       <div class="panel-heading">
@@ -109,6 +114,12 @@
       </div>
       <div id="timeline"></div>
       <div id="mini-timeline"></div>
+    </div>
+    <div class="panel panel-info" id="network-panel">
+      <div class="panel-heading">
+        <h3 class="panel-title">Resolved IPs</h3>
+      </div>
+      <div id="graph"></div>
     </div>
   </div>
 
@@ -138,11 +149,15 @@
 </script>
 <script src="/static/js/d3.v3.min.js" charset="utf-8"></script>
 <script src="/static/js/domain_timeline.js"></script>
+<script src="/static/js/ip_network.js"></script>
 <script>
   getDomainJson('{{ record.domain }}');
 </script>
 <script>
   drawTimeline('/domain/{{ record.domain }}?json');
+</script>
+<script>
+  drawIPNetwork('/domain/{{ record.domain }}?json');
 </script>
 
 
