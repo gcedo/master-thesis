@@ -85,7 +85,11 @@ function drawTimeline(dataset) {
       .attr("class", "bar")
       .attr("x", function(d) { return x_mini(parse(d.date)); })
       .attr("y", function(d){ return y_mini(d.count); })
-      .attr("width", "10px")
+      .attr("width", function(d) {
+        var oneDay = 24*60*60*1000;
+        var diffDays = Math.round(Math.abs(x.domain()[1] - x.domain()[0]) / oneDay);
+        return (w / diffDays - 8) + "px";
+      })
       .attr("height", function(d) { return h_mini - y_mini(d.count); });
   }
 
