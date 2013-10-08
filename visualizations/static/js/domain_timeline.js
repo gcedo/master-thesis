@@ -20,7 +20,7 @@ function drawTimeline(dataset) {
                     .scale(x)
                     .ticks(10)
                     .orient("bottom")
-                    .tickSize(-h, 0)
+                    .tickSize(5, 0)
                     .tickPadding(6),
       yAxis     = d3.svg.axis()
                     .scale(y)
@@ -31,7 +31,7 @@ function drawTimeline(dataset) {
                     .scale(x_mini)
                     .ticks(10)
                     .orient("bottom")
-                    .tickSize(-h_mini, 0)
+                    .tickSize(3, 0)
                     .tickPadding(6),
       yAxisMini = d3.svg.axis()
                     .scale(y_mini)
@@ -98,13 +98,22 @@ function drawTimeline(dataset) {
       .attr("class", "bar")
       .attr("x", function(d) { return x(parse(d.date)); })
       .attr("y", function(d) { return y(d.count); })
-      .attr("width", "10px")
+      .attr("width", function(d) {
+        var oneDay = 24*60*60*1000;
+        var diffDays = Math.round(Math.abs(x.domain()[1] - x.domain()[0]) / oneDay);
+        return (w / diffDays - 8) + "px";
+      })
       .attr("height", function(d) { return h - y(d.count); });
 
     // Updating existing bars
     bars
       .attr("x", function(d) { return x(parse(d.date)); })
       .attr("y", function(d) { return y(d.count); })
+      .attr("width", function(d) {
+        var oneDay = 24*60*60*1000;
+        var diffDays = Math.round(Math.abs(x.domain()[1] - x.domain()[0]) / oneDay);
+        return (w / diffDays - 8) + "px";
+      })
       .attr("height", function(d) { return h - y(d.count); });
   }
 

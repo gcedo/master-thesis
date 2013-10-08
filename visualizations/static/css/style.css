@@ -106,6 +106,7 @@ svg text {
 }
 
 .y.axis line { stroke: #ddd; }
+.x.axis line { stroke: #2d2d2d; stroke-width: 0.5px; }
 
 .minimap {}
 
