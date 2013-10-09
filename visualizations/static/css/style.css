@@ -28,8 +28,9 @@
 /* Helpers */
 .full-width { width: 100%; }
 .uppercase  { text-transform: uppercase; }
-.alpha { padding-left: 0; }
-.omega { padding-right: 0; }
+.alpha  { padding-left: 0; }
+.omega  { padding-right: 0; }
+.center { margin: 0 auto; }
 
 /* Affix */
 .affix {
