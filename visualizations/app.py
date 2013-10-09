@@ -3,8 +3,10 @@ from pymongo import MongoClient
 import scripts.domain as domain_engine
 import scripts.map as map_engine
 import scripts.domains_list as domains_engine
+from flask.ext.compress import Compress
 
 app = Flask(__name__)
+Compress(app)
 
 # Spaghetti Login Management
 USERNAME = "captain_kirk"
