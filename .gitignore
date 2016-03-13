@@ -1,0 +1,12 @@
+*.aux
+*.lof
+*.log
+*.lot
+*.pdf
+*.toc
+*.out
+*.pyg.lst
+*.pyg.sty
+*.pyg.vrb
+*.bbl
+*.blg
