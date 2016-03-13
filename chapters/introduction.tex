@@ -1,0 +1,152 @@
+%!TEX root = ../thesis_polimi.tex
+
+\chapter{Introduction} % (fold)
+\label{chap:introduction}
+
+\start{B}{otnets} are one of the most widespread threats on the Internet. Analysts
+from the industry and security researchers are both striving to mitigate such
+ever increasing phenomenon. Recent reports from McAfee~\cite{mcafee2013} and
+Enisa~\cite{enisa2013} confirm that all malicious activities on the Internet show
+no disruption of their steady growth, botnets included.
+Attackers are also widening the spectrum of targeted platforms: In April 2012
+it was reported that more than 600,000 Apple computers~\cite{enisa2012} were infected
+by the \texttt{Flashback} malware, which turned these machines into bots.
+Moreover, mobile threats have experienced an
+outstanding increase, becoming a serious problem for Android users, being
+the mobile OS by Google the most targeted platform.
+
+Also, research by \citet{grier2012manufacturing} illustrates how the malicious
+activities are no longer perpetrated for no-profit reasons of miscreants'
+entertainment, but do involve economical returns. Emergence of the
+\emph{exploit-as-a-service} business model~\cite{grier2012manufacturing} is a worrying new phenomenon, where exploit kits are
+sold likewise as a commodity for attackers' needs.
+
+Botnets themselves are becoming infrastructures that are unashamedly crafted for
+lucrative goals. \texttt{Torpig} and \texttt{Zeus} for instance aim at stealing
+financial accounts credentials from the infected machines and send them back to the
+attackers. Another lucrative kind of malware is \emph{ransomware}.
+Ransomware is a not new, yet never as scary, threat that has made the news lately
+with the coming of \texttt{Cryptolocker}, a malware able to collect revenues that
+were \emph{conservatively} estimated at 1,100,000 USD~\cite{spagnuolo2013}.
+The communication between the infected machines and the attacker, and the infection itself were realized by the means of a botnet.
+
+Therefore the mitigation of botnets is of primary interest for defenders, and to
+this end their efforts focus on unveiling the IP addresses of the so called
+Command \& Control Servers (C\&C hereafter). A C\&C Server is the machine from
+where the attackers dispatch their orders to and collect data from the infected
+machines. In a centralized botnet architecture (the most prevalent), once the communication between
+the C\&C and the infected machines, the \emph{bots}, is disrupted, the latter
+become \emph{dormant} and usually harmless.
+
+Attackers are well aware of the most precious asset and weakness in their
+infrastructure and have developed increasingly sophisticated techniques to make
+the disruption of the C\&C channel a fatiguing endeavor on the defenders' side. To this end, most of nowadays' centralized
+botnets' communication relies on the employment of Domain Generation Algorithms
+(DGAs hereafter), which make the \emph{rendezvous} point (i.e., the moment when the bot \emph{finds} the botmaster) unpredictable and the communication channel resilient to interruptions. These algorithms generate lists of random domains every $\tau$ time, say daily, sometimes employing unpredictable seeds, which the
+bots try to contact. The attacker registers one domain and
+awaits for the \emph{zombies} to reach the correct URL. When this happens the
+communication can start and data can be transmitted in both directions.
+
+The mitigation of botnets is a topic widely covered in literature, \cite{antonakakis2011} \cite{bailey2009} \cite{bilge2012}  \cite{neugschwandtner2011}
+\cite{schiavoni2013} \cite{sharifnya2013} \cite{gross2009}, where many
+authors
+propose detection tools which, yet effective, mostly rely either on a \emph{
+supervised} approach or on clients' IP addresses or on both, two aspects that
+we deem as shortcomings. In fact, the supervised approach requires labeled data to
+be fed to the system, which means that before the detection can be actually
+started, there has to be another way to track the threat and label it as such. Moreover this approach
+suffers from new menaces that exhibit features previously not considered, as a
+change in the DGA.
+Leveraging clients' IP addresses is a shortcoming as it leads to difficulties
+related to the clients' privacy and the deployment of a monitoring system at lower
+levels of the DNS hierarchy.
+
+In 2013, \citet{schiavoni2013} proposed \phoenix, a detection system that meets
+most of our criteria, as it does not require any \emph{a priori} knowledge and it
+analyzes passive
+DNS data, free of any privacy issues. \phoenix is able to \emph{discover}
+clusters of domains used as aliases for botnets' C\&C servers, thus unveiling
+their IP addresses, and to \emph{detect} malicious domains, using the knowledge
+(i.e., the clusters) previously generated. Despite these valuable features,
+\phoenix is not able to detect \emph{i)} threats that use C\&C servers with
+previously unseen IP addresses, \emph{ii)} threats that dynamically slightly modify the
+DGA, e.g., by changing the set of TLDs used and \emph{iii)} it lacks
+of validation in the wild.
+
+We propose \thesystem, a detection system that overcomes the aforementioned limitations of
+\phoenix, being able to detect previously unseen threats in the wild using
+an \emph{unsupervised} approach.
+\thesystem goes through three stages to achieve its goals. The first phase is
+called \important{Bootstrap Phase}, where it uses \phoenix to generate the
+ground truth, later to be employed in the \important{Detection Phase}, in an
+unsupervised and automatic fashion. The ground
+truth consists of a list of clusters of domains related to DGA-based malicious
+activities, e.g., botnets and trojans. This ground truth is not necessary to
+\thesystem to function, as it is able to operate in a complete unsupervised fashion.
+
+After the system has been bootstrapped, it starts analyzing a live
+stream of DNS passive data, which consists of DNS replies: the domain name, the IP
+address it resolves to and the TTL. This data needs to be filtered from legitimate
+domains. To this end during the \important{Filtering Phase}, we apply a list of heuristics to the data, heuristics that take into account parameters as the
+registration date, the TLD employed and the TTL. The domains that remain at the
+end of the filtering process are to be considered likely to be malicious.
+
+These domains are the input to the aforementioned \important{Detection Phase},
+where we try to label this data using the ground truth generated in the
+\important{Bootstrap Phase}. To this purpose, \thesystem sees whether the unseen
+domain $d$ shares its IP address with the clusters: If this is the case we train
+a Support Vector Machine equipped with the Subsequence String
+Kernel~\cite{lodhi2002} function and we use it to label $d$. Otherwise, we start
+keeping track of the IP of $d$, $l$. This means that we record the likely-to-be-
+malicious domains that
+resolve to $l$ throughout time. After $\Delta$ time of recording, \thesystem groups
+these suspicious IPs by the Autonomous System that they reside in and performs a
+clustering routine that leverages the DBSCAN algorithm and the Subsequence String
+Kernel as a metric. These clusters are then added to the ground truth and the
+increased knowledge is then used to analyze new live DNS data.
+
+We used one week of real passive DNS data collected by a ISC/SIE
+passive DNS monitor to test our system. During the first week \thesystem classified 187 malicious
+domains, 167 of which belonged to the \texttt{Conficker} threat, previously
+discovered by \phoenix. At the end of the week we had collected 1,300 suspicious
+IP addresses, for a total of 3,576 domains. Then the clustering routine was able
+to extract 47 new clusters, featuring known malicious IP addresses of
+threats as \texttt{Palevo} and \texttt{Sality}. The clusters were added to the
+previous knowledge and the day after \thesystem was able to detect 319 malicious
+domains.
+
+\paragraph{Document Organization}
+The remainder of this document is organized in the following fashion:
+\begin{itemize}
+    \item Chapter~\ref{chap:botnets} provides the background knowledge
+        needed to understand the phenomenon we aim at analyzing. We give
+        a definition of what a botnet is in Section~\ref{sec:what_is_a_botnet}, why the attackers are interested in Section~\ref{sub:purposes} in setting up this type of infrastructure, how a botnet can be structured in Section~\ref{sec:botnet_topologies},
+        the communication system between the botmaster and the bots in Section~\ref{sec:botnets_communications}, focusing on the Domain Generation Algorithms in Section~\ref{sec:domain_generation_algorithms} and the countermeasures that can be applied
+        to mitigate this threat in Section~\ref{sec:botnet_countermeasures}. Then we
+        present two case studies of botnets active in the wild, \texttt{Torpig}
+        and \texttt{Cryptolocker} in Section~\ref{sec:botnets_a_modern_threat};
+    \item Chapter~\ref{chap:motivation} discusses why we want to study
+        this phenomenon, in Section~\ref{sec:state_of_the_art} we present
+        the current the state of the art we wish to improve and
+        in Section~\ref{sec:goals_and_challenges} the goals and challenges
+        we mean to achieve and face, respectively;
+    \item Chapter~\ref{chap:approach} introduces \thesystem, a
+        detection system for DGA-based malicious activities. In Section~\ref{sec:approach_overview} we  give an overview of the system, while in
+        Section~\ref{sec:approach_details} we  discuss in details all of
+        its aspects;
+    \item Chapter~\ref{chap:implementation} explains how \thesystem
+        was implemented and the technologies employed, describing the overall
+        architecture (see Section~\ref{sec:system_architecture})), the process in Section~\ref{sub:the_process} and then the actors involved in Section~\ref{sub:the_actors}
+        during the system's lifecycle. Then we focus on the most crucial
+        parts and provide a more detailed description of those in Section~\ref{sec:system_details};
+    \item in Chapter~\ref{chap:validation} we test the effectiveness of our system.
+        To this end we run two tests. The first one serves to confirm the
+        accuracy of the SVM Classifier, and it employs the clusters generated
+        by \phoenix as dataset. For the second one instead we use DNS passive
+        data collected by a ISC/SIE DNS monitor. We let \thesystem analyze one
+        week of data and look at the results, which look promising;
+    \item Chapter~\ref{chap:conclusions} analyzes the shortcomings
+        \thesystem is affected by and proposes possible remedies to them, along with a few possible enhancements and future developments. Finally,
+        it sums up what we achieved in this work;
+\end{itemize}
+% chapter introduction (end)

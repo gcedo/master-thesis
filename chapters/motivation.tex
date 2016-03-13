@@ -1,0 +1,490 @@
+%!TEX root = ../thesis_polimi.tex
+
+\chapter{Tracking down a Botnet} % (fold)
+\label{chap:motivation}
+\start{C}{hapter}~\ref{chap:botnets} gave an overview of
+the phenomenon of botnets, which has become one of the most spread and remunerative
+malicious activities on the Internet. Therefore it is of great interest for defenders to invest time and labor in finding new ways to mitigate them.
+Given the primary architecture employed (centralized), the most effective way
+to make a botnet harmless is to track down the C\&C Server and interrupt the
+communication between the \emph{botmaster} and the \emph{bots}.
+
+In this chapter we define the problem of interrupting a botnet
+activities, present the \emph{state of the art} and
+state the goals of our work  and the challenges we need to solve.
+
+\paragraph{Chapter Organization} The remainder of this chapter is organized in the
+following fashion:
+\begin{itemize}
+    \item in Section~\ref{sec:problem_statement} we precisely define the problem
+        we want to address in this work;
+    \item in Setion~\ref{sec:state_of_the_art} we present the most recent
+        works in literature that cover this matter, highlighting the points
+        of strength and the shortcomings, both starting point for \thesystem;
+    \item in Section~\ref{sec:goals_and_challenges} we  elicit the goals we want
+    to achieve with \thesystem and the challenges that have to be faced,
+        highlighted in Setion~\ref{sec:state_of_the_art}.
+\end{itemize}
+
+\newpage
+
+\section{Problem Statement} % (fold)
+\label{sec:problem_statement}
+\sectionstart{T}{racking} down and mitigating a botnet is the multi-faceted problem
+that we wish to address. In the previous section we had an overview on the various
+topologies, and highlighted how, though P2P botnets are growing, the centralized
+architecture is still the most popular. Moreover we have explained how most of
+them employ a \emph{rallying} mechanism based on DGAs.
+
+In Section~\ref{sec:botnet_countermeasures} we have seen how the two most effective
+countermeasures, \textbf{sinkholing} and \textbf{takeover} both aim at disrupting
+the C\&C Communication Channel. To perform this task it is necessary to know the IP
+address of the C\&C Server.\\
+Therefore the problem of mitigating a centralized DGA-based botnet can be ``reduced''
+to the task of finding the IP addresses of the C\&C servers that operate the
+malicious infrastructure, though this operation is far from trivial.
+
+In the next section we analyze the current state of the art.
+Throughout this analysis we highlight the major shortcomings of the current
+solutions and underline the importance of overcoming these limitations and
+how \thesystem aims at achieving this goal.
+% section problem_statement (end)
+
+
+\section{State of the Art} % (fold)
+\label{sec:state_of_the_art}
+\sectionstart{B}{otnet} detection and, more generally, malicious activities
+detection, by analyzing network data is a topic broadly covered in literature.
+We focus on the detection of botnets that use DGAs to establish the
+communication channel and on approaches that analyze high volumes of DNS data.
+
+Works are presented in chronological order: Section~\ref{sub:detecting_malware_domains_upper} introduces \textsc{Kopis} by \citet{antonakakis2011}, which leverages three groups of features to distinguish
+malicious domains from benign domains. Then, in Section~\ref{sub:exposure_finding_malicious_domains_using_passive_dns_analysis}, we report \textsc{Exposure}~\cite{bilge2011exposure}, a system that leverages large-scale passive DNS analysis
+techniques to detect malicious domains.
+\textsc{Disclosure}~\cite{bilge2012} is a system that aims at finding C\&C servers IP addresses by analyzing NetFlow data (see Section~\ref{sub:disclosure}).
+In sections~\ref{sub:pleiades} and \ref{sub:early_detection_of_malicious_flux_networks_via_large_scale_passive_dns_traffic_analysis} we present two works, \cite{perdisci2012} \cite{antonakakis2012}, that
+focus on the infected machines rather than on the C\&C servers, an approach that
+leads to privacy and deployment difficulties. \citet{sharifnya2013} propose the
+interesting approach of grouping together suspicious activities and then look
+at their history to decide whether they are actually malicious or not (see Section~\ref{sub:a_novel_reputation_system_to_detect_dga_based_botnets}). \citet{haddadi2013malicious} focus on the detection of automatically generated domains
+employed by DGA-based botnets, comparing different techniques that do not use
+\emph{ad hoc} features, but leverage the domain name itself (see Section~\ref{sub:analyzing_string_format_based_classifiers_for_botnet_detection_gp_and_svm}). Finally in Section~\ref{sub:phoenix_detecting_dga_based_botnets} we present
+\phoenix~\cite{schiavoni2013}, a system able to extract clusters of domains
+related to DGA-based malicious activities from blacklists and a module
+of \thesystem.
+
+
+\subsection{Detecting Malware Domains at the Upper DNS Hierarchy} % (fold)
+\label{sub:detecting_malware_domains_upper}
+\citet{antonakakis2011} with \textsc{Kopis} were the first to monitor DNS activity at
+the higher hierarchy level to detect domains related to malicious activities. It
+leverages this uncharted point of view to explore new features later to be used to
+train a supervised classifier.
+
+\begin{description}
+    \item[Requester Diversity] This group of features capture the geographical
+        diversity of the hosts that query ad domain $d$. Malicious domains are usually
+        queried by machines distributed differently from those querying legitimate
+        domains~\cite{schiavoni2013}.
+    \item[Requester Profile] This group of features aim at characterizing the
+        different profiles of users that query DNS servers. Especially, it divides
+        them into two broad categories: Those who reside in small networks, for instance a
+        corporate network, and those who reside in large-scale networks. The insight
+        is that while the latter should be more protected, as activity is usually
+        better monitored in such infrastructures, the former are more
+        likely to be exposed to and infected by malware.
+    \item[Resolved-IPs Reputation] This group of features aims to describe whether,
+        and to what extent, the IP address space pointed to by a given domain has been
+        historically linked with known malicious services~\cite{antonakakis2011}.
+\end{description}
+
+\textsc{Kopis} lifetime is divided into \emph{training} and \emph{operation} mode.
+During the first phase the system is fed with a set of known legitimate and
+a set of known malware-related domains. For each domain the system computes a
+feature vector that summarizes the domain behaviour in a time window of $m$ days.
+Then, during \emph{operation} mode, \textsc{Kopis} builds a feature vector for each
+unseen domain, capturing its behavior during a given epoch $E_j$. After the vector
+is built it assigns a label (\emph{benign} or \emph{malicious}) to the unseen domain
+and a confidence score.
+
+\paragraph{Limitations} The main limitation of this work is the inability
+to track down DGA-based botnets, as admitted by the authors themselves. This is caused by the short life span of the AGDs, which makes them untraceable by the
+detection process implemented by \citet{antonakakis2011}. Moreover, the system is \emph{supervised}, as it requires initial
+\emph{base knowledge} to be trained with.
+
+% subsection detecting_malware_domains_upper (end)
+
+\subsection{Detecting Malicious Activities by Passive DNS Analysis} % (fold)
+\label{sub:exposure_finding_malicious_domains_using_passive_dns_analysis}
+\citet{bilge2011exposure} in their work propose \textsc{Exposure}, a system that
+classifies domain names as malicious or benign leveraging large-scale, passive
+DNS analysis techniques. To achieve their goal, the authors first select 15 features
+to discriminate between legitimate and malevolent traffic by feeding a J48 decision
+tree with pre-labeled benign and malicious DNS traffic (i.e., DNS requests and
+responses). The 15 features are grouped into four logical sets, reported here below.
+
+\begin{description}
+    \item[Time-Based Features] capture the peculiar time-related behaviors of
+        malicious domains, for instance querying patterns, as high volume requests
+        followed by a sudden decrease, typical of AGDs.
+    \item[DNS Answer-Based Features] are four features related to the informations
+        that can be retrieved querying a DNS server, as the number of distinct IP
+        addresses resolved by a particular domain $d$.
+    \item[TTL Value-Based Features] the \emph{Time To Live} expresses how much time,
+        usually in seconds, a cached domain to IP mapping should be considered valid.
+        In their research \citet{bilge2011exposure} found that usually malicious
+        domains feature a low (less than 100s) TTL.
+    \item[Domain Name-Based Features] are two features that aim at capturing the
+        randomness of a domain name.
+\end{description}
+
+Then \citet{bilge2011exposure} train a supervised classifier to label domains as
+malicious or benign, producing a blacklist of domain names--IP addresses, available
+on their website\footnote{\url{http://exposure.iseclab.org/}}.
+
+\paragraph{Limitations}
+Even though able to produce a confirmed blacklist of malicious domains and IP addresses,
+\textsc{Exposure} is a \emph{supervised} classification system which requires labeled data to be trained.
+% subsection exposure_finding_malicious_domains_using_passive_dns_analysis (end)
+
+\subsection{Detecting C\&C Servers by NetFlow data Analysis} % (fold)
+\label{sub:disclosure}
+\citet{bilge2012} propose \textsc{Disclosure}, a system that aims at finding C\&C
+servers IP addresses by analyzing NetFlow data. The rationale behind this choice
+resides in the lack of raw network data sources, motivated by administrative
+and technical issues.
+NetFlow is a network protocol by Cisco Systems for summarizing network
+traffic as a collection of network flows~\cite{bilge2012}, where a network flow is
+a unidirectional sequence of packets that share specific network properties.
+
+\citet{bilge2012} individuate three classes of features that separate benign from
+malicious network flows. The first one relates to the \emph{size} of the flow.
+As miscreants' C\&C channels have been crafted with the goal of being resilient and
+stealth, packets belonging to this flows tend to feature a small and constant size.
+The second concerns the client access patterns. Infected machines will try to
+contact the botmaster at fixed and regular intervals during the day, while benign
+traffic exhibits a more ``random'' behavior. The last class of features captures the
+\emph{temporal} patterns of access. Legitimate traffic tends to happen during
+daylight, whilst malicious traffic does not feature this discrimination.
+
+A \emph{Random Forest} classifier is fed with labeled data during the training
+phase. Then it is tested against data from a university network and from a Tier 1
+ISP.
+
+\paragraph{Limitations} Even thought the use of NetFlow data is an interesting and
+uncharted approach towards the unveil of C\&C servers, this approach shows some major
+shortcomings. \textsc{Fire} \cite{stone2009fire}, \textsc{Exposure} \cite{bilge2011exposure} and Google Safe Browsing\footnote{\url{https://developers.google.com/safe-browsing/}} are reputations systems leveraged by the system to reduce the false positive rate,
+otherwise unacceptable in volume of points, though low in percentage. Moreover the
+selected features could be easily circumventable by an attacker. For instance he
+could tell the bots to communicate during daylight. Or he could instruct them
+to have a more ``random'' access behavior.
+% subsection disclosure_detecting_botnet_command_and_control_servers_through_large_scale_netflow_analysis_leyla (end)
+
+\subsection{Detecting FFSN by passive DNS data analysis} % (fold)
+\label{sub:early_detection_of_malicious_flux_networks_via_large_scale_passive_dns_traffic_analysis}
+
+\textsc{FluxBuster} was introduced by~\citet{perdisci2012} as a system able to detect
+domains and IP addresses involved in the activity of FFSN, by analyzing DNS data
+obtained by passively monitoring DSN traffic collected from ``above'' local RDNSs
+servers~\cite{perdisci2012}.
+The authors found four features that characterize DNS traffic belonging to this
+threat: \emph{i)} a short TTL, \emph{ii)} high frequency in changing the resolving
+IP addresses, \emph{iii)} high cardinality of the set of resolving
+IPs~\cite{schiavoni2013} and \emph{iv)} the number of networks the IPs reside in.
+\citet{perdisci2012} use these features to label new data as FFSN and non-FFSN
+domains using a supervised classifier trained with labeled data.
+The authors are able to distinguish domains belonging to malicious FFSN
+from the benign ones, even if such a technique is used also for legitimate purposes
+(CDN Networks), with a low false positive rate.
+
+\paragraph{Limitations} \citet{perdisci2012} focus on the \emph{clients}, the
+infected bots, rather than on the C\&C servers of the activities
+(spam, phishing, etc.). Moreover their approach is \emph{supervised} and requires
+previous knowledge.
+
+% subsection early_detection_of_malicious_flux_networks_via_large_scale_passive_dns_
+
+\subsection{Leveraging NXDOMAIN and clients' IP addresses} % (fold)
+\label{sub:pleiades}
+\citet{antonakakis2012} propose \textsc{Pleiades}, a system to \emph{i)} discover
+and cluster together AGDs that belong to the same botnet, \emph{ii)} build
+\emph{models} of such clusters and use this knowledge to \emph{iii)} classify unseen
+domains.
+
+During the first step, \emph{DGA Discovery}, \citet{antonakakis2012} analyze streams of
+unsuccessful DNS resolutions, as seen from ``below'' a local DNS server~\cite{antonakakis2012}. The streams are collected during a given period of time, and then
+clustered. The clustering is performed according to two criteria:
+\begin{itemize}
+    \item the statistical \emph{similarity} shared by domain name strings;
+    \item the domains have been queries by overlapping sets of
+        hosts~\cite{antonakakis2012}.
+\end{itemize}
+The final output of this module is a set of \texttt{NXDOMAIN} clusters: Each cluster is likely
+to represent a DGA previously unknown or not yet modeled~\cite{antonakakis2012}.
+After this stage is completed the system moves to the \emph{DGA Modeling} phase: This
+module receives a labeled dataset of malicious and legitimate domains, and leverages
+this knowledge to train the multi-class \emph{DGA Classifier}.
+
+Then the \emph{DGA Classification} module aims at achieving two tasks. The first one
+is to label a subset of a cluster of \texttt{NXDOMAIN}s with one of the labels seen in the
+\emph{DGA Modeling} stage. The second is to trace back those domains that belong
+to the clusters of \texttt{NXDOMAIN} but \emph{resolve} to an actual IP address, in order to
+locate the C\&C Server.
+
+\paragraph{Limitations} One limitation reside in the use of a HMM-based detector,
+unable to detect certain types of DGAs, such as \texttt{Boonana}, as indicated by
+the authors. Another shortcoming, also indicated by \citet{antonakakis2012},
+is the possible scenario where the attackers produce on purpose random streams of
+\texttt{NXDOMAIN} to sidetrack the detection system.
+Moreover, once again, \textsc{Pleiades} requires \emph{i)} the clients' IP addresses
+and subsequently \emph{ii)} DNS monitoring at the lower level, bringing in all the
+privacy and deployment-related issues discussed above.
+% subsection from_throw_away_traffic_to_bots_detecting_the_rise_of_dga_based_malware_manos (end)
+
+\subsection{Leveraging activity history to detect botnets} % (fold)
+\label{sub:a_novel_reputation_system_to_detect_dga_based_botnets}
+\citet{sharifnya2013} developed a system to detect DGA-based botnet based on
+features that include
+the history of their activity. They aim at tracking down hosts infected by DGA-based
+botnets by leveraging DNS queries and trying to group together hosts that exhibit
+similar malicious behaviors.
+
+The first step is to \emph{whitelist} the DNS queries, filtering
+out those domains that appear in the Alexa TOP 100 list (list of the most 100 popular
+domains on the Internet by volume of queries).
+
+Then \citet{sharifnya2013} group together those domains that \emph{i)} resolve to
+the same IP address or \emph{ii)} have the same Second Level Domain (SLD) and TLD. After a time window
+they label as suspicious those groups where domains are automatically generated. To
+establish whether a domain is automatically generated, they first compute
+the distributions of 1-gram and 2-gram for Alexa TOP 1,000,000 sites and the
+malicious domain names from Murofet~\cite{sharifnya2013}. Then they leverage the
+\emph{Kullback-Leibler divergence} and the \emph{Spearman's rank correlation
+coefficient} to tell to which category a domain name belongs to.
+
+Simultaneously, another building block of their system, called \emph{Suspicious
+Failure Detector}, triggers and flags the host as suspicious when a high volume
+NXDOMAINS DNS queries is originated.
+Finally, the results from the previous blocks are combined by the \emph{Negative
+Reputation Calculator}, responsible of the final verdict, i.e., tell whether a host
+shall be considered bot-infected or not.
+
+\paragraph{Limitations} The idea of grouping together suspicious activities and leveraging their history will be
+borrowed and, in our opinion, enhanced by \thesystem.
+Even in light of the positive results shown
+by the authors, this work suffers from two major shortcomings. First the system needs
+a feed of malicious domains automatically generated to compute the
+malicious distributions of \emph{n}-grams, resulting vulnerable to DGAs that exhibit a new and different distribution of \emph{n}-grams. Second this is an approach
+\emph{host-based}, which requires the DNS query with the client IP address. This
+choice involves all the difficulties related to privacy issues and, consequently,
+leads to non-repeatable experiments~\cite{rossow2011} and deployment difficulties already
+discussed in~\cite{schiavoni2013}.
+% subsection a_novel_reputation_system_to_detect_dga_based_botnets (end)
+
+\subsection{Using SVM and SSK to classify AGDs} % (fold)
+\label{sub:analyzing_string_format_based_classifiers_for_botnet_detection_gp_and_svm}
+\citet*{haddadi2013} focus on detection of automatically generated domains employed
+by DGA-based botnets. In their work they compare with other techniques a genetic
+programming approach, result of their previous work~\cite{haddadi2013malicious}, to detect
+malicious domain names, based only on the string format, i.e., the raw domain name
+string. This is quite important as to the best of our knowledge, all detection
+systems in this field analyze DNS network traffic behaviour via classifiers with
+pre-defined feature sets~\cite{haddadi2013}.
+We briefly compare the techniques and motivate why we chose the Support Vector Machine
+approach in \thesystem.
+
+The first technique to be introduced relies upon Support Vector Machines,
+state of the art classifiers in many supervised learning tasks. A Support Vector
+Machine finds a hyperplane that optimally separates the points of the dataset in two
+classes. This technique can be employed to perform $k$-classes classification by
+building $k$ binary classifiers. The machine needs a Kernel Function to be able
+to separate data which is not-linearly separable. \citet{lodhi2002} proposed the
+Subsequence String Kernel, a kernel based on common substrings to determine strings'
+similarity. Once the SVM is equipped with the kernel it must be trained with an initial
+dataset and then it is ready for classification.
+
+In the authors' Stateful-SBB approach there are
+three populations that coevolve: A point population, a team population and a learner
+population. The point population consists of a subset from the training data samples.
+The learner population represents a set of symbionts, which relate a GP-bidding
+behaviour with an action~\cite{haddadi2013}. Finally, in the team population we find
+a set of learners. The evolution follows a Pareto competitive coevolution.
+
+The authors trained the classifier to distinguish between three
+classes of domains, two malicious and one benign. Conficker and Kraken were chosen as
+representative of the domains devoted to botnets' C\&C communication, while 500 benign
+domains were manually extracted from the Alexa list. The results favor the SVM
+approach, which features the highest score ($0.996$) and a training time ($431.53$) one order of magnitude less than the SBB approach ($2227.64$).
+
+\paragraph{Limitations} \citet{haddadi2013} strongly improve previous features based
+classifiers, leveraging only the \emph{raw} string of the domain name. Nevertheless
+their work suffers from being a \emph{supervised} approach. In fact the system must
+be trained using AGDs blacklist, and it is not capable of detecting new threats.
+Nevertheless this work lead us to consider the SVM approach when we had to design and implement our
+classifier, for two main reasons: \emph{i)} in~\cite{haddadi2013} it is the best tool to perform such a task, with performances close to
+perfection, \emph{ii)} employing the String Subsequence Kernel as system-wide metric to be used by the DBSCAN clustering routine (see Par.~\nameref{par:dbscan_clustering} in Section~\ref{ssub:the_time_detective})
+to perform similarity calculations between domains and cluster of domains. Such matters
+shall be more deeply discussed in Chapter~\ref{chap:approach}.
+% subsection
+
+\subsection{Phoenix, Detecting DGA-based botnets} % (fold)
+\label{sub:phoenix_detecting_dga_based_botnets}
+\citet{schiavoni2013} proposed \phoenix, a system able to extract clusters of domains related to DGA-based
+malicious activities from blacklists. To this end, \phoenix first separates
+domains automatically generated from those created by humans, by leveraging a
+vector of linguistic features. These linguistic features are \emph{i)} the
+\emph{meaningful word ratio}, i.e., the ratio of domain's characters composing
+meaningful words to the cardinality of the domain itself and \emph{ii--iv)}
+the \emph{popularity score} of the \emph{n}-grams, with \emph{n} ranging from
+one to three. We shall better explain these concepts via an example. Consider the
+domain names \texttt{facebook.com} and \texttt{pub03str.info}. Let us compute the
+\emph{meaningful word ratio} for both of them (see Figure~\ref{fig:words_ratio}).
+
+\begin{figure}[!htp]
+    \begin{minipage}{0.5\linewidth}
+        \centering
+        $$ d = \mathtt{facebook.com}$$\vspace{-0.2cm}
+        $$R(d) = \frac{|\mathtt{face}| +|\mathtt{book}|}{|\mathtt{facebook}|} = 1$$
+        \vspace{0.3cm} \\ likely \bfseries{HGD}
+        \end{minipage}\begin{minipage}{0.5\linewidth}
+        \centering
+        $$ d = \mathtt{pub03str.info}$$\vspace{-0.2cm}
+        $$R(d) = \frac{|\mathtt{pub}|}{|\mathtt{pub03str}|} = 0.375.$$
+        \vspace{0.3cm} \\ likely \bfseries{AGD}
+    \end{minipage}
+    \caption{Meaningful Word Ratio example, \citet{schiavoni2013}.}
+    \label{fig:words_ratio}
+\end{figure}
+
+The domain \texttt{facebook.com} scores 1, as all of the characters in the domain
+name contribute to form the words \texttt{face} and \texttt{book}, which can
+be found in the English language dictionary. The high score indicates that we have a domain which is likely a Human Generated Domain (HGD). On the other hand, in the domain name
+\texttt{pub03str.info} the only meaningful substring is \texttt{pub} and the
+\emph{meaningful word ratio} is equal to 0.375, likely an AGD.
+
+Consider now the domain names \texttt{facebook.com} and \texttt{aawrqv.com} and let
+us compute the popularity score of the 2-gram (see Figure~\ref{fig:two_gram_example}).
+
+\begin{figure}[!htp]
+\begin{minipage}{0.5\textwidth}
+    \centering
+    $$ d = \mathtt{facebook.com}$$\vspace{-0.2cm}
+    \begin{scriptsize}
+        \begin{tabular}{c c c c c c c}
+          \texttt{fa} & \texttt{ac} & \texttt{ce} & \texttt{eb} & \texttt{bo}  & \texttt{oo}  & \texttt{ok}\\
+          109 & 343 & 438 & 29 & 118 & 114 & 45
+        \end{tabular}\end{scriptsize}\\
+        \vspace{0.5cm}
+        mean: $S_2 = 170.8$
+        \vspace{0.3cm} \\ likely \textbf{HGD}
+\end{minipage}%
+\begin{minipage}{0.5\textwidth}
+        \centering
+        $$ d = \mathtt{aawrqv.com}$$\vspace{-0.2cm}
+        \begin{scriptsize}
+        \begin{tabular}{ c c c c c }
+          \texttt{aa} & \texttt{aw} & \texttt{wr} & \texttt{rq} & \texttt{qv}\\
+          4 & 45 & 17 & 0 & 0
+        \end{tabular}\end{scriptsize}\\
+        \vspace{0.5cm}
+        mean: $S_2 = 13.2$
+        \vspace{0.3cm} \\ likely \textbf{AGD}
+\end{minipage}
+\caption{2-gram score example, \citet{schiavoni2013}.}
+\label{fig:two_gram_example}
+\end{figure}
+
+The popularity is computed by counting the number of occurrences of the domain's
+substrings in the English language dictionary. This score captures the
+\emph{pronounceability} of a domain name: The more the times a \emph{n}-gram
+is found in the dictionary, the higher the score, the easier should be to
+pronounce the domain name. For instance, the \texttt{oo} 2-gram is very common
+in the English dictionary as it is a common sound in the English language.
+In our example \texttt{facebook.com} features a high score and it is therefore
+likely to be a HGD, while \texttt{aawrqv.com} features a low score and it is
+therefore likely to be an AGD.
+
+All of the four aforementioned features are combined into a feature vector
+$\vec{f}$, which is computed for every domain belonging to the Alexa Top
+100,000 domains list, which lists the 100,000 most popular domains on the web,
+all very likely to be domain names generated by humans. Then \citet{schiavoni2013}
+computed the centroid over this group of domains. The idea is that if a
+domain is farther than a certain threshold $\lambda$, then it is likely to be
+automatically generated.
+
+The algorithm described above is used to separate the HGDs from the AGDs in a
+blacklist of malicious domains. Then the subset of AGDs is used to generate
+clusters of domains, depending on the IP they resolve to. Hopefully such IP
+addresses belong to the C\&C servers responsible of controlling the malicious
+activity the domains refer to.
+Once the clusters have been generated, \phoenix uses a list of features to
+compute clusters' models to be used for classification of unseen domains.
+The goal is to label unseen domains with one of the threats identified in
+the clustering phase.
+
+\paragraph{Limitations}
+There are two major limitations in \phoenix, the first \emph{conceptual} while the
+second concerns the system's validation. The \emph{conceptual} limitation resides
+in the features used to classify unseen domains. One of these features is the
+IP address of the C\&C servers, which means that if an unseen domain does not
+share the IP address with one of the clusters it is not considered malicious.
+Obviously this is not true, as actually attackers do change the location
+of the C\&C server once they are identified. Moreover, other two features
+used by \citet{schiavoni2013} are the length of the domain and the TLD. This means
+that if an attacker decides to use a DGA that makes domains longer or shorter
+than usual, or domains that exhibit a different TLD, \phoenix does not
+label them as belonging to the threat they actually belong to.
+The other limitation has to do with how the system was validated.
+\citet{schiavoni2013} did not test \phoenix in the wild, whereas
+the purpose of a detection system is to detect threats analyzing real world
+data.
+
+% subsection phoenix_detecting_dga_based_botnets (end)
+% section state_of_the_art (end)
+
+
+\section{Goals and Challenges} % (fold)
+\label{sec:goals_and_challenges}
+\sectionstart{O}{ur} primary goal is to isolate in an automatic and unsupervised fashion DGA-based botnets, clustering malicious activities that use the same DGA, by analyzing DNS passive data, in order to unveil botnets' C\&C servers IP addresses,
+as to make it possible to apply the required countermeasures.
+
+Most systems described above, ~\cite{haddadi2013}~\cite{sharifnya2013}~\cite{antonakakis2011}~\cite{antonakakis2012}~\cite{perdisci2012}~\cite{bilge2012},
+suffer from the \emph{supervised} approach. We think
+that in this particular scenario this is a major issue: We would like our system to
+be able to detect \emph{new} threats with little or no previous knowledge.
+Other systems, \cite{antonakakis2012}~\cite{sharifnya2013}, leverage the \emph{clients'} (i.e., the \emph{bots'})
+IP addresses to cluster together DNS traffic that relates to the same malicious
+activities. This approach falls into the privacy related issues that arise when
+dealing with this kind of data. Moreover the monitors to get these samples must be
+located at the lower levels of the DNS hierarchy, which causes difficulties in
+the deployment of the monitors themselves.
+One system, \textsc{Pleiades}~\cite{antonakakis2012} does not perform well with some
+types of DGAs (e.g., \texttt{Boonana}),
+whereas we want to build a detection software that does not leverage \emph{some}
+features of peculiar DGAs.
+
+\phoenix~\cite{schiavoni2013} is the system that meets most of our criteria, as
+it uses an \emph{unsupervised} approach and analyzes passive DNS data, free of
+any privacy issues.
+Still, it shows some major shortcomings, as the impossibility of detecting
+unknown botnets, the fact that the classifier is not resilient to
+small modifications in the DGAs and the lack of a validation in the wild, which
+makes us agnostic with respect to \phoenix's effectiveness once deployed in the real
+world.
+
+Building a system that evolves in an automatic and unsupervised fashion constitutes a hard challenge to face.
+We have to find a way to filter out benign domains while keeping the malicious
+domains that does not require knowledge to be fed, i.e., we have to think about
+general features that characterize malicious AGDs. Moreover this filtering
+process must be fast enough to allow an online detection process while dealing
+with high volumes of data.
+We also need to understand how to cluster together domains that look ``similar'',
+therefore we have to develop a concept of similarity between domain names
+(i.e., strings) that is able to capture the patterns shared by AGDs produced
+by the same DGA. Once the malicious activities are clustered, we need to
+understand how we can use this knowledge to build a classifier that is
+resilient to small changes in the DGA and does not use \emph{ad hoc} features.
+The previous challenges brought to the birth of \thesystem, which shall be
+presented in Chapter~\ref{chap:approach}.
+% section goals_and_challenges (end)
+% chapter motivation (end)

@@ -1,0 +1,273 @@
+%%
+%% This is file `acronym.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% acronym.dtx  (with options: `acronym')
+%%  Copyright 1995--2004  by Tobias Oetiker (oetiker@ee.ethz.ch)
+%%                        and individual authors listed elsewhere.
+%%  All rights reserved.
+%% 
+%%  This work may be distributed and/or modified under the conditions of
+%%  the LaTeX Project Public License, either version 1.3 of this license
+%%  or (at your option) any later version. The latest version of the
+%%  license is in
+%% 
+%%      http://www.latex-project.org/lppl.txt
+%% 
+%%  and version 1.3 or later is part of all distributions of LaTeX
+%%  version 2003/12/01 or later.
+%% 
+%%  This work has the LPPL maintenance status "maintained".
+%%  The Current Maintainer of this work is Tobias Oetiker (oetiker@ee.ethz.ch).
+%% 
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
+%%
+
+\NeedsTeXFormat{LaTeX2e}[1999/12/01]
+\ProvidesPackage{acronym}[2004/11/10
+                          v1.17
+                          Support for acronyms (Tobias Oetiker)]
+\newif\ifAC@footnote
+\AC@footnotefalse
+\DeclareOption{footnote}{\AC@footnotetrue}
+\newif\ifAC@nohyperlinks
+\AC@nohyperlinksfalse
+\DeclareOption{nohyperlinks}{\AC@nohyperlinkstrue}
+\newif\ifAC@printonlyused
+\AC@printonlyusedfalse
+\DeclareOption{printonlyused}{\AC@printonlyusedtrue}
+\newif\ifAC@smaller
+\AC@smallerfalse
+\DeclareOption{smaller}{\AC@smallertrue}
+\newif\ifAC@dua
+\AC@duafalse
+\DeclareOption{dua}{\AC@duatrue}
+\ProcessOptions\relax
+\ifAC@smaller
+  \RequirePackage{relsize}
+  \newcommand*{\acsfont}[1]{\textsmaller{#1}}
+\else
+  \newcommand*{\acsfont}[1]{#1}
+\fi
+\newcommand*{\acffont}[1]{#1}
+\newcommand*{\acfsfont}[1]{#1}
+\def\AC@hyperlink#1#2{#2}
+\def\AC@hypertarget#1#2{#2}
+\ifAC@nohyperlinks
+\else
+   \AtBeginDocument{%
+      \@ifpackageloaded{hyperref}
+         {\let\AC@hyperlink=\hyperlink
+          \newcommand*\AC@raisedhypertarget[2]{%
+             \Hy@raisedlink{\hypertarget{#1}{}}#2}%
+          \let\AC@hypertarget=\AC@raisedhypertarget}{}}
+\fi
+\AtBeginDocument{%
+   \providecommand\texorpdfstring[2]{#1}%
+   \providecommand\pdfstringdefDisableCommands[1]{}%
+}
+\newtoks\clearlist
+\newcommand*\AC@addtoclearlist[1]{%
+  \global\clearlist\expandafter{\the\clearlist\AC@reset{#1}}%
+}
+\newcommand*\acresetall{\the\clearlist\clearlist={}}
+\def\AC@reset#1{%
+  \global\expandafter\let\csname ac@#1\endcsname\relax}
+\newcommand*\AC@used{@<>@<>@}
+\newcommand{\AC@populated}{}
+\newcommand*{\AC@logged}[1]{%
+   \@bsphack
+   \protected@write\@auxout{}{\string\acronymused{#1}}%
+   \@esphack}
+\AtBeginDocument{%
+   \pdfstringdefDisableCommands{%
+      \let\AC@logged\@gobble
+   }%
+}
+\newcommand*{\acronymused}[1]{%
+   \expandafter\ifx\csname acused@#1\endcsname\AC@used
+      \relax
+   \else
+       \global\expandafter\let\csname acused@#1\endcsname\AC@used
+       \global\let\AC@populated\AC@used
+   \fi}
+\newcommand*\newacro[1]{%
+  \@ifnextchar[{\AC@newacro{#1}}{\AC@newacro{#1}[\AC@temp]}}
+\newcommand\AC@newacro{}
+\def\AC@newacro#1[#2]#3{%
+   \def\AC@temp{#1}%
+   \expandafter\gdef\csname fn@#1\endcsname{{#2}{#3}}%
+   }
+\newcommand*\acrodef[1]{%
+  \@ifnextchar[{\AC@acrodef{#1}}{\AC@acrodef{#1}[\AC@temp]}}
+\newcommand\AC@acrodef{}
+\def\AC@acrodef#1[#2]#3{%
+   \def\AC@temp{#1}%
+   \@bsphack
+   \protected@write\@auxout{}{\string\newacro{#1}[#2]{#3}}%
+   \@esphack}
+\def\bflabel#1{{\textbf{\textsf{#1}}\hfill}}
+\newenvironment{AC@deflist}[1]%
+        {\raggedright\begin{list}{}%
+                {\settowidth{\labelwidth}{\textbf{\textsf{#1}}}%
+                \setlength{\leftmargin}{\labelwidth}%
+                \addtolength{\leftmargin}{\labelsep}%
+                \renewcommand{\makelabel}{\bflabel}}}%
+        {\end{list}}
+\newcommand{\acroextra}[1]{}
+\newenvironment{acronym}[1][1]{%
+   \providecommand*{\acro}{\AC@acro}%
+   \long\def\acroextra##1{##1}%
+   \ifx1#1
+      \global\expandafter\let\csname ac@des@mark\endcsname\AC@used
+      \begin{description}%
+   \else
+      \begin{AC@deflist}{#1}%
+   \fi%
+  }%
+  {%
+   \ifx\AC@populated\AC@used\else
+      \item[]\relax
+   \fi
+   \expandafter\ifx\csname ac@des@mark\endcsname\AC@used
+      \end{description}%
+   \else
+      \end{AC@deflist}%
+   \fi}
+\newcommand*\AC@acro[1]{%
+  \@ifnextchar[{\AC@@acro{#1}}{\AC@@acro{#1}[\AC@temp]}}
+\newcommand\AC@@acro{}
+\def\AC@@acro#1[#2]#3{%
+ \def\AC@temp{#1}%
+ \ifAC@printonlyused
+    \expandafter\ifx\csname acused@#1\endcsname\AC@used%
+       \item[\protect\AC@hypertarget{#1}{\acsfont{#2}}] \dotfill #3%
+    \fi%
+ \else%
+    \item[\protect\AC@hypertarget{#1}{\acsfont{#2}}] \dotfill #3%
+ \fi
+ \begingroup
+    \def\acroextra##1{}%
+    \@bsphack
+    \protected@write\@auxout{}%
+       {\string\newacro{#1}[\string\AC@hyperlink{#1}{#2}]{#3}}%
+    \@esphack
+  \endgroup}
+\newcommand*\AC@get[3]{%
+    \ifx#1\relax
+       \PackageWarning{acronym}{Acronym `#3' is not defined}%
+       \textbf{#3!}%
+    \else
+       \expandafter#2#1\null
+    \fi}
+\newcommand*\AC@acs[1]{%
+   \expandafter\AC@get\csname fn@#1\endcsname\@firstoftwo{#1}}
+\newcommand*\AC@acl[1]{%
+   \expandafter\AC@get\csname fn@#1\endcsname\@secondoftwo{#1}}
+\newcommand*{\acs}[1]{%
+   \texorpdfstring{\protect\@acs{#1}}{#1}}
+\newcommand*{\@acs}[1]{%
+   \acsfont{\AC@acs{#1}}%
+%% having a footnote on acs sort of defetes the purpose
+%%   \ifAC@footnote
+%%      \footnote{\AC@acl{#1}{}}%
+%%   \fi
+   \AC@logged{#1}}
+\newcommand*{\acl}{\protect\@acl}
+\newcommand*{\@acl}[1]{%
+   \AC@acl{#1}%
+   \AC@logged{#1}}
+\newcommand*{\acf}[1]{%
+   \texorpdfstring{\protect\@acf{#1}}{\AC@acl{#1} (#1)}%
+   }
+\newcommand*{\@acf}[1]{%
+    \ifAC@footnote
+       \acsfont{\AC@acs{#1}}%
+       \footnote{\AC@acl{#1}{}}%
+    \else
+       \acffont{%
+          \AC@acl{#1}%
+          \nolinebreak[3] %
+          \acfsfont{(\acsfont{\AC@acs{#1}})}%
+        }%
+     \fi
+     \expandafter\ifx\csname ac@#1\endcsname\AC@used
+         \relax%
+     \else
+         \global\expandafter\let\csname ac@#1\endcsname\AC@used
+         \AC@addtoclearlist{#1}%
+     \fi
+     \AC@logged{#1}}
+\newcommand{\ac}{\protect\@ac}%
+\newcommand{\@ac}[1]{%
+  \ifAC@dua
+   \acl{#1}%
+  \else
+   \expandafter\ifx\csname ac@#1\endcsname\AC@used
+      \acs{#1}%
+   \else
+      \acf{#1}%
+   \fi
+  \fi
+}
+\newcommand*{\acsp}[1]{%
+   \texorpdfstring{\protect\@acsp{#1}}{#1s}}
+\newcommand*{\@acsp}[1]{%
+   \acsfont{\AC@acs{#1}}s%
+   \AC@logged{#1}}
+\newcommand*{\aclp}{\protect\@aclp}
+\newcommand*{\@aclp}[1]{%
+   \AC@acl{#1}s%
+   \AC@logged{#1}}
+\newcommand*{\acfp}[1]{%
+   \texorpdfstring{\protect\@acfp{#1}}{\AC@acl{#1}s (#1s)}%
+   }
+\newcommand*{\@acfp}[1]{%
+   \ifAC@footnote
+      \acsfont{\AC@acs{#1}}s%
+      \footnote{\AC@acl{#1}s{}}%
+   \else
+      \acffont{%
+         \AC@acl{#1}s%
+         \nolinebreak[3] %
+         \acfsfont{(\acsfont{\AC@acs{#1}}s)}%
+         }%
+   \fi
+   \expandafter\ifx\csname ac@#1\endcsname\AC@used
+      \relax%
+   \else
+       \global\expandafter\let\csname ac@#1\endcsname\AC@used
+          \AC@addtoclearlist{#1}%
+   \fi
+   \AC@logged{#1}}
+\newcommand{\acp}{\protect\@acp}
+\newcommand{\@acp}[1]{%
+  \ifAC@dua
+   \aclp{#1}%
+  \else
+   \expandafter\ifx\csname ac@#1\endcsname\AC@used
+      \acsp{#1}%
+   \else
+      \acfp{#1}%
+   \fi
+  \fi
+}
+\endinput
+%%
+%% End of file `acronym.sty'.

@@ -1,0 +1,163 @@
+%!TEX root = ../thesis_polimi.tex
+
+
+\chapter{Conclusions} % (fold)
+\label{chap:conclusions}
+\start{C}{erberus} results seem promising and it is therefore worth continuing to
+follow this approach. In this chapter we first address the \emph{limitations}
+\thesystem suffers from, mainly related to the \important{Detection Phase}. Then
+we will discuss the possible further developments that could fix the aforementioned
+issues and enhance the system. Finally we will try to briefly summarize what we
+achieved with \thesystem.
+
+\paragraph{Chapter Organization} The remainder of the chapter is organized in
+the following fashion:
+\begin{itemize}
+    \item in Section~\ref{sec:limitations} we discuss the current limitations of
+        \thesystem;
+    \item in Section~\ref{sec:future_works} we discuss how to possibly address these
+        limitations and how to enhance \thesystem presenting a few further developments.
+\end{itemize}
+
+\newpage
+
+\section{Limitations} % (fold)
+\label{sec:limitations}
+\sectionstart{C}{erberus} suffers from two main limitations, both related to the
+\important{Detection Phase}. The first one is encountered when an unseen domain $d$
+does not belong to any of the clusters the SVM was trained on (i.e. the clusters sharing their IP address with $d$): \thesystem will anyway assign it to the most
+``similar'' cluster. This is
+an issue that needs to be solved. We need to find a test that allows us to tell
+when a single domain does not belong to any of the clusters selected to train
+the SVM. If this is the case we could design a temporary buffer where these
+domains are stored, and perform the clustering routine on this buffer every
+$\gamma$ time to isolate new clusters.
+\begin{figure}[!htp]
+    \begin{minipage}{.5\textwidth}
+    \centering
+    \begin{tabular}{ll}
+        \multicolumn{2}{l}{\textsc{Cluster 3e774}} \\
+        \midrule
+        \texttt{16542.com} & \texttt{79581.com} \\
+        \texttt{44962.com} & \texttt{46096.com} \\
+        \texttt{72879.com} & \texttt{09941.com} \\
+        \texttt{42661.com} & \texttt{90338.com} \\
+        \texttt{47176.com} & \texttt{69313.com} \\
+        \texttt{75827.com} & \texttt{34171.com} \\
+    \end{tabular}\\
+    \vspace{.3cm}
+    {\sffamily (a)}
+    \end{minipage}%
+    \begin{minipage}{.5\textwidth}
+        \centering
+        \begin{tabular}{l}
+            \textsc{Labeled 3e774} \\
+            \midrule
+            \texttt{asdfuh982hdodjc.com}  \\
+            \texttt{open-932978.com} \\
+            \texttt{hp21821867626.mygateway.net}  \\
+            \texttt{www2.h3xa.com} \\
+            \texttt{061107dd0208.agulhal.com} \\
+             \texttt{clkh71yhks66.com} \\
+        \end{tabular}\\
+        \vspace{.3cm}
+        {\sffamily (b)}
+    \end{minipage}
+    \caption{Samples from cluster 3e774 and misclassified unseen domains.}
+    \label{fig:misclassified}
+\end{figure}
+This situation is depicted Figure~\ref{fig:misclassified}: Figure~\ref{fig:misclassified}~(a) reports sample domains from the
+cluster \textsc{3e774}, generated during the \important{Bootstrap Phase}. These
+domains share an easily identifiable pattern: They all count five digits and
+exhibit the \texttt{.com} TLD. In Figure~\ref{fig:misclassified}~(b) there are
+a few domains labeled as \textsc{3e774}, while it is clear that they were
+not produced using the same DGA.
+
+The second major limitation regards the clustering routine. It could be the case
+that the attacker's servers span across more than one Autonomous System: in our test in the wild there was just one recorded case, still it is not a phenomenon to be ignored. E.g.,
+in Table~\ref{tab:flat_domains} is reported a cluster of domains found by clustering
+on the flattened list of domains related to the suspicious IPs instead of grouping
+them by Autonomous System. We did not follow this approach in \thesystem because
+even though it is possible to find a minor number of clusters otherwise untraceable,
+the overall clustering quality is seriously worsened.
+
+\begin{table}[!htp]
+    \centering
+    \begin{tabular}{ll}
+        \toprule
+        \textsc{Domains} & \textsc{IP} \\
+        \midrule
+        \texttt{j5.kwu.rcvn.biz} & \texttt{64.191.8.11} \\
+        \texttt{1a.flw.rcvn.biz} & \texttt{184.22.158.49} \\
+        \texttt{vn.oxw.rcvn.biz} & \texttt{173.212.224.158} \\
+        \texttt{sp.ebx.rcvn.biz} & \texttt{37.1.217.136} \\
+        \texttt{nm.iwk.rcvn.biz} & \texttt{64.191.8.32} \\
+        \texttt{41.ajs.rcvn.biz} & \texttt{184.82.98.22} \\
+        \texttt{a3.fxw.rcvn.biz} & \texttt{64.191.58.73} \\
+        \texttt{70.axw.rcvn.biz} & \texttt{96.9.139.111} \\
+        \texttt{df.wek.rcvn.biz} & \texttt{66.96.248.248} \\
+        \bottomrule
+    \end{tabular}
+    \caption{Cluster found without grouping by AS.}
+    \label{tab:flat_domains}
+\end{table}
+
+
+% section limitations (end)
+
+\section{Future Works} % (fold)
+\label{sec:future_works}
+\sectionstart{W}{e} start from the limitations listed in the previous section to
+elicit the future developments of \thesystem. The first and crucial improvement
+to be done is to find a way to determine whether a single domain is coherent with
+the cluster it is about to be put into. This is crucial because, as stated in the
+previous section, an IP address could serve more than one malicious activity, each
+one possibly employing a different DGA. The second crucial development concerns the
+clustering routine, as \thesystem is not able of detecting malicious activities that
+span different Autonomous Systems. One possible way to address this issue is to
+combine the clustering results obtained when grouping and when not grouping by AS.
+
+One improvement regards the Classifier. \citet{shafer2008} proposed the
+\emph{Conformal Predictor}, a tool that tells you how much confident you can be
+about a prediction, based on the history of your past predictions. We would like this
+component to be added to \thesystem, as we would have a way to determine how much
+confident we can be when labeling an unseen domain to \thesystem's ground truth.
+
+One important future development is to save the SVMs as they are trained, storing
+a \emph{dictionary} where the keys are the clusters the SVM was trained on and the
+values are the SVMs objects themselves.
+
+Finally we would like to deploy \thesystem and analyze real time data. Then
+we could develop a web application where the user can \emph{i)} ask the system
+whether a domain or an IP is malicious (i.e., that domain or IP is in one of the
+clusters of the ground truth), \emph{ii)} download the ground truth
+and \emph{iii)} upload a dump of traffic (think of a corporate network) and have
+\thesystem analyzing it to \emph{detect} and \emph{discover} malicious activities.
+% section future_works (end)
+
+
+% section limitations (end)
+
+\section{Concluding Remarks} % (fold)
+\label{sec:conclusions}
+We presented \thesystem, a system able to detect and characterize unseen DGA-based
+threats, botnets above all, easily deployable and free of privacy related issues
+as it analyzes passive DNS data, and able to operate without any \emph{a priori}
+knowledge. We started from and improved the results obtained by
+\phoenix~\cite{schiavoni2013}, being able to discover new threats that rely on C\&C
+servers that exhibit unseen IP addresses, and building a better classifier
+which is now trained not on \emph{ad hoc} parameters, but leverages the domain
+name itself as classification feature.
+
+We tested \thesystem in the wild, analyzing one week of passive DNS data collected
+from the 7th to the 14th of February, 2013. The system, without any \emph{a priori} knowledge, was able to isolate
+47 clusters of malicious domains belonging to various threats among which we find the well known \texttt{Palevo}, \texttt{Sality} and \texttt{Jadtre}.
+Moreover we tested the classifier in a four classes classification test, featuring an overall
+precision of 93\% with 800 points in the training set.
+
+Therefore, given the results obtained, we argue that \thesystem improves the systems proposed so far by adopting an \emph{unsupervised} approach and analyzing
+passive DNS data, two features that allow \thesystem to automatically detect
+previously unseen DGA-based threats in the Internet.
+% section conclusions (end)
+
+% chapter conclusions (end)

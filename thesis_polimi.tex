@@ -1,0 +1,269 @@
+\documentclass[12pt, a4paper, oneside, oldfontcommands, dvipsnames]{memoir}
+\chapterstyle{veelo}
+\copypagestyle{fancyheads}{companion}
+\makeevenhead{fancyheads}{\thepage}{}{\sffamily\leftmark}
+\makeoddhead{fancyheads}{\sffamily\rightmark}{}{\thepage}
+
+%% TOC Depth
+\setsecnumdepth{subsection}
+\maxsecnumdepth{subsection}
+\settocdepth{subsubsection}
+\maxtocdepth{subsubsection}
+
+%-----------------------------------------------------------------------------%
+% Packages
+%-----------------------------------------------------------------------------%
+
+%% Graphics
+\usepackage{pdfpages}
+\usepackage{subcaption}
+\usepackage{wrapfig}
+\usepackage{graphicx}
+\usepackage{epstopdf}
+\graphicspath{ {img/} }
+\usepackage{pgfplots}
+\usepackage{pgfplotstable}
+\pgfplotsset{%
+    every linear axis/.append style={
+        bar width=13pt,%
+        major x tick style = transparent%
+    }
+}
+\pgfplotsset{compat=1.8}
+\usepgfplotslibrary{statistics}
+\definecolor{LightGray}{RGB}{120,120,120}
+\definecolor{VeryLightGray}{RGB}{247,247,247}
+% \definecolor{DarkGray}{RGB}{39,40,34}
+\definecolor{DarkGray}{RGB}{0,0,0}
+\definecolor{MonokayBg}{RGB}{39,40,34}
+\definecolor{Tufte}{rgb}{0.7,0.7,0.55}
+\usepackage{tikz}
+\usetikzlibrary{pgfplots.groupplots}
+\usetikzlibrary{positioning,calc,shapes}
+\tikzstyle{every picture}+=[font=\sffamily]
+\tikzset{%
+  component/.style={%
+    text=white, fill=LightGray, text width=10em,
+    minimum height=2em, text centered
+  },
+  arrow/.style={thick,->,shorten >=2pt,shorten <=2pt,>=stealth},
+  number/.style={circle,fill=black, text=white, font=\tiny\bfseries, inner sep=0pt, minimum height=1em, anchor=base, text centered},
+  dbscan/.style={%
+    shape=circle,draw, minimum size=25mm
+  },
+  dbscan_circle/.style={%
+    fill=black,minimum size=.5mm
+  },
+  class/.style={%
+    draw,
+    shape=rectangle split,
+    rectangle split parts=3,
+    font=\ttfamily,
+    text width=6cm,
+    rectangle split part align={center,left,left},
+    rectangle split part fill={black, white, white},
+    every text node part/.style={white, font=\sffamily, align=center}
+    },
+  process/.style={%
+  },
+  example/.style={%
+    shape=rectangle split,
+    rectangle split parts=2,
+    font=\rmfamily,
+    text width=.98\textwidth,
+    rectangle split part align={center,left},
+    rectangle split part fill={DarkGray, VeryLightGray},
+    every text node part/.style={white, font=\sffamily, align=left}
+    },
+}
+\usepackage{sansmath}
+
+%% Math
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{abraces}
+
+%% Typesetting
+\usepackage{ragged2e}
+\hyphenation{da-ta-base}
+\usepackage{marginnote}
+\usepackage{pgfplotstable}
+\usepackage{calc}
+\usepackage{blindtext}
+\usepackage{metalogo}
+\usepackage[htt]{hyphenat}
+\usepackage{lettrine}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{xcolor,colortbl}
+\newcolumntype{a}{>{\columncolor{LightGray!30}}c}
+\usepackage{xspace}
+\usepackage{url}
+\usepackage{acronym}
+\usepackage{fontspec}
+\setmainfont[Ligatures=TeX]{Minion Pro}
+\setsansfont{Myriad Pro}
+% \newfontfamily\authorfont{Edwardian Script ITC}
+\newfontfamily\authorfont{Zapfino}
+\setmonofont[Scale=MatchLowercase]{Monaco}
+\newfontfamily\HeadingsFont{Myriad Pro}
+\newfontfamily\CaptionsFont{Myriad Pro}
+\usepackage{titlesec}
+\newcommand{\titlebar}{
+    \tikz[baseline,trim left=3.1cm,trim right=3cm] {
+        \node [anchor=base east,
+               minimum height=3.5ex,
+               fill=DarkGray,
+               text=white] at (3cm,0) {\thesection};
+    }
+}
+\titleformat{\section}{\large\bfseries\HeadingsFont}{\titlebar}{0.1cm}{}
+\usepackage{caption}
+\DeclareCaptionFont{white}{\color{white}}
+\DeclareCaptionFormat{figure}{
+  \colorbox{DarkGray}{%%%%
+     \parbox{\dimexpr\columnwidth-2\fboxsep}{\hspace{.1cm}#1#2#3}%
+  }
+}
+\captionsetup{format=figure,
+                      labelfont=white,
+                      textfont=white,
+                      margin=0pt,
+                      font={bf,small,sf}}
+\usepackage{enumitem}
+\SetLabelAlign{parright}{\parbox[t]{\labelwidth}{\raggedleft#1}}
+\setdescription{leftmargin=1.4\parindent,labelindent=\parindent}
+\usepackage{newverbs}
+\newverbcommand{\bverb}
+  {\begin{lrbox}{\verbbox}}
+  {\end{lrbox}\colorbox{gray!30}{\box\verbbox}}
+
+%% Code Listings
+\usepackage{verbments}
+\plset{%
+    listingnamefont=\sffamily\bfseries\color{white},%
+    captionfont=\sffamily\color{white},captionbgcolor=DarkGray,%
+    numbers=left,
+    style=tango,
+    fontsize=\footnotesize,
+    fvset={frame=bottomline,
+           framerule=1pt,
+           rulecolor=\color{DarkGray},stepnumber=3}}
+\usepackage{adjustbox}
+\usepackage{verbatim}
+\definecolor{shadecolor}{rgb}{.9, .9, .9}
+\newenvironment{code}%
+   {\par\noindent\adjustbox{margin=1ex,bgcolor=shadecolor,margin=0ex \medskipamount}\bgroup\varwidth\linewidth\verbatim}%
+   {\endverbatim\endvarwidth\egroup}
+
+%% Bibliography
+\usepackage[numbers]{natbib}
+
+%% References
+\PassOptionsToPackage{hyphens}{url}
+\usepackage{hyperref}
+\hypersetup{%
+  pdftitle={Cerberus: Detection and Characterization of Automatically-Generated Malicious Domains},
+  pdfauthor={Edoardo Giovanni Colombo},
+}
+\usepackage{memhfixc}
+
+%-----------------------------------------------------------------------------%
+% New Commands
+%-----------------------------------------------------------------------------%
+\newcommand{\thesystem}{\textsc{Cerberus}\xspace}
+\newcommand{\phoenix}{\textsc{Phoe\-nix}\xspace}
+\newcommand{\start}[2]{\lettrine[lines=4]{\color{BrickRed}#1}{#2}}
+\newcommand{\sectionstart}[2]{\lettrine[lines=2]{#1}{#2}}
+\newcommand{\component}[1]{\textsc{#1}}
+\newcommand{\important}[1]{\textbf{#1}}
+\newcommand{\n}[1]{\tikz[baseline=(X.base)] \node[number] (X) {\sffamily #1};}
+\renewcommand{\vec}[1]{\mathbf{#1}}
+\newcommand{\dbnode}[4]{%
+            \node[shape=circle,draw, minimum size=25mm] at (#1,#2)
+            (#3) {\tikz \node[fill=black,minimum size=.5mm] (#4){}; };%
+}
+\newcommand*{\GoldenRatio}{1.61803398875}%
+\newcommand*\mean[1]{\overline{#1}}
+\newcommand{\dataexample}[1]{
+\begin{center}
+\begin{tikzpicture}
+\node [example] {
+            \nodepart{text} \textbf{A Sneak Peek at the Data.}
+            \nodepart{two} \begin{minipage}{\textwidth-\parindent}%
+            \vspace{.1cm}
+            #1
+            \end{minipage}};
+\end{tikzpicture}
+\end{center}}
+\newcommand{\authorcol}[1]{{\tiny\authorfont #1}}
+
+%-----------------------------------------------------------------------------%
+% Meta Informations
+%-----------------------------------------------------------------------------%
+\author{}
+\date{}
+\title{\thesystem}
+
+%-----------------------------------------------------------------------------%
+% Language
+%-----------------------------------------------------------------------------%
+\usepackage[italian,english]{babel}
+\selectlanguage{english}
+
+%-----------------------------------------------------------------------------%
+% Document Start
+%-----------------------------------------------------------------------------%
+\begin{document}
+  \includepdf[pages={1}]{cover.pdf}
+  \pagestyle{fancyheads}
+    %-------------------------------------------------------------------------%
+    % Title
+    %-------------------------------------------------------------------------%
+    \frontmatter
+    \maketitle
+    \clearpage
+    \include{colophon}
+
+    \include{chapters/dedication}
+    \include{chapters/abstract}
+    \include{chapters/acknowledgments}
+
+    %-------------------------------------------------------------------------%
+    % Tables
+    %-------------------------------------------------------------------------%
+    \tableofcontents
+    \listoffigures
+    \listoftables
+    \listofpyglistings
+
+    %-------------------------------------------------------------------------%
+    % Chapters
+    %-------------------------------------------------------------------------%
+    \mainmatter
+    \include{chapters/introduction}
+    \include{chapters/botnets}
+    \include{chapters/motivation}
+    \include{chapters/approach}
+    \include{chapters/implementation}
+    \include{chapters/validation}
+    % \include{chapters/limitations}
+    \include{chapters/conclusions}
+
+    %-------------------------------------------------------------------------%
+    % Acronyms
+    %-------------------------------------------------------------------------%
+    \include{acronyms}
+
+    %-------------------------------------------------------------------------%
+    % Bibliography
+    %-------------------------------------------------------------------------%
+    \backmatter
+    \nocite{*}
+    \begin{raggedright}
+    \bibliographystyle{plainnat}
+    \bibliography{bibliography}
+    \end{raggedright}
+
+\end{document}

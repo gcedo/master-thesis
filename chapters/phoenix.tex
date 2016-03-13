@@ -1,0 +1,190 @@
+%!TEX root = ../thesis_polimi.tex
+
+\chapter{Phoenix} % (fold)
+\label{chap:phoenix}
+
+\start{I}{n this chapter} we shall present \phoenix, a system aiming at finding,
+characterizing and tracking domain generation algorithms from passive DNS
+monitoring. \phoenix is the result of Stefano Schiavoni's Master's
+Thesis~\cite{schiavoni2013}. \\
+As \phoenix is the starting point and the core of \thesystem, it is mandatory
+to have a brief, yet thorough summary of the system.
+
+We will explain how \phoenix separates domains that are likely to be
+automatically generated (AGDs) from those that are likely to be created by
+humans (HGDs). Then we will explain how it successfully groups these domains,
+finding families of Domain Generation Algorithms and their relative Command
+\& Control servers.
+
+\paragraph{Chapter Organization} The remainder of the chapter is organized in
+the following fashion:
+\begin{itemize}
+    \item in Section~\ref{sec:goals_and_challenges} we will explain what \phoenix
+        aims to achieve and the difficulties Schiavoni had to cope with;
+    \item in Section~\ref{sec:system_description} we describe how \phoenix was
+        designed and implemented;
+    \item in Section~\ref{sec:system_evaluation} we will present \phoenix results,
+        analyzing its shortcomints, starting point for \thesystem.
+\end{itemize}
+
+\section{Goals and Challenges} % (fold)
+\label{sec:goals_and_challenges}
+
+% section goals_and_challenges (end)
+
+\section{System Description} % (fold)
+\label{sec:system_description}
+\sectionstart{P}{hoenix} is organized into two main dependent modules: the
+\component{DGA Discovery} module and the \component{DGA Detection} module. The first
+one is in charge of \emph{discovering} domains that relate to the botnet threat
+and cluster together those domains that refer to the same family of DGAs. The latter
+uses the knowledge produced by the first one to classify unseen domains as malicious or benign, and, in the first case, to assign them to one of the clusters created
+during the first phase. In the following of this section we shall further analyze how \phoenix
+achieves its goals.
+
+\begin{figure}[!htp]
+    \centering
+    \begin{tikzpicture}[node distance=2cm]
+        \node (FEED) {Malicious Domains};
+        \node[component] [below=of FEED.south, anchor=north] (DISCOVERY) {DGA Discovery};
+        \node[component] [right=of DISCOVERY.east] (DETECTION) {DGA Detection};
+
+        \path[->, draw]
+            (FEED) -- (DISCOVERY)
+            (DISCOVERY) -- (DETECTION);
+    \end{tikzpicture}
+    \caption{\phoenix high level system architecture.}
+    \label{fig:phoenix_architecture}
+\end{figure}
+
+\subsection{DGA Discovery} % (fold)
+\label{sub:dga_discovery}
+The goal of the DGA Discovery module is to find clusters of malicious domains
+likely to be automatically generated that resolve to the same (set of) IP. Therefore
+we have to go through two subsequent stages, filtering and clustering. The first phase
+is achieved leveraging four linguistic features that should distinguish \emph{words}
+from \emph{random strings}. The second phase employs a Hierarchical Spectral
+clustering algorithm to extract clusters of malicious AGDs from the list produced by
+the previous stage. These clusters are likely to correspond to families of DGAs, and
+evidence shall prove our hypothesis.
+
+\begin{figure}[!htp]
+    \centering
+    \begin{tikzpicture}[node distance=2cm]
+        \node (FEED) {Malicious Domains};
+        \node[component] [below=of FEED.south, anchor=north] (FILTERING) {DGA Filtering};
+        \node[component] [right=of FILTERING.east] (CLUSTERING) {Clustering};
+
+        \path[->, draw]
+            (FEED) -- (FILTERING)
+            (FILTERING) -- (CLUSTERING);
+    \end{tikzpicture}
+    \caption{\phoenix DGA Discovery architecture}
+    \label{fig:discovery_architecture}
+\end{figure}
+
+\subsubsection{DGA Filtering} % (fold)
+\label{ssub:dga_filtering}
+The goal of this stage is to separate domains that are Automatically Generated from
+those that are created by humans.
+It is quite easy for a human being to tell whether a domain falls into the first or
+the second category: Whilst HGDs are meant to be easy to remember and readable, AGDs
+look like \emph{high-entropy} strings, as in Table~\ref{tab:agd_sample}.
+\citet{schiavoni2013} developed an algorithm to capture these features and separate
+the domains in an automatic fashions.
+
+\begin{table}[!htp]
+    \centering
+    \begin{tabular}{lll}
+        \verb+vljiic.org+           & \verb+vitgyyizzz.biz+ & \verb+79ec8...f57ef.co.cc+ \\
+        \verb+f0938...772fb.co.cc+  & \verb+nlgie.org+      & \verb+gkeqr.org+ \\
+        \verb+jyzirvf.info+         & \verb+aawrqv.biz+     & \verb+xtknjczaafo.biz+ \\
+        \verb+hughfgh142.tk+        & \verb+yxipat.cn+      & \verb+yxzje.info+ \\
+        \verb+fyivbrl3b0dyf.cn+     & \verb+rboed.info+     & \verb+ukujhjg11.tk+ \\
+    \end{tabular}
+    \caption{Samples of AGDs.}
+    \label{tab:agd_sample}
+\end{table}
+
+\begin{figure}[!htp]
+    \begin{minipage}{0.5\linewidth}
+        \centering
+        $$ d = \mathtt{facebook.com}$$\vspace{-0.2cm}
+        $$R(d) = \frac{|\mathtt{face}| +|\mathtt{book}|}{|\mathtt{facebook}|} = 1$$
+        \vspace{0.3cm} \\ likely \bfseries{HGD}
+        \end{minipage}\begin{minipage}{0.5\linewidth}
+        \centering
+        $$ d = \mathtt{pub03str.info}$$\vspace{-0.2cm}
+        $$R(d) = \frac{|\mathtt{pub}|}{|\mathtt{pub03str}|} = 0.375.$$
+        \vspace{0.3cm} \\ likely \bfseries{AGD}
+    \end{minipage}
+    \caption{Meaningful Word Ratio example, \citet{schiavoni2013}}
+    \label{fig:words_ratio}
+\end{figure}
+
+\begin{figure}[!htp]
+\begin{minipage}{0.5\textwidth}
+    \centering
+    $$ d = \mathtt{facebook.com}$$\vspace{-0.2cm}
+    \begin{scriptsize}
+        \begin{tabular}{c c c c c c c}
+          \texttt{fa} & \texttt{ac} & \texttt{ce} & \texttt{eb} & \texttt{bo}  & \texttt{oo}  & \texttt{ok}\\
+          109 & 343 & 438 & 29 & 118 & 114 & 45
+        \end{tabular}\end{scriptsize}\\
+        \vspace{0.5cm}
+        mean: $S_2 = 170.8$
+        \vspace{0.3cm} \\ likely \textbf{HGD}
+\end{minipage}%
+\begin{minipage}{0.5\textwidth}
+        \centering
+        $$ d = \mathtt{aawrqv.com}$$\vspace{-0.2cm}\\
+        \begin{scriptsize}
+        \begin{tabular}{ c c c c c }
+          \texttt{aa} & \texttt{aw} & \texttt{wr} & \texttt{rq} & \texttt{qv}\\
+          4 & 45 & 17 & 0 & 0
+        \end{tabular}\end{scriptsize}\\
+        \vspace{0.5cm}
+        mean: $S_2 = 13.2$
+        \vspace{0.3cm} \\ likely \textbf{AGD}
+\end{minipage}
+\caption{2-gram score example, \citet{schiavoni2013}}.
+\end{figure}
+
+\begin{equation} \label{eq:feature_vector}
+    f\left(d\right) = \left[R\left(d\right), S_1\left(d\right),
+    S_2\left(d\right), S_3\left(d\right)\right]^T
+\end{equation}
+
+% subsubsection dga_filtering (end)
+
+\subsubsection{DGA Clustering} % (fold)
+\label{ssub:dga_clustering}
+
+% subsubsection dga_clustering (end)
+
+% subsection dga_discovery (end)
+
+\subsection{DGA Detection} % (fold)
+\label{sub:dga_detection}
+
+% subsection dga_detection (end)
+
+% section system_description (end)
+
+\section{System Evaluation} % (fold)
+\label{sec:system_evaluation}
+
+% section system_evaluation (end)
+
+\section{Shortcomings} % (fold)
+\label{sec:shortcomings}
+
+% section shortcomings (end)
+
+
+\section{Summary} % (fold)
+\label{sec:summary}
+
+% section summary (end)
+
+% chapter phoenix (end)
